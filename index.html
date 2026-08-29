@@ -514,16 +514,20 @@
       transform: scale(0.96);
     }
     .option-card-btn.correct {
-      background: rgba(57, 255, 20, 0.25) !important;
+      background: rgba(57, 255, 20, 0.35) !important;
       border-color: var(--neon-green) !important;
       color: var(--neon-green) !important;
       box-shadow: 0 0 30px rgba(57, 255, 20, 0.7) !important;
     }
     .option-card-btn.wrong {
-      background: rgba(255, 0, 51, 0.25) !important;
+      background: rgba(255, 0, 51, 0.35) !important;
       border-color: var(--neon-red) !important;
       color: var(--neon-red) !important;
       box-shadow: 0 0 30px rgba(255, 0, 51, 0.7) !important;
+    }
+    .option-card-btn.locked {
+      pointer-events: none !important;
+      cursor: not-allowed !important;
     }
 
     /* OVNIS FRONTALES */
@@ -614,24 +618,49 @@
     }
     .modal-backdrop.hidden { display: none; }
 
+    /* EFECTO DE GLOW MOVEDIZO (SHIMMER GRADIENT SWEEP) PARA LOS PRIMEROS TRES MEJORES */
+    @keyframes goldGlowSweep {
+      0% { background-position: 0% 50%; box-shadow: 0 0 16px rgba(255, 230, 0, 0.4), inset 0 0 10px rgba(255, 230, 0, 0.2); }
+      50% { background-position: 100% 50%; box-shadow: 0 0 28px rgba(255, 230, 0, 0.85), inset 0 0 18px rgba(255, 230, 0, 0.5); }
+      100% { background-position: 0% 50%; box-shadow: 0 0 16px rgba(255, 230, 0, 0.4), inset 0 0 10px rgba(255, 230, 0, 0.2); }
+    }
+
+    @keyframes cyanGlowSweep {
+      0% { background-position: 0% 50%; box-shadow: 0 0 14px rgba(0, 240, 255, 0.35), inset 0 0 8px rgba(0, 240, 255, 0.2); }
+      50% { background-position: 100% 50%; box-shadow: 0 0 24px rgba(0, 240, 255, 0.8), inset 0 0 16px rgba(0, 240, 255, 0.45); }
+      100% { background-position: 0% 50%; box-shadow: 0 0 14px rgba(0, 240, 255, 0.35), inset 0 0 8px rgba(0, 240, 255, 0.2); }
+    }
+
+    @keyframes magentaGlowSweep {
+      0% { background-position: 0% 50%; box-shadow: 0 0 14px rgba(255, 0, 127, 0.35), inset 0 0 8px rgba(255, 0, 127, 0.2); }
+      50% { background-position: 100% 50%; box-shadow: 0 0 24px rgba(255, 0, 127, 0.8), inset 0 0 16px rgba(255, 0, 127, 0.45); }
+      100% { background-position: 0% 50%; box-shadow: 0 0 14px rgba(255, 0, 127, 0.35), inset 0 0 8px rgba(255, 0, 127, 0.2); }
+    }
+
     .score-row-top1 {
-      background: rgba(255, 230, 0, 0.15);
-      border-left: 3px solid var(--neon-gold);
-      box-shadow: 0 0 16px rgba(255, 230, 0, 0.4);
+      background: linear-gradient(90deg, rgba(255, 230, 0, 0.12), rgba(255, 230, 0, 0.35), rgba(255, 140, 0, 0.25), rgba(255, 230, 0, 0.12));
+      background-size: 200% 200%;
+      animation: goldGlowSweep 3.2s ease infinite;
+      border-left: 4px solid var(--neon-gold);
+      border-radius: 8px;
       color: var(--neon-gold);
       font-weight: 900;
     }
     .score-row-top2 {
-      background: rgba(0, 240, 255, 0.12);
-      border-left: 3px solid var(--neon-cyan);
-      box-shadow: 0 0 14px rgba(0, 240, 255, 0.35);
+      background: linear-gradient(90deg, rgba(0, 240, 255, 0.10), rgba(0, 240, 255, 0.32), rgba(0, 136, 255, 0.25), rgba(0, 240, 255, 0.10));
+      background-size: 200% 200%;
+      animation: cyanGlowSweep 3.2s ease infinite;
+      border-left: 4px solid var(--neon-cyan);
+      border-radius: 8px;
       color: var(--neon-cyan);
       font-weight: 800;
     }
     .score-row-top3 {
-      background: rgba(255, 0, 127, 0.12);
-      border-left: 3px solid var(--neon-magenta);
-      box-shadow: 0 0 14px rgba(255, 0, 127, 0.35);
+      background: linear-gradient(90deg, rgba(255, 0, 127, 0.10), rgba(255, 0, 127, 0.32), rgba(186, 85, 211, 0.25), rgba(255, 0, 127, 0.10));
+      background-size: 200% 200%;
+      animation: magentaGlowSweep 3.2s ease infinite;
+      border-left: 4px solid var(--neon-magenta);
+      border-radius: 8px;
       color: #ff80bf;
       font-weight: 800;
     }
@@ -883,17 +912,15 @@
         <button id="passport-close-btn" style="background: none; border: none; color: #94a3b8; font-size: 1.6rem; cursor: pointer; padding: 0 4px;">✕</button>
       </div>
 
-      <!-- CONTENEDOR DINÁMICO DEL PASAPORTE -->
       <div id="passport-content-area"></div>
 
-      <!-- BOTÓN VOLVER -->
       <button id="passport-back-btn" class="btn-3d-glow" style="width: 100%; margin-top: 14px; padding: 11px; font-size: 0.95rem;">← VOLVER AL MENÚ</button>
     </div>
   </div>
 
-  <!-- MODAL SCOREBOARD -->
+  <!-- MODAL SCOREBOARD: PERSISTENCIA Y GLOW MOVEDIZO TOP 3 -->
   <div id="score-modal" class="modal-backdrop hidden">
-    <div class="glass-card" style="width: 100%; max-width: 420px; max-height: 88vh; overflow-y: auto; padding: 18px 18px; text-align: center; border-color: var(--neon-cyan);">
+    <div class="glass-card" style="width: 100%; max-width: 430px; max-height: 88vh; overflow-y: auto; padding: 18px 18px; text-align: center; border-color: var(--neon-cyan);">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
         <h2 id="txt-scoreboard-header" style="font-family: var(--font-title); font-size: 1.45rem; font-weight: 900; color: var(--neon-cyan); letter-spacing: 0.5px;">🏆 SALÓN DE LA FAMA</h2>
         <div id="scoreboard-countdown" style="font-family: var(--font-mono); font-size: 0.80rem; color: #fff; background: rgba(0, 240, 255, 0.2); border: 1px solid var(--neon-cyan); padding: 3px 10px; border-radius: 12px;">⏱️ 12s</div>
@@ -902,7 +929,7 @@
       <div id="final-score-text" style="font-family: var(--font-title); font-size: 1.10rem; font-weight: 800; color: var(--neon-gold); margin-bottom: 10px;">PUNTUACIÓN: 0 PTS</div>
 
       <div id="initials-form" style="margin-bottom: 12px; background: rgba(0, 240, 255, 0.08); border: 1.5px dashed var(--neon-cyan); border-radius: 14px; padding: 8px;">
-        <div id="txt-highscore-prompt" style="font-size: 0.80rem; color: #fff; font-weight: 800; margin-bottom: 4px;">¡NUEVO RÉCORD! TUS 4 INICIALES:</div>
+        <div id="txt-highscore-prompt" style="font-size: 0.80rem; color: #fff; font-weight: 800; margin-bottom: 4px;">¡ENTRASTE AL PODIO! TUS 4 INICIALES:</div>
         <div style="display: flex; justify-content: center; gap: 6px;">
           <input type="text" id="player-initials" maxlength="4" placeholder="JUG1" style="width: 100px; text-align: center; font-family: var(--font-title); font-size: 1.05rem; font-weight: 800; padding: 6px; border: 1.5px solid var(--neon-cyan); background: #000; color: #fff; border-radius: 10px; text-transform: uppercase;">
           <button id="save-score-btn" class="btn-3d-glow" style="padding: 6px 14px; font-size: 0.9rem;">GUARDAR</button>
@@ -1797,14 +1824,12 @@ const MyPassport = {
     if (streak > p.maxStreak) p.maxStreak = streak;
     if (score > p.highScore) p.highScore = score;
 
-    // Registrar país dominado
     const exists = p.masteredCountries.find(c => c.name === countryName);
     if (!exists) {
       p.masteredCountries.unshift({ name: countryName, continent: continentName, flag: flagEmoji, date: new Date().toLocaleDateString() });
       if (p.masteredCountries.length > 8) p.masteredCountries.pop();
     }
 
-    // Desbloquear insignias
     const contLower = (continentName || '').toLowerCase();
     if (contLower.includes('amér') || contLower.includes('amer')) p.badges.explorer_america = true;
     if (contLower.includes('eur')) p.badges.master_europe = true;
@@ -1832,7 +1857,7 @@ const MyPassport = {
     if (totalCorrect >= 30) return isEs ? '🚀 GRAN ALMIRANTE' : '🚀 GRAND ADMIRAL';
     if (totalCorrect >= 15) return isEs ? '⭐ CAPITÁN EXPLORADOR' : '⭐ EXPLORER CAPTAIN';
     if (totalCorrect >= 5) return isEs ? '🧭 GUÍA ESPACIAL' : '🧭 SPACE GUIDE';
-    return isEs ? '🌱 CADETE NOBATO' : '🌱 NOVICE CADET';
+    return isEs ? '🌱 CADETE NOVATO' : '🌱 NOVICE CADET';
   },
   renderHTML(isEs) {
     const p = this.load();
@@ -1885,7 +1910,6 @@ const MyPassport = {
     }
 
     return `
-      <!-- TARJETA DE ESTADÍSTICAS DEL NIÑO -->
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
         <div style="background: rgba(0, 240, 255, 0.08); border: 1px solid var(--neon-cyan); border-radius: 14px; padding: 8px 10px; text-align: left;">
           <div style="font-size: 0.72rem; color: var(--neon-cyan); font-weight: 800;">⭐ ${isEs ? 'ACIERTOS TOTALES' : 'TOTAL CORRECT'}</div>
@@ -1905,7 +1929,6 @@ const MyPassport = {
         </div>
       </div>
 
-      <!-- INSIGNIAS Y SELLOS ESPACIALES -->
       <div style="font-family: var(--font-title); font-size: 0.90rem; font-weight: 900; color: var(--neon-gold); margin-bottom: 6px; text-align: left;">
         🏅 ${isEs ? 'SELLOS E INSIGNIAS ESPACIALES' : 'SPACE STAMPS & BADGES'} (8)
       </div>
@@ -1913,7 +1936,6 @@ const MyPassport = {
         ${badgesHTML}
       </div>
 
-      <!-- ÚLTIMOS PAÍSES CONQUISTADOS -->
       <div style="font-family: var(--font-title); font-size: 0.90rem; font-weight: 900; color: var(--neon-cyan); margin-bottom: 6px; text-align: left;">
         📍 ${isEs ? 'ÚLTIMOS DESCUBRIMIENTOS' : 'RECENT DISCOVERIES'}
       </div>
@@ -2946,12 +2968,50 @@ const MyPassport = {
     }
   }
 
-  /* SCOREBOARD TOP 10 */
+  /* ==========================================================================
+     SCOREBOARD & BASE DE DATOS PERSISTENTE (LOCALSTORAGE + INDEXEDDB DUAL ENGINE)
+     ========================================================================== */
   let scoreboardAutoDismissTimer = null;
   let scoreboardSecondsLeft = 12;
 
   const Leaderboard = {
-    key: 'MY_WORLD_APP_TOP10_MASTER',
+    key: 'MY_WORLD_APP_TOP10_MASTER_V24',
+    dbName: 'GeoOrbitDB',
+    storeName: 'HighScores',
+
+    initDB() {
+      try {
+        const req = indexedDB.open(this.dbName, 1);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(this.storeName)) {
+            db.createObjectStore(this.storeName, { keyPath: 'id', autoIncrement: true });
+          }
+        };
+        req.onsuccess = (e) => {
+          this.db = e.target.result;
+          this.syncFromIndexedDB();
+        };
+      } catch(e) {}
+    },
+
+    syncFromIndexedDB() {
+      if (!this.db) return;
+      try {
+        const tx = this.db.transaction(this.storeName, 'readonly');
+        const store = tx.objectStore(this.storeName);
+        const req = store.getAll();
+        req.onsuccess = () => {
+          if (req.result && req.result.length > 0) {
+            const dbScores = req.result;
+            dbScores.sort((a, b) => b.score - a.score);
+            const top10 = dbScores.slice(0, 10);
+            localStorage.setItem(this.key, JSON.stringify(top10));
+          }
+        };
+      } catch(e) {}
+    },
+
     getDefaults() {
       return [
         { name: "ALEX", score: 3500 },
@@ -2966,6 +3026,7 @@ const MyPassport = {
         { name: "ECHO", score: 300 }
       ];
     },
+
     getScores() {
       try {
         const raw = localStorage.getItem(this.key);
@@ -2973,15 +3034,36 @@ const MyPassport = {
       } catch(e) {}
       return this.getDefaults();
     },
+
     save(name, scoreVal) {
       const scores = this.getScores();
-      scores.push({ name: (name || "JUG1").toUpperCase().slice(0, 4), score: scoreVal });
+      const entry = {
+        name: (name || "JUG1").toUpperCase().slice(0, 4),
+        score: scoreVal,
+        date: new Date().toLocaleDateString()
+      };
+      scores.push(entry);
       scores.sort((a, b) => b.score - a.score);
       const top10 = scores.slice(0, 10);
       try {
         localStorage.setItem(this.key, JSON.stringify(top10));
       } catch(e) {}
+
+      if (this.db) {
+        try {
+          const tx = this.db.transaction(this.storeName, 'readwrite');
+          const store = tx.objectStore(this.storeName);
+          store.add(entry);
+        } catch(e) {}
+      }
     },
+
+    qualifies(scoreVal) {
+      if (scoreVal <= 0) return false;
+      const scores = this.getScores();
+      return scores.length < 10 || scoreVal > scores[scores.length - 1].score;
+    },
+
     render() {
       const tbody = document.getElementById('leaderboard-rows');
       tbody.innerHTML = '';
@@ -2993,13 +3075,14 @@ const MyPassport = {
         else if (i === 2) tr.className = 'score-row-top3';
 
         tr.innerHTML = `
-          <td style="padding: 5px 4px; border-bottom: 1px solid rgba(255,255,255,0.06);">${medals[i] || (i + 1 + '°')}</td>
-          <td style="padding: 5px 4px; border-bottom: 1px solid rgba(255,255,255,0.06); font-family: var(--font-title); font-weight: 800;">${s.name}</td>
-          <td style="padding: 5px 4px; border-bottom: 1px solid rgba(255,255,255,0.06);"><b>${s.score}</b></td>
+          <td style="padding: 6px 4px; border-bottom: 1px solid rgba(255,255,255,0.06); font-family: var(--font-title); font-size: 0.90rem;">${medals[i] || (i + 1 + '°')}</td>
+          <td style="padding: 6px 4px; border-bottom: 1px solid rgba(255,255,255,0.06); font-family: var(--font-title); font-weight: 800; font-size: 0.92rem;">${s.name}</td>
+          <td style="padding: 6px 4px; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.92rem;"><b>${s.score}</b></td>
         `;
         tbody.appendChild(tr);
       });
     },
+
     startAutoDismiss() {
       clearInterval(scoreboardAutoDismissTimer);
       scoreboardSecondsLeft = 12;
@@ -3015,10 +3098,13 @@ const MyPassport = {
         }
       }, 1000);
     },
+
     stopAutoDismiss() {
       clearInterval(scoreboardAutoDismissTimer);
     }
   };
+
+  Leaderboard.initDB();
 
   /* GESTOR DE OVNIS CON MULTIPLICADORES */
   class GuaranteedFrontalUFOManager {
@@ -3238,6 +3324,7 @@ const MyPassport = {
   let timerInterval = null;
   let currentTarget = null;
   let triviaTimer = null;
+  let isAnswerLocked = false; // CANDADO ANTI-TRAMPAS
 
   const sessionUsedCountries = new Set();
 
@@ -3259,6 +3346,7 @@ const MyPassport = {
     if (triviaTimer) clearInterval(triviaTimer);
     Leaderboard.stopAutoDismiss();
 
+    isAnswerLocked = false;
     gameHud.style.display = 'none';
     timeBarWrap.style.display = 'none';
     countryTargetPill.style.display = 'none';
@@ -3311,7 +3399,7 @@ const MyPassport = {
     document.getElementById('passport-back-btn').textContent = isEs ? '← VOLVER AL MENÚ' : '← BACK TO MENU';
 
     document.getElementById('txt-scoreboard-header').textContent = isEs ? '🏆 SALÓN DE LA FAMA' : '🏆 HALL OF FAME';
-    document.getElementById('txt-highscore-prompt').textContent = isEs ? '¡NUEVO RÉCORD! TUS 4 INICIALES:' : 'NEW HIGH SCORE! ENTER 4 INITIALS:';
+    document.getElementById('txt-highscore-prompt').textContent = isEs ? '¡ENTRASTE AL PODIO! TUS 4 INICIALES:' : 'YOU MADE THE PODIUM! ENTER 4 INITIALS:';
     document.getElementById('save-score-btn').textContent = isEs ? 'GUARDAR' : 'SAVE';
     document.getElementById('th-pos').textContent = isEs ? 'POS' : 'POS';
     document.getElementById('th-player').textContent = isEs ? 'JUGADOR' : 'PLAYER';
@@ -3349,6 +3437,7 @@ const MyPassport = {
     streak = 0;
     lives = 3;
     roundCount = 0;
+    isAnswerLocked = false;
     sessionUsedCountries.clear();
     updateHUD();
     globe.isTraining = false;
@@ -3406,6 +3495,7 @@ const MyPassport = {
     countryTargetPill.style.display = 'none';
     optionsGrid.style.display = 'none';
     timeBarWrap.style.display = 'none';
+    isAnswerLocked = false;
 
     let pool = globe.playableFeatures.filter(f => !sessionUsedCountries.has(f.properties.name));
     if (pool.length === 0) {
@@ -3422,6 +3512,7 @@ const MyPassport = {
   });
 
   function showQuestion(feature) {
+    isAnswerLocked = false;
     const meta = feature.meta;
     const d = meta[currentLang] || meta.es;
 
@@ -3439,7 +3530,10 @@ const MyPassport = {
       const btn = document.createElement('button');
       btn.className = 'option-card-btn';
       btn.textContent = opt;
-      btn.addEventListener('click', () => checkAnswer(opt === d.capital, btn, d.capital, d.continent, d.name, meta.flag));
+      btn.addEventListener('click', () => {
+        if (isAnswerLocked) return;
+        checkAnswer(opt === d.capital, btn, d.capital, d.continent, d.name, meta.flag);
+      });
       optionsGrid.appendChild(btn);
     });
 
@@ -3479,7 +3573,21 @@ const MyPassport = {
     }, 100);
   }
 
+  /* ==========================================================================
+     BLOQUEO ESTRICTO ANTI-TRAMPAS EN CHECKANSWER
+     ========================================================================== */
+  function lockAllOptionButtons() {
+    isAnswerLocked = true;
+    optionsGrid.querySelectorAll('.option-card-btn').forEach(b => {
+      b.classList.add('locked');
+      b.disabled = true;
+      b.style.pointerEvents = 'none';
+    });
+  }
+
   function checkAnswer(isCorrect, btnEl, correctCap, continentName, countryName, flagEmoji) {
+    if (isAnswerLocked) return;
+    lockAllOptionButtons();
     clearInterval(timerInterval);
     roundCount++;
 
@@ -3496,7 +3604,6 @@ const MyPassport = {
       const addedPoints = Math.round(cfg.basePoints * cfg.mult * streakMultiplier);
       score += addedPoints;
 
-      // Registrar acierto en MI PASAPORTE
       MyPassport.recordCorrect(countryName, continentName, flagEmoji);
 
       if (isMegaStreak) {
@@ -3531,6 +3638,8 @@ const MyPassport = {
       setTimeout(() => document.getElementById('game-viewport').classList.remove('screen-shake'), 400);
       lives--;
       streak = 0;
+      
+      // Mostrar cuál era la correcta
       optionsGrid.querySelectorAll('.option-card-btn').forEach(b => {
         if (b.textContent === correctCap) b.classList.add('correct');
       });
@@ -3562,6 +3671,10 @@ const MyPassport = {
   }
 
   function handleTimeout() {
+    if (isAnswerLocked) return;
+    lockAllOptionButtons();
+    clearInterval(timerInterval);
+
     NextGenAudio.playMegaBomb();
     document.getElementById('game-viewport').classList.add('screen-shake');
     setTimeout(() => document.getElementById('game-viewport').classList.remove('screen-shake'), 400);
@@ -3632,9 +3745,9 @@ const MyPassport = {
     ufoManager.dismiss();
     clearInterval(timerInterval);
     document.getElementById('final-score-text').textContent = (currentLang === 'es' ? 'PUNTUACIÓN FINAL: ' : 'FINAL SCORE: ') + score + ' PTS';
+    
     const form = document.getElementById('initials-form');
-    const scores = Leaderboard.getScores();
-    const qualifies = score > 0 && (scores.length < 10 || score > scores[scores.length - 1].score);
+    const qualifies = Leaderboard.qualifies(score);
     form.style.display = qualifies ? 'block' : 'none';
 
     Leaderboard.render();
