@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>🌍 MY WORLD - Alien Strike Edition</title>
+  <title>🌍 MY WORLD - Hyper-Fluo Alien Invasion</title>
 
   <!-- FUENTES CYBER MODERNAS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,8 +18,8 @@
       --neon-cyan: #00f0ff;
       --neon-violet: #8a2be2;
       --neon-magenta: #ff007f;
-      --neon-gold: #ffb703;
-      --neon-green: #00ff88;
+      --neon-gold: #ffe600;
+      --neon-green: #39ff14;
       --neon-red: #ff0033;
       --bg-space: #030712;
       --glass-bg: rgba(13, 22, 45, 0.84);
@@ -60,21 +60,29 @@
       overflow: hidden;
     }
 
-    /* CANVASES */
+    /* CANVASES (FX CANVAS ESTÁ EN EL FRENTE PARA QUE LOS RAYOS SIEMPRE PASEN POR DELANTE DEL GLOBO) */
     canvas.full-canvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+    }
+    #stars-canvas {
+      z-index: 10;
       pointer-events: none;
     }
     #globe-canvas {
+      z-index: 20;
       pointer-events: auto;
       cursor: grab;
     }
     #globe-canvas:active {
       cursor: grabbing;
+    }
+    #fx-canvas {
+      z-index: 30; /* POR DELANTE DEL GLOBO */
+      pointer-events: none;
     }
 
     .glass-card {
@@ -475,6 +483,7 @@
       cursor: pointer;
       display: none;
       transform-origin: center;
+      transition: filter 0.2s;
     }
 
     .trivia-modal-overlay {
@@ -573,14 +582,14 @@
 <div id="app-container">
   <!-- CANVASES MULTICAPA -->
   <canvas id="stars-canvas" class="full-canvas"></canvas>
-  <canvas id="fx-canvas" class="full-canvas"></canvas>
   <canvas id="globe-canvas" class="full-canvas"></canvas>
+  <canvas id="fx-canvas" class="full-canvas"></canvas>
 
-  <!-- OVNIS VECTORIALES SVG 60s SCI-FI -->
+  <!-- OVNIS VECTORIALES SVG -->
   <!-- 1. Mothership (Grande y Lento) -->
   <div id="mothership-ufo" class="vector-ufo-wrap" style="width: 105px; height: 58px;">
-    <svg viewBox="0 0 100 55" width="105" height="58" style="filter: drop-shadow(0 0 18px #00f0ff) drop-shadow(0 0 30px #8a2be2);">
-      <path d="M 30 26 A 20 20 0 0 1 70 26 Z" fill="rgba(0, 240, 255, 0.65)" stroke="#00f0ff" stroke-width="2"/>
+    <svg viewBox="0 0 100 55" width="105" height="58" style="filter: drop-shadow(0 0 20px #00f0ff) drop-shadow(0 0 35px #8a2be2);">
+      <path d="M 30 26 A 20 20 0 0 1 70 26 Z" fill="rgba(0, 240, 255, 0.7)" stroke="#00f0ff" stroke-width="2"/>
       <circle cx="50" cy="19" r="5" fill="#39ff14"/>
       <circle cx="47" cy="17" r="1.4" fill="#000"/>
       <circle cx="53" cy="17" r="1.4" fill="#000"/>
@@ -590,7 +599,7 @@
       <circle cx="50" cy="36" r="3.5" fill="#39ff14"/>
       <circle cx="72" cy="34" r="3" fill="#ffe600"/>
       <circle cx="84" cy="30" r="3" fill="#ff007f"/>
-      <ellipse cx="50" cy="38" rx="22" ry="5" fill="rgba(0, 240, 255, 0.85)"/>
+      <ellipse cx="50" cy="38" rx="22" ry="5" fill="rgba(0, 240, 255, 0.9)"/>
       <defs>
         <linearGradient id="ufoChromeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#ffffff"/>
@@ -602,10 +611,10 @@
     </svg>
   </div>
 
-  <!-- 2. Cosmic Scout (Pequeño, Hiper-Ágil y Agresivo) -->
+  <!-- 2. Cosmic Scout (Pequeño, Hiper-Ágil y Errático) -->
   <div id="scout-ufo" class="vector-ufo-wrap" style="width: 54px; height: 32px;">
-    <svg viewBox="0 0 60 35" width="54" height="32" style="filter: drop-shadow(0 0 16px #ff007f) drop-shadow(0 0 25px #ffe600);">
-      <path d="M 18 16 A 12 12 0 0 1 42 16 Z" fill="rgba(255, 0, 127, 0.8)" stroke="#ff007f" stroke-width="1.8"/>
+    <svg viewBox="0 0 60 35" width="54" height="32" style="filter: drop-shadow(0 0 18px #ff007f) drop-shadow(0 0 28px #ffe600);">
+      <path d="M 18 16 A 12 12 0 0 1 42 16 Z" fill="rgba(255, 0, 127, 0.85)" stroke="#ff007f" stroke-width="1.8"/>
       <circle cx="30" cy="11" r="3.2" fill="#ffe600"/>
       <ellipse cx="30" cy="20" rx="28" ry="7" fill="url(#scoutGrad)" stroke="#ff007f" stroke-width="2"/>
       <circle cx="10" cy="20" r="2.2" fill="#00f0ff"/>
@@ -1002,12 +1011,10 @@
       osc.start(t);
       osc.stop(t + 0.18);
     }
-    /* EXPLOSIÓN Y MEGA-RAYO DE IMPACTO ALIENÍGENA */
     playMegaAlienStrike() {
       if (!this.ctx) return;
       const t = this.ctx.currentTime;
       
-      // 1. Rayo destructor descendente
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
       osc.type = 'sawtooth';
@@ -1020,7 +1027,6 @@
       osc.start(t);
       osc.stop(t + 0.52);
 
-      // 2. Retumbo de explosión en el núcleo
       const bombOsc = this.ctx.createOscillator();
       const bombGain = this.ctx.createGain();
       bombOsc.type = 'triangle';
@@ -1038,7 +1044,7 @@
   const audio = new SciFiArcadeAudioSynth();
 
   /* ==========================================================================
-     SISTEMA DE PARTÍCULAS Y RELÁMPAGOS DE PLASMA (FX CANVAS)
+     SISTEMA DE PARTÍCULAS Y RELÁMPAGOS ULTRA-FLUO (FX CANVAS EN FRENTE)
      ========================================================================== */
   class ParticleFXEngine {
     constructor(canvasId) {
@@ -1056,7 +1062,7 @@
       this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
     }
-    spawnPlasmaBolt(x1, y1, x2, y2, color, thickness = 3.5) {
+    spawnPlasmaBolt(x1, y1, x2, y2, color, thickness = 4.5) {
       const segments = [];
       const steps = 14;
       let prevX = x1, prevY = y1;
@@ -1071,17 +1077,17 @@
         prevX = cx;
         prevY = cy;
       }
-      this.bolts.push({ segments, alpha: 1.0, color: color || '#00f0ff', thickness });
+      this.bolts.push({ segments, alpha: 1.0, color: color || '#39ff14', thickness });
       
-      for (let k = 0; k < 12; k++) {
+      for (let k = 0; k < 14; k++) {
         const ang = Math.random() * Math.PI * 2;
-        const spd = Math.random() * 4.5 + 2;
+        const spd = Math.random() * 5 + 2.5;
         this.sparks.push({
           x: x2, y: y2,
           vx: Math.cos(ang) * spd,
           vy: Math.sin(ang) * spd,
           alpha: 1.0,
-          color: color || '#00f0ff'
+          color: color || '#39ff14'
         });
       }
     }
@@ -1091,24 +1097,36 @@
     animate() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-      // 1. Rayos de plasma
+      // 1. Rayos de plasma con doble capa: halo fluo exterior + núcleo blanco brillante
       for (let i = this.bolts.length - 1; i >= 0; i--) {
         const b = this.bolts[i];
-        b.alpha -= 0.07;
+        b.alpha -= 0.065;
         if (b.alpha <= 0) { this.bolts.splice(i, 1); continue; }
+
         this.ctx.save();
         this.ctx.globalAlpha = b.alpha;
+        
+        // Capa 1: Halo de resplandor FLUO intenso
         this.ctx.strokeStyle = b.color;
-        this.ctx.lineWidth = b.thickness || 3.5;
+        this.ctx.lineWidth = (b.thickness || 4.5) * 1.6;
         this.ctx.shadowColor = b.color;
-        this.ctx.shadowBlur = (b.thickness || 3.5) * 4;
+        this.ctx.shadowBlur = 25;
         this.ctx.beginPath();
         b.segments.forEach(s => { this.ctx.moveTo(s.x1, s.y1); this.ctx.lineTo(s.x2, s.y2); });
         this.ctx.stroke();
+
+        // Capa 2: Núcleo blanco brillante
+        this.ctx.strokeStyle = '#ffffff';
+        this.ctx.lineWidth = (b.thickness || 4.5) * 0.45;
+        this.ctx.shadowBlur = 10;
+        this.ctx.beginPath();
+        b.segments.forEach(s => { this.ctx.moveTo(s.x1, s.y1); this.ctx.lineTo(s.x2, s.y2); });
+        this.ctx.stroke();
+
         this.ctx.restore();
       }
 
-      // 2. Chispas de impacto
+      // 2. Chispas de impacto fluo
       for (let i = this.sparks.length - 1; i >= 0; i--) {
         const s = this.sparks[i];
         s.x += s.vx;
@@ -1119,9 +1137,9 @@
         this.ctx.globalAlpha = s.alpha;
         this.ctx.fillStyle = s.color;
         this.ctx.shadowColor = s.color;
-        this.ctx.shadowBlur = 6;
+        this.ctx.shadowBlur = 10;
         this.ctx.beginPath();
-        this.ctx.arc(s.x, s.y, 2.5, 0, Math.PI * 2);
+        this.ctx.arc(s.x, s.y, 3.2, 0, Math.PI * 2);
         this.ctx.fill();
         this.ctx.restore();
       }
@@ -1136,9 +1154,9 @@
         this.ctx.save();
         this.ctx.globalAlpha = sw.alpha;
         this.ctx.strokeStyle = sw.color;
-        this.ctx.lineWidth = 4.5;
+        this.ctx.lineWidth = 5.0;
         this.ctx.shadowColor = sw.color;
-        this.ctx.shadowBlur = 24;
+        this.ctx.shadowBlur = 28;
         this.ctx.beginPath();
         this.ctx.arc(sw.cx, sw.cy, sw.radius, 0, Math.PI * 2);
         this.ctx.stroke();
@@ -1164,7 +1182,7 @@
       this.selectedFeature = null;
       this.waterPin = null;
       this.pulse = 0;
-      this.redDamageGlow = 0; // Se eleva a 1.0 tras impacto de ovni
+      this.redDamageGlow = 0;
 
       this.baseRadius = 140;
       this.currentScale = 140;
@@ -1399,7 +1417,7 @@
       const cy = h / 2;
 
       if (this.redDamageGlow > 0) {
-        this.redDamageGlow -= 0.025;
+        this.redDamageGlow -= 0.022;
       }
 
       this.currentScale += (this.targetScale - this.currentScale) * 0.12;
@@ -1491,7 +1509,7 @@
         }
       }
 
-      // 7. Halo Atmosférico Exterior (Rojo vibrante si hay impacto alienígena)
+      // 7. Halo Atmosférico Exterior
       this.ctx.save();
       this.ctx.beginPath();
       this.ctx.arc(cx, cy, this.currentScale * dpr, 0, Math.PI * 2);
@@ -1743,7 +1761,7 @@
   };
 
   /* ==========================================================================
-     GESTOR DE OVNIS CON MEGA RAYO DESTRUCCIÓN & MULTA SI ESCAPAN
+     GESTOR DE OVNIS ERRÁTICOS MULTIDIRECCIONALES CON RAYOS ULTRA-FLUO
      ========================================================================== */
   class AggressiveVectorUFOManager {
     constructor(motherId, scoutId) {
@@ -1756,6 +1774,7 @@
       this.vy = 0;
       this.flightTime = 0;
       this.lastZap = 0;
+      this.directionChanges = 0;
       this.animId = null;
 
       this.motherEl.addEventListener('pointerdown', (e) => {
@@ -1772,25 +1791,43 @@
     spawnRandom() {
       if (this.activeUfo || (globe && globe.isTraining)) return;
 
-      const isScout = Math.random() < 0.5;
+      const isScout = Math.random() < 0.55;
       this.activeUfo = isScout ? 'scout' : 'mother';
       this.flightTime = 0;
       this.lastZap = Date.now();
+      this.directionChanges = 0;
 
       const el = isScout ? this.scoutEl : this.motherEl;
       const w = window.innerWidth;
       const h = window.innerHeight;
 
-      if (isScout) {
-        this.x = Math.random() > 0.5 ? -60 : w + 60;
-        this.y = Math.random() * (h * 0.4) + 60;
-        this.vx = (this.x < 0 ? 1 : -1) * (Math.random() * 4 + 4.5);
-        this.vy = (Math.random() - 0.5) * 4.5;
+      // ENTRADA DESDE CUALQUIERA DE LOS 4 PUNTOS CARDINALES (0: Izq, 1: Der, 2: Arriba, 3: Abajo)
+      const entrySide = Math.floor(Math.random() * 4);
+
+      if (entrySide === 0) {
+        // Entrada desde Izquierda
+        this.x = -100;
+        this.y = Math.random() * (h * 0.5) + 60;
+        this.vx = isScout ? (Math.random() * 4 + 4.5) : (Math.random() * 1.5 + 1.8);
+        this.vy = (Math.random() - 0.5) * 3;
+      } else if (entrySide === 1) {
+        // Entrada desde Derecha
+        this.x = w + 100;
+        this.y = Math.random() * (h * 0.5) + 60;
+        this.vx = -(isScout ? (Math.random() * 4 + 4.5) : (Math.random() * 1.5 + 1.8));
+        this.vy = (Math.random() - 0.5) * 3;
+      } else if (entrySide === 2) {
+        // Entrada desde Arriba
+        this.x = Math.random() * (w * 0.7) + (w * 0.15);
+        this.y = -80;
+        this.vx = (Math.random() - 0.5) * 4;
+        this.vy = isScout ? (Math.random() * 3.5 + 3.8) : (Math.random() * 1.5 + 1.6);
       } else {
-        this.x = -110;
-        this.y = Math.random() * (h * 0.3) + 70;
-        this.vx = Math.random() * 1.2 + 1.5;
-        this.vy = 0;
+        // Entrada desde Abajo
+        this.x = Math.random() * (w * 0.7) + (w * 0.15);
+        this.y = h + 80;
+        this.vx = (Math.random() - 0.5) * 4;
+        this.vy = -(isScout ? (Math.random() * 3.5 + 3.8) : (Math.random() * 1.5 + 1.6));
       }
 
       el.style.display = 'block';
@@ -1805,40 +1842,52 @@
       const isScout = (this.activeUfo === 'scout');
       const el = isScout ? this.scoutEl : this.motherEl;
 
+      // CAMBIOS ERRÁTICOS DE SENTIDO Y GIROS BRUSCOS
+      if (Math.random() < 0.045 && this.directionChanges < 3 && this.flightTime > 0.8) {
+        this.directionChanges++;
+        if (Math.random() > 0.5) this.vx = -this.vx * (Math.random() * 0.4 + 0.8);
+        if (Math.random() > 0.5) this.vy = -this.vy * (Math.random() * 0.4 + 0.8);
+      }
+
       if (isScout) {
         this.x += this.vx;
-        this.y += Math.sin(this.flightTime * 6) * 7;
-        if (Math.random() < 0.08) this.vy += (Math.random() - 0.5) * 4;
-        this.y += this.vy;
+        this.y += Math.sin(this.flightTime * 6) * 7.5 + this.vy;
       } else {
         this.x += this.vx;
-        this.y += Math.sin(this.flightTime * 2) * 2.5;
+        this.y += Math.sin(this.flightTime * 2.5) * 3.0 + this.vy;
       }
 
       el.style.transform = `translate3d(${this.x}px, ${this.y}px, 0)`;
 
+      // DISPARO DE RAYOS DE PLASMA ULTRA-FLUO AL FRENTE DE LA TIERRA
       const now = Date.now();
-      const zapInterval = isScout ? 650 : 1400;
+      const zapInterval = isScout ? 600 : 1300;
       if (now - this.lastZap > zapInterval) {
         this.lastZap = now;
-        const targetX = window.innerWidth / 2 + (Math.random() - 0.5) * 160;
-        const targetY = window.innerHeight / 2 + (Math.random() - 0.5) * 160;
-        fxEngine.spawnPlasmaBolt(this.x + 25, this.y + 20, targetX, targetY, isScout ? '#ff007f' : '#00f0ff');
+        const targetX = window.innerWidth / 2 + (Math.random() - 0.5) * 170;
+        const targetY = window.innerHeight / 2 + (Math.random() - 0.5) * 170;
+        
+        // Colores Ultra-Fluorescentes (#39ff14 Verde Fluo, #00f0ff Cian Fluo, #ff007f Rosa Fluo, #ffe600 Amarillo Fluo)
+        const fluoColors = ['#39ff14', '#00f0ff', '#ff007f', '#ffe600'];
+        const chosenColor = fluoColors[Math.floor(Math.random() * fluoColors.length)];
+
+        fxEngine.spawnPlasmaBolt(this.x + 25, this.y + 20, targetX, targetY, chosenColor, 4.5);
         audio.playAggressiveLaser();
 
-        if (isScout && Math.random() > 0.4) {
+        // Ráfaga secundaria
+        if (isScout && Math.random() > 0.35) {
           setTimeout(() => {
-            const targetX2 = window.innerWidth / 2 + (Math.random() - 0.5) * 160;
-            const targetY2 = window.innerHeight / 2 + (Math.random() - 0.5) * 160;
-            fxEngine.spawnPlasmaBolt(this.x + 25, this.y + 20, targetX2, targetY2, '#ffe600');
+            const targetX2 = window.innerWidth / 2 + (Math.random() - 0.5) * 170;
+            const targetY2 = window.innerHeight / 2 + (Math.random() - 0.5) * 170;
+            fxEngine.spawnPlasmaBolt(this.x + 25, this.y + 20, targetX2, targetY2, '#39ff14', 5.0);
             audio.playAggressiveLaser();
           }, 120);
         }
       }
 
-      // SI EL OVNI NO ES ABATIDO Y SALE DE PANTALLA -> DISPARA MEGA RAYO DESTRUCCIÓN + MULTA
-      const out = (this.x < -140 || this.x > window.innerWidth + 140 || this.y > window.innerHeight + 100);
-      if (out) {
+      // COMPROBAR SI SALIÓ DE LA PANTALLA
+      const out = (this.x < -150 || this.x > window.innerWidth + 150 || this.y < -150 || this.y > window.innerHeight + 150);
+      if (out && this.flightTime > 1.2) {
         this.triggerEscapeStrikeAndPenalty();
       } else {
         this.animId = requestAnimationFrame(() => this.update());
@@ -1846,26 +1895,23 @@
     }
 
     triggerEscapeStrikeAndPenalty() {
-      const ufoX = this.x + 25;
-      const ufoY = this.y + 20;
+      const ufoX = Math.max(20, Math.min(window.innerWidth - 20, this.x + 25));
+      const ufoY = Math.max(20, Math.min(window.innerHeight - 20, this.y + 20));
       const earthCenterX = window.innerWidth / 2;
       const earthCenterY = window.innerHeight / 2;
 
       this.dismiss();
 
-      // 1. MEGA RAYO AL CENTRO DEL PLANETA
-      fxEngine.spawnPlasmaBolt(ufoX, ufoY, earthCenterX, earthCenterY, '#ff0033', 9.0);
+      // MEGA RAYO ULTRA-FLUO DIRECTO AL CENTRO DEL PLANETA
+      fxEngine.spawnPlasmaBolt(ufoX, ufoY, earthCenterX, earthCenterY, '#ff0033', 10.0);
       fxEngine.spawnMegaShockwave(earthCenterX, earthCenterY, '#ff0033');
 
-      // 2. SONIDO DE EXPLOSIÓN Y MEGA RAYO
       audio.playMegaAlienStrike();
 
-      // 3. SACUDIDA SÍSMICA Y ATMÓSFERA ROJA EN LA TIERRA
       document.getElementById('app-container').classList.add('screen-shake');
       setTimeout(() => document.getElementById('app-container').classList.remove('screen-shake'), 450);
       globe.triggerRedDamageAtmosphere();
 
-      // 4. MULTA DE PUNTOS
       const penalty = 200;
       score = Math.max(0, score - penalty);
       streak = 0;
