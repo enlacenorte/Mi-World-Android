@@ -68,7 +68,7 @@
       overflow: hidden;
     }
 
-    /* BOTÓN CUADRADO ESQUINA SUPERIOR DERECHA (FULLSCREEN TOGGLE) */
+    /* BOTÓN CUADRADO ESQUINA SUPERIOR DERECHA (FULLSCREEN) */
     .btn-square-corner {
       position: fixed;
       top: 12px;
@@ -166,9 +166,9 @@
       background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
       color: #ffffff;
       font-family: var(--font-title);
-      font-size: 0.92rem;
+      font-size: 0.96rem;
       font-weight: 800;
-      padding: 11px 18px;
+      padding: 12px 20px;
       border: none;
       border-radius: 18px;
       cursor: pointer;
@@ -269,7 +269,7 @@
       gap: 8px;
       width: 100%;
       max-width: 440px;
-      height: clamp(120px, 20vh, 165px);
+      height: clamp(115px, 18vh, 160px);
     }
     .alien-hero-card {
       display: flex;
@@ -307,7 +307,7 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* SELECTOR DE DIFICULTAD DIFERENCIAL */
+    /* SELECTOR DE DIFICULTAD SIMPLIFICADO & AMIGABLE PARA NIÑOS (VERDE / AMARILLO / ROJO) */
     .diff-selector-card {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -316,37 +316,58 @@
       background: rgba(15, 23, 42, 0.90);
       border: 1.5px solid rgba(0, 240, 255, 0.35);
       border-radius: 20px;
-      padding: 4px;
-      gap: 4px;
+      padding: 6px;
+      gap: 6px;
     }
     .diff-btn-card {
-      background: transparent;
-      border: 1px solid transparent;
-      border-radius: 14px;
-      padding: 6px 3px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 8px 4px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
       transition: all 0.18s ease;
     }
-    .diff-btn-card.active {
-      background: rgba(0, 240, 255, 0.18);
-      border-color: var(--neon-cyan);
-      box-shadow: 0 0 16px rgba(0, 240, 255, 0.4);
+    .diff-btn-card[data-diff="easy"] {
+      border-color: rgba(57, 255, 20, 0.3);
     }
+    .diff-btn-card[data-diff="easy"].active {
+      background: rgba(57, 255, 20, 0.22);
+      border-color: var(--neon-green);
+      box-shadow: 0 0 18px rgba(57, 255, 20, 0.5);
+    }
+    .diff-btn-card[data-diff="med"] {
+      border-color: rgba(255, 230, 0, 0.3);
+    }
+    .diff-btn-card[data-diff="med"].active {
+      background: rgba(255, 230, 0, 0.22);
+      border-color: var(--neon-gold);
+      box-shadow: 0 0 18px rgba(255, 230, 0, 0.5);
+    }
+    .diff-btn-card[data-diff="exp"] {
+      border-color: rgba(255, 0, 51, 0.3);
+    }
+    .diff-btn-card[data-diff="exp"].active {
+      background: rgba(255, 0, 51, 0.22);
+      border-color: var(--neon-red);
+      box-shadow: 0 0 18px rgba(255, 0, 51, 0.5);
+    }
+
     .diff-btn-card .d-name {
       font-family: var(--font-title);
-      font-size: 0.78rem;
+      font-size: 0.85rem;
       font-weight: 900;
       color: #fff;
     }
-    .diff-btn-card .d-info {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--neon-gold);
+    .diff-btn-card .d-badge {
+      font-family: var(--font-title);
+      font-size: 0.85rem;
+      font-weight: 900;
       margin-top: 2px;
-      font-weight: 700;
+      padding: 1px 8px;
+      border-radius: 10px;
     }
 
     /* HUD SUPERIOR */
@@ -522,7 +543,7 @@
     }
     .passport-modal-overlay.hidden { display: none; }
 
-    /* CARTEL DE CELEBRACIÓN CON PAÍS Y CAPITAL EXACTOS */
+    /* CARTEL DE CELEBRACIÓN */
     .celebration-banner-wrap {
       position: absolute;
       top: 40%;
@@ -619,8 +640,8 @@
       .hero-title-main { font-size: 2.3rem; }
       .btn-3d-glow { font-size: 1.0rem; padding: 13px 20px; }
       .option-card-btn { font-size: 0.90rem; padding: 12px 6px; }
-      .diff-btn-card .d-name { font-size: 0.72rem; }
-      .diff-btn-card .d-info { font-size: 0.60rem; }
+      .diff-btn-card .d-name { font-size: 0.78rem; }
+      .diff-btn-card .d-badge { font-size: 0.75rem; }
       .target-country-card { top: 72px; padding: 6px 14px; gap: 8px; }
       #country-name { font-size: 1.15rem !important; }
       .btn-square-corner { top: 10px; right: 10px; width: 38px; height: 38px; font-size: 1.2rem; }
@@ -745,23 +766,23 @@
       </div>
     </div>
 
-    <!-- SELECTOR DE DIFICULTAD DIFERENCIAL -->
+    <!-- SELECTOR DE NIVELES AMIGABLE PARA NIÑOS (VERDE / AMARILLO / ROJO) -->
     <div class="diff-selector-card">
       <button class="diff-btn-card active" data-diff="easy">
-        <span id="txt-diff-easy" class="d-name">🟢 CADETE</span>
-        <span class="d-info">12s | x1.0 PTS</span>
+        <span id="txt-diff-easy" class="d-name">🌱 CADETE</span>
+        <span class="d-badge" style="background: rgba(57, 255, 20, 0.25); color: var(--neon-green); border: 1px solid var(--neon-green);">x1.0</span>
       </button>
       <button class="diff-btn-card" data-diff="med">
-        <span id="txt-diff-med" class="d-name">🟡 CAPITÁN</span>
-        <span class="d-info">8s | x1.5 PTS</span>
+        <span id="txt-diff-med" class="d-name">⭐ CAPITÁN</span>
+        <span class="d-badge" style="background: rgba(255, 230, 0, 0.25); color: var(--neon-gold); border: 1px solid var(--neon-gold);">x1.5</span>
       </button>
       <button class="diff-btn-card" data-diff="exp">
-        <span id="txt-diff-exp" class="d-name">🔴 ALMIRANTE</span>
-        <span class="d-info">4.5s | x2.5 PTS</span>
+        <span id="txt-diff-exp" class="d-name">🚀 ALMIRANTE</span>
+        <span class="d-badge" style="background: rgba(255, 0, 51, 0.25); color: #ff6677; border: 1px solid #ff0033);">x2.5</span>
       </button>
     </div>
 
-    <!-- BOTONES DE ACCIÓN + COMPARTIR WHATSAPP -->
+    <!-- BOTONES DE ACCIÓN + DESAFÍA A UN AMIGO -->
     <div style="width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 8px;">
       <button id="btn-start-play" class="btn-3d-glow">🎮 ¡COMENZAR MISIÓN!</button>
       
@@ -771,10 +792,10 @@
       </div>
 
       <button id="btn-share-whatsapp" class="btn-whatsapp-share">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.071.376-.043.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.57 4.185 1.564 5.938l-1.564 5.714 5.86-1.536c1.699.929 3.645 1.458 5.714 1.458 6.627 0 12-5.373 12-12s-5.373-12-12-12z"/>
         </svg>
-        <span id="txt-wa-btn">INVITAR POR WHATSAPP</span>
+        <span id="txt-wa-btn">DESAFÍA A UN AMIGO</span>
       </button>
     </div>
   </div>
@@ -821,7 +842,7 @@
     <div id="terminal-content" style="font-family: var(--font-mono); font-size: 0.90rem; line-height: 1.40; color: #f8fafc;"></div>
   </div>
 
-  <!-- CARTEL DE CELEBRACIÓN CON PAÍS Y CAPITAL EXACTOS -->
+  <!-- CARTEL DE CELEBRACIÓN -->
   <div id="celebration-banner" class="celebration-banner-wrap glass-card">
     <div id="celeb-title" class="celebration-title">🎉 ¡CORRECTO!</div>
     <div id="celeb-sub" class="celebration-subtitle">BUENOS AIRES (ARGENTINA)</div>
@@ -1687,6 +1708,35 @@ NextGenAudio.playSciFi50sRay = function() {
   osc1.stop(now + 0.40);
   osc2.stop(now + 0.40);
 };
+
+/* ==========================================================================
+   SUSPENSIÓN INTELIGENTE DE AUDIO AL APAGAR PANTALLA O CAMBIAR DE PESTAÑA
+   ========================================================================== */
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    if (NextGenAudio.ctx && NextGenAudio.ctx.state === 'running') {
+      NextGenAudio.ctx.suspend().catch(e => {});
+    }
+    NextGenAudio.stopDifferentiatedHover();
+  } else {
+    if (NextGenAudio.ctx && NextGenAudio.ctx.state === 'suspended') {
+      NextGenAudio.ctx.resume().catch(e => {});
+    }
+  }
+});
+
+window.addEventListener('blur', () => {
+  if (NextGenAudio.ctx && NextGenAudio.ctx.state === 'running') {
+    NextGenAudio.ctx.suspend().catch(e => {});
+  }
+  NextGenAudio.stopDifferentiatedHover();
+});
+
+window.addEventListener('focus', () => {
+  if (NextGenAudio.ctx && NextGenAudio.ctx.state === 'suspended') {
+    NextGenAudio.ctx.resume().catch(e => {});
+  }
+});
 </script>
 
 <script>
@@ -2622,7 +2672,6 @@ NextGenAudio.playSciFi50sRay = function() {
     fullscreenBtn.textContent = document.fullscreenElement ? '🗗' : '⛶';
   });
 
-  // Auto-fullscreen en primer toque
   let hasRequestedAutoFullscreen = false;
   window.addEventListener('pointerdown', () => {
     if (!hasRequestedAutoFullscreen) {
@@ -3093,7 +3142,7 @@ NextGenAudio.playSciFi50sRay = function() {
 
   const fxEngine = new SciFi50sRayFXEngine('fx-canvas');
 
-  /* MOTOR 3D DEL GLOBO (CON MARCADO TERRITORIAL ARGENTINA + ISLAS MALVINAS) */
+  /* MOTOR 3D DEL GLOBO (CON ZOOM OUT DINÁMICO AL GIRAR Y ZOOM IN AL FIJAR PAÍS) */
   class ThreeGlobeEngine {
     constructor(containerId) {
       this.container = document.getElementById(containerId);
@@ -3154,7 +3203,13 @@ NextGenAudio.playSciFi50sRay = function() {
 
       this.scene = new THREE.Scene();
       this.camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 1000);
-      this.camera.position.set(0, 0, 2.8);
+      
+      const isMobile = (w < 600);
+      this.baseZ = isMobile ? 3.0 : 2.8;
+      this.zoomOutZ = isMobile ? 3.6 : 3.3;
+      this.zoomInZ = isMobile ? 2.75 : 2.55;
+
+      this.camera.position.set(0, 0, this.baseZ);
 
       this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
       this.renderer.setSize(w, h);
@@ -3215,6 +3270,11 @@ NextGenAudio.playSciFi50sRay = function() {
         this.camera.aspect = nw / nh;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(nw, nh);
+
+        const mob = (nw < 600);
+        this.baseZ = mob ? 3.0 : 2.8;
+        this.zoomOutZ = mob ? 3.6 : 3.3;
+        this.zoomInZ = mob ? 2.75 : 2.55;
       });
     }
 
@@ -3354,6 +3414,7 @@ NextGenAudio.playSciFi50sRay = function() {
       requestAnimationFrame(step);
     }
 
+    /* SPIN CON ZOOM OUT DURANTE EL GIRO Y ZOOM IN AL FIJAR EL PAÍS */
     spinTo(feature, onComplete) {
       this.isSpinning = true;
       this.selectedFeature = null;
@@ -3376,6 +3437,10 @@ NextGenAudio.playSciFi50sRay = function() {
       let totalFrames = 90;
       let curFrame = 0;
 
+      const startCamZ = this.camera.position.z;
+      const peakZoomOutZ = this.zoomOutZ;
+      const targetZoomInZ = this.zoomInZ;
+
       NextGenAudio.playBubblePop(0.8);
 
       const anim = () => {
@@ -3387,6 +3452,15 @@ NextGenAudio.playSciFi50sRay = function() {
         const latWobble = Math.sin(t * Math.PI) * latTiltPeak * (1 - t);
         this.rotation[1] = startRotX + (targetRotX - startRotX) * ease + latWobble;
 
+        // ZOOM OUT DURANTE EL GIRO Y ZOOM IN AL FINAL
+        if (t < 0.6) {
+          const zoomEase = Math.sin((t / 0.6) * (Math.PI / 2));
+          this.camera.position.z = startCamZ + (peakZoomOutZ - startCamZ) * zoomEase;
+        } else {
+          const zoomEaseIn = Math.pow((t - 0.6) / 0.4, 2);
+          this.camera.position.z = peakZoomOutZ + (targetZoomInZ - peakZoomOutZ) * zoomEaseIn;
+        }
+
         if (curFrame % 7 === 0 && curFrame < totalFrames * 0.85) {
           NextGenAudio.playBubblePop(1.0 + (curFrame / totalFrames) * 0.5, 0.4);
         }
@@ -3396,6 +3470,7 @@ NextGenAudio.playSciFi50sRay = function() {
         } else {
           this.rotation[0] = targetRotY;
           this.rotation[1] = targetRotX;
+          this.camera.position.z = targetZoomInZ;
           this.isSpinning = false;
           this.selectedFeature = feature;
           NextGenAudio.playVictoryChord(1);
@@ -3440,7 +3515,6 @@ NextGenAudio.playSciFi50sRay = function() {
         ctx.stroke();
       });
 
-      // MARCADO BRILLANTE DE PAÍS SELECCIONADO (INCLUYE MALVINAS SI ES ARGENTINA)
       if (this.selectedFeature) {
         this.pulse += 0.08;
         const isArg = (this.selectedFeature === this.argentinaFeature || this.selectedFeature === this.malvinasFeature);
@@ -3457,7 +3531,6 @@ NextGenAudio.playSciFi50sRay = function() {
         ctx.fill();
         ctx.stroke();
 
-        // Si se selecciona Argentina o Malvinas, resaltar ambos territorios juntos
         if (isArg) {
           if (this.argentinaFeature && this.selectedFeature !== this.argentinaFeature) {
             ctx.beginPath();
@@ -3919,6 +3992,7 @@ NextGenAudio.playSciFi50sRay = function() {
     terminal.hideImmediate();
     globe.isTraining = false;
     globe.selectedFeature = null;
+    globe.camera.position.z = globe.baseZ;
     splash.classList.remove('hidden');
   }
 
@@ -3938,14 +4012,14 @@ NextGenAudio.playSciFi50sRay = function() {
     document.getElementById('txt-app-title').textContent = 'GEO ORBIT';
     document.getElementById('txt-hero-sub').textContent = isEs ? '✨ COCO & PEPE COSMIC ODYSSEY' : '✨ COCO & PEPE COSMIC ODYSSEY';
     
-    document.getElementById('txt-diff-easy').textContent = isEs ? '🟢 CADETE' : '🟢 CADET';
-    document.getElementById('txt-diff-med').textContent = isEs ? '🟡 CAPITÁN' : '🟡 CAPTAIN';
-    document.getElementById('txt-diff-exp').textContent = isEs ? '🔴 ALMIRANTE' : '🔴 ADMIRAL';
+    document.getElementById('txt-diff-easy').textContent = isEs ? '🌱 CADETE' : '🌱 CADET';
+    document.getElementById('txt-diff-med').textContent = isEs ? '⭐ CAPITÁN' : '⭐ CAPTAIN';
+    document.getElementById('txt-diff-exp').textContent = isEs ? '🚀 ALMIRANTE' : '🚀 ADMIRAL';
 
     document.getElementById('btn-start-play').textContent = isEs ? '🎮 ¡COMENZAR MISIÓN!' : '🎮 START MISSION!';
     document.getElementById('btn-start-train').textContent = isEs ? '🧭 EXPLORACIÓN' : '🧭 EXPLORATION';
     document.getElementById('btn-open-passport').textContent = isEs ? '📘 PASAPORTE (8)' : '📘 PASSPORT (8)';
-    document.getElementById('txt-wa-btn').textContent = isEs ? 'INVITAR POR WHATSAPP' : 'INVITE VIA WHATSAPP';
+    document.getElementById('txt-wa-btn').textContent = isEs ? 'DESAFÍA A UN AMIGO' : 'CHALLENGE A FRIEND';
 
     document.getElementById('lbl-streak-hud').textContent = isEs ? '🔥 RACHA:' : '🔥 STREAK:';
     document.getElementById('train-back-btn').textContent = isEs ? '← VOLVER' : '← BACK';
@@ -3971,7 +4045,7 @@ NextGenAudio.playSciFi50sRay = function() {
     });
   });
 
-  /* COMPARTIR POR WHATSAPP */
+  /* COMPARTIR POR WHATSAPP - DESAFÍA A UN AMIGO */
   document.getElementById('btn-share-whatsapp').addEventListener('click', () => {
     NextGenAudio.init();
     NextGenAudio.playBubblePop(1.4);
@@ -3982,7 +4056,7 @@ NextGenAudio.playSciFi50sRay = function() {
     
     const waLink = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
     window.open(waLink, '_blank');
-    showCelebrationBanner('💬 WHATSAPP 💬', currentLang === 'es' ? '¡INVITACIÓN LISTA PARA ENVIAR!' : 'INVITATION READY TO SEND!', '🚀', 1500);
+    showCelebrationBanner('💬 WHATSAPP 💬', currentLang === 'es' ? '¡DESAFÍO LISTO PARA ENVIAR!' : 'CHALLENGE READY TO SEND!', '🚀', 1500);
   });
 
   document.getElementById('btn-start-play').addEventListener('click', () => {
@@ -4049,6 +4123,7 @@ NextGenAudio.playSciFi50sRay = function() {
     currentTarget = pool[Math.floor(Math.random() * pool.length)];
     sessionUsedCountries.add(currentTarget.properties.name);
 
+    // Giro con Zoom Out y Zoom In al destino
     globe.spinTo(currentTarget, () => {
       showQuestion(currentTarget);
     });
@@ -4112,7 +4187,6 @@ NextGenAudio.playSciFi50sRay = function() {
     }, 100);
   }
 
-  /* COMPROBACIÓN CON CONFIRMACIÓN EXACTA Y SOPORTE BILINGÜE 100% */
   function checkAnswer(isCorrect, btnEl, correctCap, continentName, countryName) {
     clearInterval(timerInterval);
     roundCount++;
