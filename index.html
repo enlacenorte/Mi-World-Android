@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>GEO ORBIT: World Odyssey 3D - 2026 Vintage Sci-Fi Edition</title>
+  <title>GEO ORBIT: World Odyssey 3D - Japanese Arcade Edition</title>
 
-  <!-- FUENTES CYBER MODERNAS -->
+  <!-- FUENTES CYBER Y ARCADE -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=Space+Grotesk:wght@600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
@@ -178,7 +178,7 @@
 
     .hero-title-main {
       font-family: var(--font-title);
-      font-size: clamp(2.6rem, 10vw, 4.4rem);
+      font-size: clamp(2.5rem, 9.5vw, 4.2rem);
       font-weight: 900;
       letter-spacing: -0.5px;
       background: linear-gradient(135deg, #ffffff 0%, var(--neon-cyan) 45%, var(--neon-magenta) 100%);
@@ -207,20 +207,62 @@
       position: relative;
       width: 100%;
       max-width: 440px;
-      height: 190px;
+      height: 170px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
     .funny-alien-svg {
-      width: 160px;
-      height: 140px;
+      width: 150px;
+      height: 130px;
       filter: drop-shadow(0 0 25px rgba(57, 255, 20, 0.7));
       animation: floatAlien 2.4s ease-in-out infinite alternate;
     }
     @keyframes floatAlien {
       0% { transform: translateY(-8px) rotate(-3deg); }
       100% { transform: translateY(8px) rotate(4deg); }
+    }
+
+    /* SELECTOR DE DIFICULTAD DIFERENCIAL ARCADE */
+    .diff-selector-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      width: 100%;
+      max-width: 420px;
+      background: rgba(15, 23, 42, 0.90);
+      border: 1.5px solid rgba(0, 240, 255, 0.35);
+      border-radius: 20px;
+      padding: 6px;
+      gap: 6px;
+    }
+    .diff-btn-card {
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      padding: 8px 4px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.18s ease;
+    }
+    .diff-btn-card.active {
+      background: rgba(0, 240, 255, 0.18);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.4);
+    }
+    .diff-btn-card .d-name {
+      font-family: var(--font-title);
+      font-size: 0.82rem;
+      font-weight: 900;
+      color: #fff;
+    }
+    .diff-btn-card .d-info {
+      font-family: var(--font-mono);
+      font-size: 0.70rem;
+      color: var(--neon-gold);
+      margin-top: 2px;
+      font-weight: 700;
     }
 
     /* HUD SUPERIOR */
@@ -271,7 +313,7 @@
     .timer-fill.alarm {
       background: linear-gradient(90deg, var(--neon-magenta) 0%, var(--neon-red) 100%);
       box-shadow: 0 0 20px var(--neon-red);
-      animation: alarmGlow 0.3s infinite alternate;
+      animation: alarmGlow 0.25s infinite alternate;
     }
     @keyframes alarmGlow {
       0% { opacity: 1; }
@@ -368,7 +410,7 @@
       box-shadow: 0 0 30px rgba(255, 0, 51, 0.7) !important;
     }
 
-    /* OVNIS FRONTALES ESTILO SCI-FI 50s */
+    /* OVNIS FRONTALES */
     .vector-ufo-wrap {
       position: absolute;
       z-index: 95;
@@ -396,40 +438,49 @@
     }
     .passport-modal-overlay.hidden { display: none; }
 
-    /* CARTEL ESPECTACULAR DE CELEBRACIÓN Y PREMIO */
+    /* CARTEL ARCADE JAPONÉS ULTRA-ESPECTACULAR (WARIOWARE STYLE) */
     .celebration-banner-wrap {
       position: absolute;
       top: 40%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0);
       width: 90%;
-      max-width: 460px;
-      padding: 22px;
+      max-width: 480px;
+      padding: 24px 18px;
       text-align: center;
       z-index: 160;
       pointer-events: none;
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+      transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.4);
     }
     .celebration-banner-wrap.show {
-      transform: translate(-50%, -50%) scale(1.05);
+      transform: translate(-50%, -50%) scale(1.06);
     }
 
     .celebration-title {
       font-family: var(--font-title);
-      font-size: 2.1rem;
+      font-size: clamp(1.8rem, 6.5vw, 2.4rem);
       font-weight: 900;
       background: linear-gradient(135deg, var(--neon-gold) 0%, #ff8800 50%, var(--neon-magenta) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 20px rgba(255, 230, 0, 0.8));
+      filter: drop-shadow(0 0 24px rgba(255, 230, 0, 0.85));
       margin-bottom: 6px;
+      line-height: 1.15;
+    }
+    .celebration-subtitle {
+      font-family: var(--font-title);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #ffe600;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
     }
     .celebration-points {
       font-family: var(--font-title);
-      font-size: 1.5rem;
-      font-weight: 800;
+      font-size: 1.65rem;
+      font-weight: 900;
       color: var(--neon-cyan);
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
 
     /* MODALES TRIVIA Y SCOREBOARD */
@@ -530,7 +581,7 @@
 
     <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
       <h1 id="txt-app-title" class="hero-title-main">GEO ORBIT</h1>
-      <div class="hero-subtitle">✨ 2026 COSMIC ODYSSEY</div>
+      <div class="hero-subtitle">✨ JAPANESE ARCADE ODYSSEY</div>
 
       <div class="comic-alien-hero-box">
         <svg class="funny-alien-svg" viewBox="0 0 120 120">
@@ -558,11 +609,20 @@
       </div>
     </div>
 
-    <!-- Dificultad -->
-    <div style="display: flex; width: 100%; max-width: 360px; background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 18px; padding: 4px; gap: 4px;">
-      <button class="diff-btn active" data-diff="easy" style="flex: 1; padding: 9px 4px; font-family: var(--font-title); font-size: 0.82rem; font-weight: 700; background: transparent; border: none; color: #94a3b8; border-radius: 14px; cursor: pointer;">FÁCIL (16s)</button>
-      <button class="diff-btn" data-diff="med" style="flex: 1; padding: 9px 4px; font-family: var(--font-title); font-size: 0.82rem; font-weight: 700; background: transparent; border: none; color: #94a3b8; border-radius: 14px; cursor: pointer;">MEDIO (10s)</button>
-      <button class="diff-btn" data-diff="exp" style="flex: 1; padding: 9px 4px; font-family: var(--font-title); font-size: 0.82rem; font-weight: 700; background: transparent; border: none; color: #94a3b8; border-radius: 14px; cursor: pointer;">EXPERTO (5s)</button>
+    <!-- SELECTOR DE DIFICULTAD DIFERENCIAL -->
+    <div class="diff-selector-card">
+      <button class="diff-btn-card active" data-diff="easy">
+        <span class="d-name">🟢 CADETE</span>
+        <span class="d-info">12s | x1.0 PTS</span>
+      </button>
+      <button class="diff-btn-card" data-diff="med">
+        <span class="d-name">🟡 CAPITÁN</span>
+        <span class="d-info">8s | x1.5 PTS</span>
+      </button>
+      <button class="diff-btn-card" data-diff="exp">
+        <span class="d-name">🔴 ALMIRANTE</span>
+        <span class="d-info">4.5s | x2.5 PTS</span>
+      </button>
     </div>
 
     <!-- Botones de Acción -->
@@ -615,10 +675,11 @@
     <div id="terminal-content" style="font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.45; color: #f8fafc;"></div>
   </div>
 
-  <!-- CARTEL ESPECTACULAR DE CELEBRACIÓN Y PREMIO -->
+  <!-- CARTEL ARCADE JAPONÉS ULTRA-ESPECTACULAR -->
   <div id="celebration-banner" class="celebration-banner-wrap glass-card">
-    <div id="celeb-title" class="celebration-title">¡CORRECTO! 🔥</div>
-    <div id="celeb-points" class="celebration-points">+200 PUNTOS</div>
+    <div id="celeb-title" class="celebration-title">SUGOI! 🌟</div>
+    <div id="celeb-sub" class="celebration-subtitle">¡NIVEL DIOS DE LA GEOGRAFÍA!</div>
+    <div id="celeb-points" class="celebration-points">+200 PTS</div>
   </div>
 
   <!-- MODAL DE TRIVIA -->
@@ -1284,15 +1345,95 @@ if (typeof module !== 'undefined' && module.exports) {
 
 
 /* ==========================================================================
-   SINTETIZADOR SCI-FI CLÁSICO AÑOS 50 (WAR OF THE WORLDS / THEREMIN RAYGUN)
+   SINTETIZADOR SCI-FI CLÁSICO 50s: HOVERING & RAYO MARCIANO & LATIDOS SUB-GRAVES
    ========================================================================== */
+NextGenAudio.ufoHoverNodes = null;
+
+// Zumbido de Hovering analógico de platillo volador 1950s
+NextGenAudio.startUfoHover = function() {
+  if (!this.ctx) this.init();
+  if (!this.ctx || this.ufoHoverNodes) return;
+  const ctx = this.ctx;
+  const now = ctx.currentTime;
+
+  const osc1 = ctx.createOscillator();
+  const osc2 = ctx.createOscillator();
+  const lfo = ctx.createOscillator();
+  const lfoGain = ctx.createGain();
+  const hoverGain = ctx.createGain();
+
+  osc1.type = 'sine';
+  osc1.frequency.setValueAtTime(210, now);
+  osc2.type = 'triangle';
+  osc2.frequency.setValueAtTime(213, now);
+
+  lfo.type = 'sine';
+  lfo.frequency.setValueAtTime(3.8, now); // Pulsación a 3.8 Hz
+  lfoGain.gain.setValueAtTime(14, now);
+
+  lfo.connect(lfoGain);
+  lfoGain.connect(osc1.frequency);
+  lfoGain.connect(osc2.frequency);
+
+  hoverGain.gain.setValueAtTime(0.01, now);
+  hoverGain.gain.exponentialRampToValueAtTime(0.18, now + 0.4);
+
+  osc1.connect(hoverGain);
+  osc2.connect(hoverGain);
+  hoverGain.connect(this.masterGain);
+
+  lfo.start(now);
+  osc1.start(now);
+  osc2.start(now);
+
+  this.ufoHoverNodes = { osc1, osc2, lfo, hoverGain };
+};
+
+NextGenAudio.stopUfoHover = function() {
+  if (this.ufoHoverNodes && this.ctx) {
+    const now = this.ctx.currentTime;
+    try {
+      this.ufoHoverNodes.hoverGain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+      this.ufoHoverNodes.osc1.stop(now + 0.32);
+      this.ufoHoverNodes.osc2.stop(now + 0.32);
+      this.ufoHoverNodes.lfo.stop(now + 0.32);
+    } catch(e) {}
+    this.ufoHoverNodes = null;
+  }
+};
+
+// Latido Sub-grave acelerado de urgencia arcade
+NextGenAudio.playSubBassHeartbeat = function(urgencyFactor) {
+  if (!this.ctx) this.init();
+  if (!this.ctx) return;
+  const ctx = this.ctx;
+  const now = ctx.currentTime;
+
+  const baseFreq = 48 + urgencyFactor * 25; // 48 Hz a 73 Hz
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(baseFreq, now);
+  osc.frequency.exponentialRampToValueAtTime(30, now + 0.16);
+
+  gain.gain.setValueAtTime(0.65, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+
+  osc.connect(gain);
+  gain.connect(this.masterGain);
+
+  osc.start(now);
+  osc.stop(now + 0.19);
+};
+
+// Rayo Sci-Fi Años 50
 NextGenAudio.playSciFi50sRay = function() {
   if (!this.ctx) this.init();
   if (!this.ctx) return;
   const ctx = this.ctx;
   const now = ctx.currentTime;
 
-  // 1. Oscilador Primario Warble de Rayo Marciano
   const osc1 = ctx.createOscillator();
   const osc2 = ctx.createOscillator();
   const lfo = ctx.createOscillator();
@@ -1303,21 +1444,18 @@ NextGenAudio.playSciFi50sRay = function() {
   osc2.type = 'sine';
   lfo.type = 'sine';
 
-  // LFO de vibrato sci-fi clásico a 22 Hz
   lfo.frequency.setValueAtTime(24, now);
   lfoGain.gain.setValueAtTime(280, now);
   lfo.connect(lfoGain);
   lfoGain.connect(osc1.frequency);
   lfoGain.connect(osc2.frequency);
 
-  // Barrido de frecuencia descendente característico de los años 50 (Pew-Zzzzoom)
   osc1.frequency.setValueAtTime(1800, now);
   osc1.frequency.exponentialRampToValueAtTime(160, now + 0.38);
 
   osc2.frequency.setValueAtTime(1820, now);
   osc2.frequency.exponentialRampToValueAtTime(165, now + 0.38);
 
-  // Filtro de resonancia de tubo analógico
   const filter = ctx.createBiquadFilter();
   filter.type = 'bandpass';
   filter.frequency.setValueAtTime(1200, now);
@@ -2256,8 +2394,14 @@ NextGenAudio.playSciFi50sRay = function() {
 
   let currentLang = 'es';
   let currentDifficulty = 'easy';
-  const TIME_LIMITS = { easy: 16, med: 10, exp: 5 };
-  const DIFF_MULTIPLIERS = { easy: 1.0, med: 1.5, exp: 2.0 };
+
+  // TIEMPOS Y MULTIPLICADORES DIFERENCIALES
+  const TIME_LIMITS = { easy: 12.0, med: 8.0, exp: 4.5 };
+  const DIFF_CONFIG = {
+    easy: { basePoints: 100, mult: 1.0, ufoSpeed: 1.0, ufoScoreMother: 500, ufoScoreScout: 1000, penalty: 150 },
+    med:  { basePoints: 200, mult: 1.5, ufoSpeed: 1.3, ufoScoreMother: 750, ufoScoreScout: 1500, penalty: 250 },
+    exp:  { basePoints: 400, mult: 2.5, ufoSpeed: 1.6, ufoScoreMother: 1250, ufoScoreScout: 2500, penalty: 400 }
+  };
 
   function getLocalClock(tz) {
     try {
@@ -2568,10 +2712,8 @@ NextGenAudio.playSciFi50sRay = function() {
       this.canvas.height = window.innerHeight;
     }
     spawnVintageRay(x1, y1, x2, y2, color) {
-      // Haz incandescente primario
       this.beams.push({ x1, y1, x2, y2, alpha: 1.0, color: color || '#39ff14' });
 
-      // Discos de energía concéntricos estilo 1950s
       const ringCount = 8;
       for (let i = 0; i < ringCount; i++) {
         const t = (i + 1) / (ringCount + 1);
@@ -2591,7 +2733,6 @@ NextGenAudio.playSciFi50sRay = function() {
     animate() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-      // Rayos continuos
       for (let i = this.beams.length - 1; i >= 0; i--) {
         const b = this.beams[i];
         b.alpha -= 0.055;
@@ -2617,7 +2758,6 @@ NextGenAudio.playSciFi50sRay = function() {
         this.ctx.restore();
       }
 
-      // Discos concéntricos 50s
       for (let i = this.discs.length - 1; i >= 0; i--) {
         const d = this.discs[i];
         d.radius += 1.8;
@@ -2636,7 +2776,6 @@ NextGenAudio.playSciFi50sRay = function() {
         this.ctx.restore();
       }
 
-      // Ondas expansivas de impacto
       for (let i = this.shockwaves.length - 1; i >= 0; i--) {
         const sw = this.shockwaves[i];
         sw.radius += 10;
@@ -2672,7 +2811,6 @@ NextGenAudio.playSciFi50sRay = function() {
       this.earthMesh = null;
       this.atmosphereMesh = null;
       
-      // Ángulos en grados (lon, lat)
       this.rotation = [0, 0, 0];
       this.isSpinning = false;
       this.isTraining = false;
@@ -2802,7 +2940,6 @@ NextGenAudio.playSciFi50sRay = function() {
         const dx = x - startX;
         const dy = y - startY;
 
-        // ARRASTRE DIRECTO INTUITIVO (DE IZQUIERDA A DERECHA GIRA A LA DERECHA)
         this.rotation[0] = lastRot[0] + dx * 0.35;
         this.rotation[1] = Math.max(-80, Math.min(80, lastRot[1] + dy * 0.35));
       };
@@ -2849,7 +2986,6 @@ NextGenAudio.playSciFi50sRay = function() {
           return;
         }
 
-        // Océano
         let matchedOcean = null;
         const boundedMatches = [];
         for (let i = 0; i < OCEANS.length; i++) {
@@ -2890,9 +3026,7 @@ NextGenAudio.playSciFi50sRay = function() {
       });
     }
 
-    /* CENTRADO MATEMÁTICO EXACTO DE COORDENADAS (COMPENSANDO EL DESFASE DE THREE.JS) */
     centerCoordinates(targetLonDeg, targetLatDeg, onDone) {
-      // En Three.js, lon=0 queda frente a la cámara con rotación Y = -90°
       const targetRotY = -(targetLonDeg + 90);
       const targetRotX = targetLatDeg;
       
@@ -2920,7 +3054,6 @@ NextGenAudio.playSciFi50sRay = function() {
       requestAnimationFrame(step);
     }
 
-    /* GIRO MULTIEJE CON CENTRADO EXACTO AL FINAL */
     spinTo(feature, onComplete) {
       this.isSpinning = true;
       this.selectedFeature = null;
@@ -3051,7 +3184,6 @@ NextGenAudio.playSciFi50sRay = function() {
         this.atmosphereMesh.material.uniforms.color.value.setHex(0x00f0ff);
       }
 
-      // Conversión a radianes Three.js
       const radY = THREE.MathUtils.degToRad(this.rotation[0]);
       const radX = THREE.MathUtils.degToRad(this.rotation[1]);
 
@@ -3151,16 +3283,16 @@ NextGenAudio.playSciFi50sRay = function() {
     key: 'MY_WORLD_APP_TOP10_MASTER',
     getDefaults() {
       return [
-        { name: "ALEX", score: 1850 },
-        { name: "MARA", score: 1600 },
-        { name: "CYBR", score: 1350 },
-        { name: "NEON", score: 1100 },
-        { name: "NOVA", score: 950 },
-        { name: "ZETA", score: 800 },
-        { name: "ORBT", score: 650 },
-        { name: "AURA", score: 500 },
-        { name: "PULZ", score: 380 },
-        { name: "ECHO", score: 250 }
+        { name: "ALEX", score: 3500 },
+        { name: "MARA", score: 2800 },
+        { name: "CYBR", score: 2200 },
+        { name: "NEON", score: 1800 },
+        { name: "NOVA", score: 1450 },
+        { name: "ZETA", score: 1100 },
+        { name: "ORBT", score: 850 },
+        { name: "AURA", score: 650 },
+        { name: "PULZ", score: 480 },
+        { name: "ECHO", score: 300 }
       ];
     },
     getScores() {
@@ -3196,7 +3328,7 @@ NextGenAudio.playSciFi50sRay = function() {
   };
 
   /* ==========================================================================
-     GESTOR DE OVNIS SCI-FI 1950s
+     GESTOR DE OVNIS SCI-FI 1950s CON PREVENCIÓN EN MODALES
      ========================================================================== */
   class GuaranteedFrontalUFOManager {
     constructor(motherId, scoutId) {
@@ -3228,14 +3360,31 @@ NextGenAudio.playSciFi50sRay = function() {
       });
     }
 
+    isModalOpen() {
+      const tModal = document.getElementById('trivia-modal');
+      const sModal = document.getElementById('score-modal');
+      const pModal = document.getElementById('passport-modal');
+      const splashEl = document.getElementById('splash-screen');
+      return (
+        !splashEl.classList.contains('hidden') ||
+        (tModal && !tModal.classList.contains('hidden')) ||
+        (sModal && !sModal.classList.contains('hidden')) ||
+        (pModal && !pModal.classList.contains('hidden')) ||
+        (globe && globe.isTraining)
+      );
+    }
+
     spawnRandom() {
-      if (this.activeUfo || (globe && globe.isTraining)) return;
+      if (this.activeUfo || this.isModalOpen()) return;
 
       const isScout = Math.random() < 0.55;
       this.activeUfo = isScout ? 'scout' : 'mother';
       this.progress = 0;
       this.lastZap = Date.now();
-      this.duration = isScout ? (Math.random() * 2.0 + 4.5) : (Math.random() * 2.5 + 7.0);
+
+      const speedFactor = DIFF_CONFIG[currentDifficulty].ufoSpeed || 1.0;
+      const baseDuration = isScout ? (Math.random() * 1.8 + 4.0) : (Math.random() * 2.2 + 6.0);
+      this.duration = baseDuration / speedFactor;
 
       const el = isScout ? this.scoutEl : this.motherEl;
       const w = window.innerWidth;
@@ -3273,12 +3422,17 @@ NextGenAudio.playSciFi50sRay = function() {
       this.y = this.startY;
 
       el.style.display = 'block';
-      NextGenAudio.playUfoTheremin(2.0, 580);
+      NextGenAudio.startUfoHover();
       this.update();
     }
 
     update() {
       if (!this.activeUfo) return;
+
+      if (this.isModalOpen()) {
+        this.dismiss();
+        return;
+      }
 
       const isScout = (this.activeUfo === 'scout');
       const el = isScout ? this.scoutEl : this.motherEl;
@@ -3332,11 +3486,11 @@ NextGenAudio.playSciFi50sRay = function() {
       setTimeout(() => document.getElementById('game-viewport').classList.remove('screen-shake'), 450);
       globe.triggerRedDamageAtmosphere();
 
-      const penalty = 200;
+      const penalty = DIFF_CONFIG[currentDifficulty].penalty || 200;
       score = Math.max(0, score - penalty);
       streak = 0;
       updateHUD();
-      showCelebrationBanner(currentLang === 'es' ? '💥 ¡IMPACTO ALIEN!' : '💥 ALIEN STRIKE!', '-200 PTS');
+      showCelebrationBanner('💥 BAKUHATSU! 💥', currentLang === 'es' ? '¡IMPACTO ALIENÍGENA!' : 'ALIEN STRIKE!', `-${penalty} PTS`);
     }
 
     hitUFO(type) {
@@ -3345,17 +3499,20 @@ NextGenAudio.playSciFi50sRay = function() {
       confetti.spawn(this.x + 35, this.y + 25);
       GamificationSystem.recordUFODown();
 
-      if (type === 'scout') {
-        score += 1000;
-        showCelebrationBanner('⚡ HYPER SCOUT DOWN!', '+1000 PTS (x4)');
+      const isScout = (type === 'scout');
+      const earned = isScout ? DIFF_CONFIG[currentDifficulty].ufoScoreScout : DIFF_CONFIG[currentDifficulty].ufoScoreMother;
+      score += earned;
+
+      if (isScout) {
+        showCelebrationBanner('⚡ KAMI-SAMA SHOT! ⚡', currentLang === 'es' ? '¡HYPER SCOUT ABATIDO!' : 'HYPER SCOUT DOWN!', `+${earned} PTS`);
       } else {
-        score += 500;
-        showCelebrationBanner('🛸 MOTHERSHIP DOWN!', '+500 PTS (x2)');
+        showCelebrationBanner('🛸 SUGOI STRIKE! 🛸', currentLang === 'es' ? '¡NAVE NODRIZA DESTRUIDA!' : 'MOTHERSHIP DESTROYED!', `+${earned} PTS`);
       }
       updateHUD();
     }
 
     dismiss() {
+      NextGenAudio.stopUfoHover();
       if (this.activeUfo) {
         this.motherEl.style.display = 'none';
         this.scoutEl.style.display = 'none';
@@ -3363,6 +3520,36 @@ NextGenAudio.playSciFi50sRay = function() {
         if (this.animId) cancelAnimationFrame(this.animId);
       }
     }
+  }
+
+  /* ==========================================================================
+     FRASES ARCADE JAPONESAS CÓMICAS Y CREATIVAS
+     ========================================================================== */
+  const JAPANESE_PRAISES_ES = [
+    { title: "SUGOI! 🌟", sub: "¡NIVEL DIOS DE LA GEOGRAFÍA!" },
+    { title: "KAMI-SAMA! 👑", sub: "¡TU CEREBRO TIENE 500 IQ!" },
+    { title: "BAKUDAN! 💣💥", sub: "¡EXPLOSIÓN DE ACIERTOS CÓSMICA!" },
+    { title: "SAIKOU! 🚀", sub: "¡GEOGRAFÍA A VELOCIDAD LUZ!" },
+    { title: "SENPAI PERFECTO! 🌸", sub: "¡NI LA NASA LO SABÍA MEJOR!" },
+    { title: "GIGACHAD DEL ATLAS! 🗿", sub: "¡MAPA DOMINADO AL 100%!" },
+    { title: "YATTA! 🎌", sub: "¡PRECISIÓN QUIRÚRGICA TOTAL!" },
+    { title: "SUBARASHII! 🌈", sub: "¡ORBITANDO COMO UN MAESTRO!" }
+  ];
+
+  const JAPANESE_PRAISES_EN = [
+    { title: "SUGOI! 🌟", sub: "GOD-TIER GEOGRAPHY BRAIN!" },
+    { title: "KAMI-SAMA! 👑", sub: "500 IQ GALAXY BRAIN MOMENT!" },
+    { title: "BAKUDAN! 💣💥", sub: "COSMIC COMBO EXPLOSION!" },
+    { title: "SAIKOU! 🚀", sub: "HYPERSPEED GEOGRAPHY MASTER!" },
+    { title: "PERFECT SENPAI! 🌸", sub: "EVEN NASA IS JEALOUS!" },
+    { title: "ATLAS GIGACHAD! 🗿", sub: "100% ORBIT MASTERY ACHIEVED!" },
+    { title: "YATTA! 🎌", sub: "SURGICAL PINPOINT ACCURACY!" },
+    { title: "SUBARASHII! 🌈", sub: "PLANETARY BRAIN OVERCLOCK!" }
+  ];
+
+  function getRandomPraise() {
+    const list = currentLang === 'es' ? JAPANESE_PRAISES_ES : JAPANESE_PRAISES_EN;
+    return list[Math.floor(Math.random() * list.length)];
   }
 
   /* ==========================================================================
@@ -3377,7 +3564,7 @@ NextGenAudio.playSciFi50sRay = function() {
   let streak = 0;
   let lives = 3;
   let roundCount = 0;
-  let timeLeft = 16;
+  let timeLeft = 12.0;
   let timerInterval = null;
   let currentTarget = null;
   let triviaTimer = null;
@@ -3437,10 +3624,10 @@ NextGenAudio.playSciFi50sRay = function() {
     document.getElementById('train-hud-title').textContent = currentLang === 'es' ? '🧭 TOCA CUALQUIER PAÍS O MAR' : '🧭 TAP ANY COUNTRY OR SEA';
   }
 
-  document.querySelectorAll('.diff-btn').forEach(btn => {
+  document.querySelectorAll('.diff-btn-card').forEach(btn => {
     btn.addEventListener('click', () => {
-      NextGenAudio.playBubblePop(1.1);
-      document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+      NextGenAudio.playBubblePop(1.2);
+      document.querySelectorAll('.diff-btn-card').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentDifficulty = btn.dataset.diff;
     });
@@ -3462,9 +3649,9 @@ NextGenAudio.playSciFi50sRay = function() {
     spinBtn.textContent = currentLang === 'es' ? '🎲 ¡GIRAR MUNDO!' : '🎲 SPIN GLOBE!';
 
     setInterval(() => {
-      if (!splash.classList.contains('hidden') || globe.isTraining) return;
+      if (!splash.classList.contains('hidden') || globe.isTraining || ufoManager.isModalOpen()) return;
       if (Math.random() < 0.45) ufoManager.spawnRandom();
-    }, 14000);
+    }, 13000);
   });
 
   document.getElementById('btn-start-train').addEventListener('click', () => {
@@ -3544,24 +3731,28 @@ NextGenAudio.playSciFi50sRay = function() {
 
   function startTimer() {
     clearInterval(timerInterval);
-    const maxTime = TIME_LIMITS[currentDifficulty] || 16;
+    const maxTime = TIME_LIMITS[currentDifficulty] || 12.0;
     timeLeft = maxTime;
     timeBar.style.width = '100%';
     timeBar.classList.remove('alarm');
 
-    let nextPulse = 0;
+    let nextHeartbeat = 0;
 
     timerInterval = setInterval(() => {
       timeLeft -= 0.1;
       const pct = Math.max(0, (timeLeft / maxTime) * 100);
       timeBar.style.width = pct + '%';
 
-      if (Date.now() > nextPulse && timeLeft <= 8) {
-        NextGenAudio.playTensionPulse(timeLeft);
-        nextPulse = Date.now() + (timeLeft <= 4 ? 400 : 800);
+      // Latidos graves incrementales de urgencia arcade
+      const urgencyThreshold = maxTime * 0.60;
+      if (timeLeft <= urgencyThreshold && Date.now() > nextHeartbeat) {
+        const urgency = 1 - (timeLeft / urgencyThreshold); // 0.0 a 1.0
+        NextGenAudio.playSubBassHeartbeat(urgency);
+        const intervalMs = Math.max(280, 750 - urgency * 450);
+        nextHeartbeat = Date.now() + intervalMs;
       }
 
-      if (timeLeft <= 4) timeBar.classList.add('alarm');
+      if (timeLeft <= maxTime * 0.35) timeBar.classList.add('alarm');
 
       if (timeLeft <= 0) {
         clearInterval(timerInterval);
@@ -3570,45 +3761,46 @@ NextGenAudio.playSciFi50sRay = function() {
     }, 100);
   }
 
-  /* ==========================================================================
-     SISTEMA DE PUNTUACIÓN Y RACHAS CON DUPLICADOR CADA 5 CONSECUTIVOS
-     ========================================================================== */
+  /* SISTEMA DE PUNTUACIÓN DIFERENCIAL Y RACHAS */
   function checkAnswer(isCorrect, btnEl, correctCap, continentName, countryName) {
     clearInterval(timerInterval);
     roundCount++;
+
+    const cfg = DIFF_CONFIG[currentDifficulty] || DIFF_CONFIG.easy;
 
     if (isCorrect) {
       btnEl.classList.add('correct');
       streak++;
 
-      // ¿Es múltiplo de 5? -> ¡SUPER RACHA CON PUNTOS DOBLES!
       const isMegaStreak = (streak % 5 === 0);
-      const streakMultiplier = isMegaStreak ? 2 : 1;
-      const mult = DIFF_MULTIPLIERS[currentDifficulty] || 1.0;
+      const streakMultiplier = isMegaStreak ? 2 : (streak >= 3 ? 1.5 : 1.0);
       
-      const addedPoints = Math.round(100 * mult * (streak >= 3 ? 1.5 : 1) * streakMultiplier);
+      const addedPoints = Math.round(cfg.basePoints * cfg.mult * streakMultiplier);
       score += addedPoints;
 
       if (isMegaStreak) {
         NextGenAudio.playVictoryChord(4);
         confetti.spawn();
-        confetti.spawn(window.innerWidth * 0.3, window.innerHeight * 0.5);
-        confetti.spawn(window.innerWidth * 0.7, window.innerHeight * 0.5);
+        confetti.spawn(window.innerWidth * 0.25, window.innerHeight * 0.45);
+        confetti.spawn(window.innerWidth * 0.75, window.innerHeight * 0.45);
         showCelebrationBanner(
-          currentLang === 'es' ? `🔥 ¡SUPER RACHA DE ${streak}! 🔥` : `🔥 SUPER STREAK OF ${streak}! 🔥`,
-          currentLang === 'es' ? `¡PUNTOS DOBLES! +${addedPoints} PTS` : `DOUBLE POINTS! +${addedPoints} PTS`
+          '🔥 SUPER SAIYAN STREAK! 🔥',
+          currentLang === 'es' ? `¡${streak} ACIERTOS SEGUIDOS! (x2 PUNTOS)` : `${streak} IN A ROW! (2X POINTS)`,
+          `+${addedPoints} PTS`
         );
       } else {
         NextGenAudio.playVictoryChord(streak);
         confetti.spawn();
+        const praise = getRandomPraise();
         showCelebrationBanner(
-          currentLang === 'es' ? (streak >= 2 ? `🔥 ¡RACHA x${streak}!` : '🎯 ¡CORRECTO!') : (streak >= 2 ? `🔥 STREAK x${streak}!` : '🎯 CORRECT!'),
+          praise.title,
+          streak >= 2 ? `${praise.sub} (RACHA x${streak})` : praise.sub,
           `+${addedPoints} PTS`
         );
       }
 
       try {
-        GamificationSystem.recordCorrectCapital(continentName, countryName, timeLeft > 12);
+        GamificationSystem.recordCorrectCapital(continentName, countryName, timeLeft > (TIME_LIMITS[currentDifficulty] * 0.6));
       } catch(e) {}
     } else {
       btnEl.classList.add('wrong');
@@ -3620,7 +3812,7 @@ NextGenAudio.playSciFi50sRay = function() {
       optionsGrid.querySelectorAll('.option-card-btn').forEach(b => {
         if (b.textContent === correctCap) b.classList.add('correct');
       });
-      showCelebrationBanner(currentLang === 'es' ? '❌ INCORRECTO' : '❌ WRONG', `-1 VIDA`);
+      showCelebrationBanner('❌ DAME DESU! ❌', currentLang === 'es' ? '¡INCORRECTO! PIERDES 1 VIDA' : 'INCORRECT! LOST 1 LIFE', `-1 VIDA`);
     }
     updateHUD();
 
@@ -3644,12 +3836,12 @@ NextGenAudio.playSciFi50sRay = function() {
     document.getElementById('game-viewport').classList.add('screen-shake');
     setTimeout(() => document.getElementById('game-viewport').classList.remove('screen-shake'), 400);
     
-    const timePenalty = 150;
-    score = Math.max(0, score - timePenalty);
+    const penalty = DIFF_CONFIG[currentDifficulty].penalty || 150;
+    score = Math.max(0, score - penalty);
     lives--;
     streak = 0;
     updateHUD();
-    showCelebrationBanner(currentLang === 'es' ? '⏰ ¡TIEMPO AGOTADO!' : '⏰ TIME OUT!', `-150 PTS`);
+    showCelebrationBanner('⏰ TIME OVER! ⏰', currentLang === 'es' ? '¡TIEMPO AGOTADO!' : 'TIME RAN OUT!', `-${penalty} PTS`);
 
     setTimeout(() => {
       if (lives <= 0) {
@@ -3664,14 +3856,16 @@ NextGenAudio.playSciFi50sRay = function() {
     }, 1400);
   }
 
-  function showCelebrationBanner(title, points) {
+  function showCelebrationBanner(title, sub, points) {
     document.getElementById('celeb-title').textContent = title;
+    document.getElementById('celeb-sub').textContent = sub;
     document.getElementById('celeb-points').textContent = points;
     celebBanner.classList.add('show');
-    setTimeout(() => celebBanner.classList.remove('show'), 1200);
+    setTimeout(() => celebBanner.classList.remove('show'), 1250);
   }
 
   function triggerTriviaModal() {
+    ufoManager.dismiss(); // Detiene OVNIs inmediatamente durante el fact
     const tItem = TRIVIAS[Math.floor(Math.random() * TRIVIAS.length)];
     const text = tItem[currentLang] || tItem.es;
     document.getElementById('trivia-text').textContent = text;
@@ -3710,6 +3904,7 @@ NextGenAudio.playSciFi50sRay = function() {
   }
 
   function triggerGameOver() {
+    ufoManager.dismiss();
     clearInterval(timerInterval);
     document.getElementById('final-score-text').textContent = (currentLang === 'es' ? 'PUNTUACIÓN: ' : 'SCORE: ') + score + ' PTS';
     const form = document.getElementById('initials-form');
