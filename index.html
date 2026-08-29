@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>GEO ORBIT: World Odyssey 3D - 2026 Studio Edition</title>
+  <title>GEO ORBIT: World Odyssey 3D - 2026 Cosmic Masterpiece</title>
 
   <!-- FUENTES CYBER MODERNAS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,10 +23,10 @@
       --neon-green: #39ff14;
       --neon-violet: #8a2be2;
       --neon-red: #ff0033;
-      --bg-dark: #02040a;
-      --glass-panel: rgba(10, 18, 42, 0.82);
-      --glass-border: rgba(0, 240, 255, 0.35);
-      --glass-glow: 0 12px 40px 0 rgba(0, 240, 255, 0.25);
+      --bg-dark: #020308;
+      --glass-panel: rgba(10, 18, 42, 0.85);
+      --glass-border: rgba(0, 240, 255, 0.4);
+      --glass-glow: 0 12px 40px 0 rgba(0, 240, 255, 0.28);
       --font-main: 'Plus Jakarta Sans', sans-serif;
       --font-title: 'Space Grotesk', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
@@ -58,7 +58,7 @@
       height: 100vh;
       display: flex;
       flex-direction: column;
-      background: radial-gradient(circle at 50% 40%, #0d1a45 0%, #050b24 65%, #010309 100%);
+      background: radial-gradient(circle at 50% 40%, #0d1a45 0%, #04091e 65%, #010206 100%);
       overflow: hidden;
     }
 
@@ -78,8 +78,8 @@
 
     .glass-card {
       background: var(--glass-panel);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(22px) saturate(190%);
+      -webkit-backdrop-filter: blur(22px) saturate(190%);
       border: 1.5px solid var(--glass-border);
       border-radius: 24px;
       box-shadow: var(--glass-glow);
@@ -126,15 +126,15 @@
       background: rgba(255, 255, 255, 0.15);
     }
 
-    /* PANTALLA DE INICIO */
+    /* PANTALLA DE INICIO (NUEVO DISEÑO 2026 CON MASCOTA ALIENÍGENA CÓMICA) */
     .intro-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(2, 6, 18, 0.85);
-      backdrop-filter: blur(14px);
+      background: rgba(2, 6, 18, 0.88);
+      backdrop-filter: blur(16px);
       z-index: 120;
       display: flex;
       flex-direction: column;
@@ -201,6 +201,27 @@
       border: 1px solid rgba(255, 230, 0, 0.35);
       padding: 4px 14px;
       border-radius: 20px;
+    }
+
+    /* ESCENARIO DEL ALIEN GRACIOSO EN NAVE CÓMICA */
+    .comic-alien-hero-box {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      height: 190px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .funny-alien-svg {
+      width: 160px;
+      height: 140px;
+      filter: drop-shadow(0 0 25px rgba(57, 255, 20, 0.7));
+      animation: floatAlien 2.4s ease-in-out infinite alternate;
+    }
+    @keyframes floatAlien {
+      0% { transform: translateY(-8px) rotate(-3deg); }
+      100% { transform: translateY(8px) rotate(4deg); }
     }
 
     /* HUD SUPERIOR */
@@ -348,7 +369,7 @@
       box-shadow: 0 0 30px rgba(255, 0, 51, 0.7) !important;
     }
 
-    /* OVNIS FRONTALES */
+    /* OVNIS FRONTALES MODERNOS Y GRACIOSOS */
     .vector-ufo-wrap {
       position: absolute;
       z-index: 95;
@@ -376,26 +397,40 @@
     }
     .passport-modal-overlay.hidden { display: none; }
 
-    /* TOAST */
-    .toast-pill {
+    /* CARTEL ESPECTACULAR DE CELEBRACIÓN Y PREMIO */
+    .celebration-banner-wrap {
       position: absolute;
-      top: 36%;
+      top: 40%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0);
-      padding: 16px 32px;
-      border-radius: 30px;
-      font-family: var(--font-title);
-      font-size: 1.6rem;
-      font-weight: 900;
-      color: #020617;
-      background: linear-gradient(135deg, var(--neon-gold) 0%, var(--neon-magenta) 100%);
-      box-shadow: 0 0 50px rgba(255, 183, 3, 0.9), 0 0 70px rgba(255, 0, 127, 0.7);
+      width: 90%;
+      max-width: 440px;
+      padding: 20px;
+      text-align: center;
       z-index: 160;
       pointer-events: none;
-      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.4);
     }
-    .toast-pill.show {
+    .celebration-banner-wrap.show {
       transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    .celebration-title {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--neon-gold) 0%, #ff8800 50%, var(--neon-magenta) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 20px rgba(255, 230, 0, 0.8));
+      margin-bottom: 6px;
+    }
+    .celebration-points {
+      font-family: var(--font-title);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--neon-cyan);
+      letter-spacing: 1px;
     }
 
     /* MODALES TRIVIA Y SCOREBOARD */
@@ -435,23 +470,44 @@
   <canvas id="fx-canvas" class="full-canvas"></canvas>
   <canvas id="confetti-canvas" class="full-canvas"></canvas>
 
-  <!-- OVNIS VECTORIALES SVG FRONTALES -->
-  <div id="mothership-ufo" class="vector-ufo-wrap" style="width: 115px; height: 62px;">
-    <svg viewBox="0 0 100 55" width="115" height="62" style="filter: drop-shadow(0 0 22px #00f0ff) drop-shadow(0 0 35px #8a2be2);">
-      <path d="M 30 26 A 20 20 0 0 1 70 26 Z" fill="rgba(0, 240, 255, 0.75)" stroke="#00f0ff" stroke-width="2"/>
-      <circle cx="50" cy="19" r="5" fill="#39ff14"/>
-      <circle cx="47" cy="17" r="1.4" fill="#000"/>
-      <circle cx="53" cy="17" r="1.4" fill="#000"/>
-      <ellipse cx="50" cy="30" rx="46" ry="12" fill="url(#ufoG1)" stroke="#00f0ff" stroke-width="2.5"/>
-      <circle cx="16" cy="30" r="3" fill="#ff007f"/>
-      <circle cx="28" cy="34" r="3" fill="#ffe600"/>
-      <circle cx="50" cy="36" r="3.5" fill="#39ff14"/>
-      <circle cx="72" cy="34" r="3" fill="#ffe600"/>
-      <circle cx="84" cy="30" r="3" fill="#ff007f"/>
+  <!-- OVNIS MODERNOS Y GRACIOSOS (SVG CON ALIEN PARPADEANTE) -->
+  <!-- 1. Mothership Z-400 (Platillo con Alien gracioso que saluda) -->
+  <div id="mothership-ufo" class="vector-ufo-wrap" style="width: 120px; height: 75px;">
+    <svg viewBox="0 0 120 75" width="120" height="75" style="filter: drop-shadow(0 0 20px #00f0ff) drop-shadow(0 0 35px #8a2be2);">
+      <!-- Cúpula de Cristal -->
+      <ellipse cx="60" cy="30" rx="26" ry="24" fill="rgba(0, 240, 255, 0.45)" stroke="#00f0ff" stroke-width="2"/>
+      
+      <!-- Alienígena Verde Gracioso dentro -->
+      <circle cx="60" cy="28" r="14" fill="#39ff14"/>
+      <!-- Ojos grandes saltones -->
+      <ellipse cx="54" cy="24" rx="4.5" ry="6.5" fill="#fff"/>
+      <ellipse cx="66" cy="24" rx="4.5" ry="6.5" fill="#fff"/>
+      <circle cx="55" cy="24" r="2.5" fill="#000"/>
+      <circle cx="67" cy="24" r="2.5" fill="#000"/>
+      <!-- Sonrisa cómica -->
+      <path d="M 55 33 Q 60 38 65 33" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+      <!-- Antenas con bolitas -->
+      <line x1="53" y1="15" x2="48" y2="7" stroke="#39ff14" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="47" cy="6" r="3.5" fill="#ffe600"/>
+      <line x1="67" y1="15" x2="72" y2="7" stroke="#39ff14" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="73" cy="6" r="3.5" fill="#ffe600"/>
+
+      <!-- Cuerpo del Platillo -->
+      <ellipse cx="60" cy="46" rx="56" ry="14" fill="url(#ufoPlatGrad)" stroke="#00f0ff" stroke-width="2.5"/>
+      
+      <!-- Luces LED inferiores multicolores -->
+      <circle cx="20" cy="46" r="4" fill="#ff007f"/>
+      <circle cx="36" cy="52" r="4" fill="#ffe600"/>
+      <circle cx="60" cy="54" r="5" fill="#39ff14"/>
+      <circle cx="84" cy="52" r="4" fill="#ffe600"/>
+      <circle cx="100" cy="46" r="4" fill="#ff007f"/>
+
+      <!-- Propulsor gravitatorio -->
+      <ellipse cx="60" cy="56" rx="26" ry="6" fill="rgba(0, 240, 255, 0.8)"/>
       <defs>
-        <linearGradient id="ufoG1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="ufoPlatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#ffffff"/>
-          <stop offset="30%" stop-color="#00f0ff"/>
+          <stop offset="35%" stop-color="#00f0ff"/>
           <stop offset="70%" stop-color="#1e1b4b"/>
           <stop offset="100%" stop-color="#8a2be2"/>
         </linearGradient>
@@ -459,25 +515,31 @@
     </svg>
   </div>
 
-  <div id="scout-ufo" class="vector-ufo-wrap" style="width: 64px; height: 38px;">
-    <svg viewBox="0 0 60 35" width="64" height="38" style="filter: drop-shadow(0 0 20px #ff007f) drop-shadow(0 0 30px #ffe600);">
-      <path d="M 18 16 A 12 12 0 0 1 42 16 Z" fill="rgba(255, 0, 127, 0.9)" stroke="#ff007f" stroke-width="2"/>
-      <circle cx="30" cy="11" r="3.4" fill="#ffe600"/>
-      <ellipse cx="30" cy="20" rx="28" ry="7" fill="url(#scoutG1)" stroke="#ff007f" stroke-width="2.2"/>
-      <circle cx="10" cy="20" r="2.4" fill="#00f0ff"/>
-      <circle cx="30" cy="23" r="3.0" fill="#ffe600"/>
-      <circle cx="50" cy="20" r="2.4" fill="#00f0ff"/>
+  <!-- 2. Scout Cíclope Ultrarrápido (Nano Glider con un gran ojo curioso) -->
+  <div id="scout-ufo" class="vector-ufo-wrap" style="width: 70px; height: 48px;">
+    <svg viewBox="0 0 70 48" width="70" height="48" style="filter: drop-shadow(0 0 20px #ff007f) drop-shadow(0 0 30px #ffe600);">
+      <!-- Cúpula -->
+      <path d="M 22 22 A 13 13 0 0 1 48 22 Z" fill="rgba(255, 0, 127, 0.85)" stroke="#ff007f" stroke-width="2"/>
+      <!-- Ojo Cíclope -->
+      <circle cx="35" cy="18" r="7" fill="#fff" stroke="#000" stroke-width="1.5"/>
+      <circle cx="35" cy="18" r="3.5" fill="#ffe600"/>
+      <circle cx="36" cy="17" r="1.2" fill="#fff"/>
+      <!-- Disco -->
+      <ellipse cx="35" cy="30" rx="32" ry="9" fill="url(#scoutPlatGrad)" stroke="#ff007f" stroke-width="2"/>
+      <circle cx="12" cy="30" r="3" fill="#00f0ff"/>
+      <circle cx="35" cy="34" r="3.5" fill="#ffe600"/>
+      <circle cx="58" cy="30" r="3" fill="#00f0ff"/>
       <defs>
-        <linearGradient id="scoutG1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="scoutPlatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#ffe600"/>
           <stop offset="50%" stop-color="#ff007f"/>
-          <stop offset="100%" stop-color="#4c0519"/>
+          <stop offset="100%" stop-color="#3b0764"/>
         </linearGradient>
       </defs>
     </svg>
   </div>
 
-  <!-- PANTALLA DE INICIO (AWARD WINNING) -->
+  <!-- PANTALLA DE INICIO (NUEVA ESTÉTICA 2026 DE CONSOLA) -->
   <div id="splash-screen" class="intro-overlay">
     <div class="lang-switch">
       <button class="lang-btn active" data-lang="es">🇪🇸 ESPAÑOL</button>
@@ -486,10 +548,32 @@
 
     <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
       <h1 id="txt-app-title" class="hero-title-main">GEO ORBIT</h1>
-      <div class="hero-subtitle">✨ WORLD ODYSSEY 3D</div>
+      <div class="hero-subtitle">✨ 2026 COSMIC ODYSSEY</div>
 
-      <div style="position: relative; width: 100%; max-width: 440px; height: 190px; display: flex; justify-content: center; align-items: center;">
-        <div style="font-size: 6.8rem; line-height: 1; filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.85));">🌍</div>
+      <div class="comic-alien-hero-box">
+        <!-- Mascota Alienígena Cómica -->
+        <svg class="funny-alien-svg" viewBox="0 0 120 120">
+          <ellipse cx="60" cy="85" rx="55" ry="16" fill="url(#heroUfo)" stroke="#00f0ff" stroke-width="2.5"/>
+          <ellipse cx="60" cy="65" rx="28" ry="24" fill="rgba(0, 240, 255, 0.45)" stroke="#00f0ff" stroke-width="2"/>
+          <circle cx="60" cy="60" r="16" fill="#39ff14"/>
+          <ellipse cx="53" cy="56" rx="5" ry="7" fill="#fff"/>
+          <ellipse cx="67" cy="56" rx="5" ry="7" fill="#fff"/>
+          <circle cx="54" cy="56" r="2.8" fill="#000"/>
+          <circle cx="68" cy="56" r="2.8" fill="#000"/>
+          <path d="M 54 66 Q 60 72 66 66" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="52" y1="46" x2="44" y2="34" stroke="#39ff14" stroke-width="3.5" stroke-linecap="round"/>
+          <circle cx="43" cy="33" r="4.5" fill="#ffe600"/>
+          <line x1="68" y1="46" x2="76" y2="34" stroke="#39ff14" stroke-width="3.5" stroke-linecap="round"/>
+          <circle cx="77" cy="33" r="4.5" fill="#ffe600"/>
+          <defs>
+            <linearGradient id="heroUfo" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="30%" stop-color="#00f0ff"/>
+              <stop offset="70%" stop-color="#1e1b4b"/>
+              <stop offset="100%" stop-color="#ff007f"/>
+            </linearGradient>
+          </defs>
+        </svg>
       </div>
     </div>
 
@@ -503,7 +587,7 @@
     <!-- Botones de Acción -->
     <div style="width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 10px;">
       <button id="btn-start-play" class="btn-3d-glow">🎮 ¡COMENZAR MISIÓN!</button>
-      <button id="btn-start-train" class="btn-3d-glass">🧭 EXPLORACIÓN LIBRE</button>
+      <button id="btn-start-train" class="btn-3d-glass">🧭 EXPLORACIÓN LIBRE 3D</button>
       <button id="btn-open-passport" class="btn-3d-glass" style="border-color: rgba(255, 230, 0, 0.4); color: var(--neon-gold);">📘 PASAPORTE E INSIGNIAS (8)</button>
     </div>
   </div>
@@ -550,8 +634,11 @@
     <div id="terminal-content" style="font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.45; color: #f8fafc;"></div>
   </div>
 
-  <!-- TOAST DE FELICITACIÓN -->
-  <div id="modern-toast" class="toast-pill">¡PERFECTO! 🔥</div>
+  <!-- CARTEL ESPECTACULAR DE CELEBRACIÓN Y PREMIO -->
+  <div id="celebration-banner" class="celebration-banner-wrap glass-card">
+    <div id="celeb-title" class="celebration-title">¡CORRECTO! 🔥</div>
+    <div id="celeb-points" class="celebration-points">+200 PUNTOS</div>
+  </div>
 
   <!-- MODAL DE TRIVIA -->
   <div id="trivia-modal" class="modal-backdrop hidden">
@@ -2162,18 +2249,18 @@ if (typeof module !== 'undefined' && module.exports) {
     }
     spawn(x, y) {
       const colors = ['#00f0ff', '#ff007f', '#ffe600', '#39ff14', '#ffffff', '#c77dff'];
-      for (let i = 0; i < 45; i++) {
+      for (let i = 0; i < 55; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 8 + 4;
+        const speed = Math.random() * 9 + 4;
         this.particles.push({
           x: x || window.innerWidth / 2,
           y: y || window.innerHeight * 0.4,
           vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 3,
-          size: Math.random() * 6 + 4,
+          vy: Math.sin(angle) * speed - 4,
+          size: Math.random() * 7 + 4,
           color: colors[Math.floor(Math.random() * colors.length)],
           rotation: Math.random() * Math.PI * 2,
-          rotSpeed: (Math.random() - 0.5) * 0.2,
+          rotSpeed: (Math.random() - 0.5) * 0.25,
           alpha: 1.0,
           gravity: 0.22
         });
@@ -2209,9 +2296,9 @@ if (typeof module !== 'undefined' && module.exports) {
   const confetti = new CelebrationConfettiEngine('confetti-canvas');
 
   /* ==========================================================================
-     MOTOR DE FONDO CÓSMICO (NEBULOSAS Y ESTRELLAS NAVIDEÑAS)
+     FONDO ESPACIAL AVANZADO: GALAXIAS EN ESPIRAL, NEBULOSAS Y COMETAS
      ========================================================================== */
-  class SpaceBackgroundEngine {
+  class DeepCosmicOdysseyBackground {
     constructor(canvasId) {
       this.canvas = document.getElementById(canvasId);
       this.ctx = this.canvas.getContext('2d');
@@ -2219,17 +2306,18 @@ if (typeof module !== 'undefined' && module.exports) {
       this.flaringStars = [];
       this.comets = [];
       this.nebulae = [];
+      this.spiralGalaxies = [];
       this.time = 0;
 
       this.resize();
       window.addEventListener('resize', () => this.resize());
 
-      this.initNebulae();
+      this.initGalaxiesAndNebulae();
       this.initStars();
 
       setInterval(() => {
-        if (Math.random() < 0.65) this.spawnComet();
-      }, 3200);
+        if (Math.random() < 0.7) this.spawnComet();
+      }, 3000);
 
       this.render = this.render.bind(this);
       requestAnimationFrame(this.render);
@@ -2238,17 +2326,25 @@ if (typeof module !== 'undefined' && module.exports) {
     resize() {
       this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
-      this.initNebulae();
+      this.initGalaxiesAndNebulae();
     }
 
-    initNebulae() {
+    initGalaxiesAndNebulae() {
       const w = this.canvas.width;
       const h = this.canvas.height;
+      
+      // Nebulosas de Gas Cósmico
       this.nebulae = [
-        { x: w * 0.18, y: h * 0.30, rx: w * 0.45, ry: h * 0.40, color: 'rgba(0, 240, 255, 0.18)', pulse: 0.0012, phase: 0 },
-        { x: w * 0.80, y: h * 0.40, rx: w * 0.50, ry: h * 0.45, color: 'rgba(255, 0, 127, 0.16)', pulse: 0.0015, phase: 1.5 },
-        { x: w * 0.45, y: h * 0.20, rx: w * 0.38, ry: h * 0.32, color: 'rgba(99, 102, 241, 0.15)', pulse: 0.0009, phase: 3.0 },
-        { x: w * 0.30, y: h * 0.75, rx: w * 0.40, ry: h * 0.35, color: 'rgba(168, 85, 247, 0.14)', pulse: 0.0014, phase: 4.2 }
+        { x: w * 0.15, y: h * 0.25, rx: w * 0.50, ry: h * 0.45, color: 'rgba(0, 240, 255, 0.22)', pulse: 0.0014, phase: 0 },
+        { x: w * 0.82, y: h * 0.35, rx: w * 0.55, ry: h * 0.50, color: 'rgba(255, 0, 127, 0.20)', pulse: 0.0016, phase: 1.8 },
+        { x: w * 0.45, y: h * 0.15, rx: w * 0.40, ry: h * 0.35, color: 'rgba(99, 102, 241, 0.18)', pulse: 0.0011, phase: 3.2 },
+        { x: w * 0.30, y: h * 0.80, rx: w * 0.45, ry: h * 0.40, color: 'rgba(168, 85, 247, 0.16)', pulse: 0.0015, phase: 4.5 }
+      ];
+
+      // 2 Galaxias en Espiral Cósmicas
+      this.spiralGalaxies = [
+        { x: w * 0.20, y: h * 0.70, radius: 120, arms: 3, rot: 0, rotSpeed: 0.0012, color: '#00f0ff' },
+        { x: w * 0.85, y: h * 0.20, radius: 95, arms: 2, rot: 1.5, rotSpeed: -0.0010, color: '#ff007f' }
       ];
     }
 
@@ -2260,28 +2356,28 @@ if (typeof module !== 'undefined' && module.exports) {
 
       const xmasPalette = ['#00f0ff', '#ff007f', '#39ff14', '#ffe600', '#ff3366', '#c77dff', '#ffffff'];
 
-      for (let i = 0; i < 250; i++) {
+      for (let i = 0; i < 280; i++) {
         this.stars.push({
           x: Math.random() * w,
           y: Math.random() * h,
-          r: Math.random() * 2.0 + 0.8,
-          speed: Math.random() * 0.045 + 0.02,
+          r: Math.random() * 2.2 + 0.8,
+          speed: Math.random() * 0.05 + 0.025,
           phase: Math.random() * Math.PI * 2,
           colorIdx: Math.floor(Math.random() * xmasPalette.length),
-          colorShiftSpeed: Math.random() * 0.015 + 0.005,
+          colorShiftSpeed: Math.random() * 0.018 + 0.006,
           palette: xmasPalette
         });
       }
 
-      for (let j = 0; j < 10; j++) {
+      for (let j = 0; j < 12; j++) {
         this.flaringStars.push({
           x: Math.random() * (w * 0.9) + w * 0.05,
           y: Math.random() * (h * 0.9) + h * 0.05,
-          size: Math.random() * 14 + 16,
+          size: Math.random() * 15 + 18,
           pulseSpeed: Math.random() * 0.035 + 0.015,
           phase: Math.random() * Math.PI * 2,
           rot: Math.random() * Math.PI,
-          rotSpeed: (Math.random() - 0.5) * 0.003,
+          rotSpeed: (Math.random() - 0.5) * 0.004,
           colorIdx: j % xmasPalette.length,
           palette: xmasPalette
         });
@@ -2292,9 +2388,9 @@ if (typeof module !== 'undefined' && module.exports) {
       this.comets.push({
         x: Math.random() * this.canvas.width * 0.8,
         y: -30,
-        vx: Math.random() * 4.5 + 4,
-        vy: Math.random() * 2.8 + 2.4,
-        len: Math.random() * 95 + 75,
+        vx: Math.random() * 5.0 + 4,
+        vy: Math.random() * 3.0 + 2.5,
+        len: Math.random() * 110 + 80,
         alpha: 1.0,
         color: Math.random() > 0.5 ? '#00f0ff' : '#ffe600'
       });
@@ -2306,7 +2402,7 @@ if (typeof module !== 'undefined' && module.exports) {
       const h = this.canvas.height;
       this.ctx.clearRect(0, 0, w, h);
 
-      // Nebulosas
+      // 1. NEBULOSAS
       this.nebulae.forEach(n => {
         this.ctx.save();
         const p = 0.85 + 0.15 * Math.sin(this.time * n.pulse + n.phase);
@@ -2321,7 +2417,42 @@ if (typeof module !== 'undefined' && module.exports) {
         this.ctx.restore();
       });
 
-      // Estrellas Navideñas
+      // 2. GALAXIAS EN ESPIRAL
+      this.spiralGalaxies.forEach(g => {
+        this.ctx.save();
+        g.rot += g.rotSpeed;
+        this.ctx.translate(g.x, g.y);
+        this.ctx.rotate(g.rot);
+
+        // Núcleo
+        const coreGrad = this.ctx.createRadialGradient(0, 0, 2, 0, 0, 25);
+        coreGrad.addColorStop(0, '#ffffff');
+        coreGrad.addColorStop(0.4, g.color);
+        coreGrad.addColorStop(1, 'transparent');
+        this.ctx.fillStyle = coreGrad;
+        this.ctx.beginPath();
+        this.ctx.arc(0, 0, 25, 0, Math.PI * 2);
+        this.ctx.fill();
+
+        // Brazos
+        for (let a = 0; a < g.arms; a++) {
+          const baseAng = (a * 2 * Math.PI) / g.arms;
+          for (let st = 5; st < g.radius; st += 6) {
+            const ang = baseAng + (st / 22);
+            const px = Math.cos(ang) * st;
+            const py = Math.sin(ang) * st;
+            const alpha = Math.max(0.05, 1 - (st / g.radius));
+            this.ctx.fillStyle = g.color;
+            this.ctx.globalAlpha = alpha * 0.45;
+            this.ctx.beginPath();
+            this.ctx.arc(px, py, 1.8, 0, Math.PI * 2);
+            this.ctx.fill();
+          }
+        }
+        this.ctx.restore();
+      });
+
+      // 3. ESTRELLAS TITILANTES NAVIDEÑAS
       this.stars.forEach(s => {
         this.ctx.save();
         const wave = Math.sin(this.time * s.speed + s.phase);
@@ -2339,7 +2470,7 @@ if (typeof module !== 'undefined' && module.exports) {
         this.ctx.restore();
       });
 
-      // Destellos en Cruz (Diffraction Cross Flares)
+      // 4. ESTRELLAS DESTELLANTES EN CRUZ
       this.flaringStars.forEach(fs => {
         this.ctx.save();
         fs.rot += fs.rotSpeed;
@@ -2355,8 +2486,8 @@ if (typeof module !== 'undefined' && module.exports) {
 
         this.ctx.strokeStyle = color;
         this.ctx.shadowColor = color;
-        this.ctx.shadowBlur = 22;
-        this.ctx.lineWidth = 1.8;
+        this.ctx.shadowBlur = 24;
+        this.ctx.lineWidth = 2.0;
 
         this.ctx.beginPath();
         this.ctx.moveTo(0, -sz * 1.6);
@@ -2367,12 +2498,12 @@ if (typeof module !== 'undefined' && module.exports) {
 
         this.ctx.fillStyle = '#ffffff';
         this.ctx.beginPath();
-        this.ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
+        this.ctx.arc(0, 0, 2.6, 0, Math.PI * 2);
         this.ctx.fill();
         this.ctx.restore();
       });
 
-      // Cometas
+      // 5. COMETAS
       for (let i = this.comets.length - 1; i >= 0; i--) {
         const c = this.comets[i];
         c.x += c.vx;
@@ -2385,7 +2516,7 @@ if (typeof module !== 'undefined' && module.exports) {
         this.ctx.save();
         this.ctx.globalAlpha = c.alpha;
         this.ctx.strokeStyle = c.color;
-        this.ctx.lineWidth = 2.4;
+        this.ctx.lineWidth = 2.6;
         this.ctx.beginPath();
         this.ctx.moveTo(c.x, c.y);
         this.ctx.lineTo(c.x - c.vx * (c.len / 10), c.y - c.vy * (c.len / 10));
@@ -2533,7 +2664,6 @@ if (typeof module !== 'undefined' && module.exports) {
       this.pulse = 0;
       this.redDamageGlow = 0;
 
-      // Canvas 2D de alta resolución como textura dinámica 3D
       this.d3Canvas = document.createElement('canvas');
       this.d3Canvas.width = 2048;
       this.d3Canvas.height = 1024;
@@ -2578,20 +2708,17 @@ if (typeof module !== 'undefined' && module.exports) {
       this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       this.container.appendChild(this.renderer.domElement);
 
-      // Iluminación PBR
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
       this.scene.add(ambientLight);
 
-      const dirLight = new THREE.DirectionalLight(0x00f0ff, 1.2);
+      const dirLight = new THREE.DirectionalLight(0x00f0ff, 1.4);
       dirLight.position.set(5, 3, 5);
       this.scene.add(dirLight);
 
-      // Textura Dinámica
       this.earthTexture = new THREE.CanvasTexture(this.d3Canvas);
       this.earthTexture.minFilter = THREE.LinearFilter;
       this.earthTexture.magFilter = THREE.LinearFilter;
 
-      // Geometría Esférica PBR
       const geometry = new THREE.SphereGeometry(1.0, 64, 64);
       const material = new THREE.MeshStandardMaterial({
         map: this.earthTexture,
@@ -2602,7 +2729,6 @@ if (typeof module !== 'undefined' && module.exports) {
       this.earthMesh = new THREE.Mesh(geometry, material);
       this.scene.add(this.earthMesh);
 
-      // Atmósfera de Brillo Fresnel
       const atmosGeo = new THREE.SphereGeometry(1.06, 64, 64);
       const atmosMat = new THREE.ShaderMaterial({
         vertexShader: `
@@ -2887,7 +3013,6 @@ if (typeof module !== 'undefined' && module.exports) {
         this.atmosphereMesh.material.uniforms.color.value.setHex(0x00f0ff);
       }
 
-      // Rotación 3D del globo
       const radLon = (this.rotation[0] * Math.PI) / 180;
       const radLat = (this.rotation[1] * Math.PI) / 180;
       this.earthMesh.rotation.y = radLon;
@@ -3031,7 +3156,7 @@ if (typeof module !== 'undefined' && module.exports) {
   };
 
   /* ==========================================================================
-     GESTOR DE OVNIS CON TRAYECTORIA FRONTAL GARANTIZADA SOBRE EL GLOBO
+     GESTOR DE OVNIS MODERNOS Y GRACIOSOS
      ========================================================================== */
   class GuaranteedFrontalUFOManager {
     constructor(motherId, scoutId) {
@@ -3080,25 +3205,25 @@ if (typeof module !== 'undefined' && module.exports) {
 
       const entrySide = Math.floor(Math.random() * 4);
       if (entrySide === 0) {
-        this.startX = -80;
+        this.startX = -90;
         this.startY = Math.random() * (h * 0.6) + h * 0.2;
-        this.endX = w + 80;
+        this.endX = w + 90;
         this.endY = Math.random() * (h * 0.6) + h * 0.2;
       } else if (entrySide === 1) {
-        this.startX = w + 80;
+        this.startX = w + 90;
         this.startY = Math.random() * (h * 0.6) + h * 0.2;
-        this.endX = -80;
+        this.endX = -90;
         this.endY = Math.random() * (h * 0.6) + h * 0.2;
       } else if (entrySide === 2) {
         this.startX = Math.random() * (w * 0.6) + w * 0.2;
-        this.startY = -60;
+        this.startY = -70;
         this.endX = Math.random() * (w * 0.6) + w * 0.2;
-        this.endY = h + 60;
+        this.endY = h + 70;
       } else {
         this.startX = Math.random() * (w * 0.6) + w * 0.2;
-        this.startY = h + 60;
+        this.startY = h + 70;
         this.endX = Math.random() * (w * 0.6) + w * 0.2;
-        this.endY = -60;
+        this.endY = -70;
       }
 
       this.midX = cx + (Math.random() - 0.5) * (w * 0.35);
@@ -3143,7 +3268,7 @@ if (typeof module !== 'undefined' && module.exports) {
         const fluoColors = ['#39ff14', '#00f0ff', '#ff007f', '#ffe600'];
         const chosenColor = fluoColors[Math.floor(Math.random() * fluoColors.length)];
 
-        fxEngine.spawnPlasmaBolt(this.x + 30, this.y + 20, targetX, targetY, chosenColor, 4.5);
+        fxEngine.spawnPlasmaBolt(this.x + 35, this.y + 25, targetX, targetY, chosenColor, 4.5);
         NextGenAudio.playLaserZap(isScout ? 1 : 0);
       }
 
@@ -3151,8 +3276,8 @@ if (typeof module !== 'undefined' && module.exports) {
     }
 
     triggerEscapeStrikeAndPenalty() {
-      const ufoX = Math.max(20, Math.min(window.innerWidth - 20, this.x + 30));
-      const ufoY = Math.max(20, Math.min(window.innerHeight - 20, this.y + 20));
+      const ufoX = Math.max(20, Math.min(window.innerWidth - 20, this.x + 35));
+      const ufoY = Math.max(20, Math.min(window.innerHeight - 20, this.y + 25));
       const earthCenterX = window.innerWidth / 2;
       const earthCenterY = window.innerHeight / 2;
 
@@ -3171,21 +3296,21 @@ if (typeof module !== 'undefined' && module.exports) {
       score = Math.max(0, score - penalty);
       streak = 0;
       updateHUD();
-      showToast(currentLang === 'es' ? '💥 ¡IMPACTO ALIEN! -200 PTS' : '💥 ALIEN STRIKE! -200 PTS');
+      showCelebrationBanner(currentLang === 'es' ? '💥 ¡IMPACTO ALIEN!' : '💥 ALIEN STRIKE!', '-200 PTS');
     }
 
     hitUFO(type) {
       this.dismiss();
       NextGenAudio.playLaserZap(2);
-      confetti.spawn(this.x + 30, this.y + 20);
+      confetti.spawn(this.x + 35, this.y + 25);
       GamificationSystem.recordUFODown();
 
       if (type === 'scout') {
         score += 1000;
-        showToast('⚡ HYPER SCOUT DOWN! +1000 PTS (x4)');
+        showCelebrationBanner('⚡ HYPER SCOUT DOWN!', '+1000 PTS (x4)');
       } else {
         score += 500;
-        showToast('🛸 MOTHERSHIP DOWN! +500 PTS (x2)');
+        showCelebrationBanner('🛸 MOTHERSHIP DOWN!', '+500 PTS (x2)');
       }
       updateHUD();
     }
@@ -3203,7 +3328,7 @@ if (typeof module !== 'undefined' && module.exports) {
   /* ==========================================================================
      INICIALIZACIÓN DEL SISTEMA
      ========================================================================== */
-  const nebula = new SpaceBackgroundEngine('space-nebula-canvas');
+  const nebula = new DeepCosmicOdysseyBackground('space-nebula-canvas');
   const globe = new ThreeGlobeEngine('three-globe-container');
   const terminal = new CyberTerminal('cyber-terminal', 'terminal-title', 'terminal-content', 'terminal-close-btn');
   const ufoManager = new GuaranteedFrontalUFOManager('mothership-ufo', 'scout-ufo');
@@ -3230,6 +3355,7 @@ if (typeof module !== 'undefined' && module.exports) {
   const triviaModal = document.getElementById('trivia-modal');
   const passportModal = document.getElementById('passport-modal');
   const scoreModal = document.getElementById('score-modal');
+  const celebBanner = document.getElementById('celebration-banner');
 
   function returnHome() {
     clearInterval(timerInterval);
@@ -3243,6 +3369,7 @@ if (typeof module !== 'undefined' && module.exports) {
     triviaModal.classList.add('hidden');
     passportModal.classList.add('hidden');
     scoreModal.classList.add('hidden');
+    celebBanner.classList.remove('show');
     ufoManager.dismiss();
     terminal.hideImmediate();
     globe.isTraining = false;
@@ -3264,7 +3391,7 @@ if (typeof module !== 'undefined' && module.exports) {
   function applyLanguage() {
     document.getElementById('txt-app-title').textContent = currentLang === 'es' ? 'GEO ORBIT' : 'GEO ORBIT';
     document.getElementById('btn-start-play').textContent = currentLang === 'es' ? '🎮 ¡COMENZAR MISIÓN!' : '🎮 START MISSION!';
-    document.getElementById('btn-start-train').textContent = currentLang === 'es' ? '🧭 EXPLORACIÓN LIBRE' : '🧭 FREE EXPLORATION';
+    document.getElementById('btn-start-train').textContent = currentLang === 'es' ? '🧭 EXPLORACIÓN LIBRE 3D' : '🧭 3D FREE EXPLORATION';
     document.getElementById('btn-open-passport').textContent = currentLang === 'es' ? '📘 PASAPORTE E INSIGNIAS (8)' : '📘 PASSPORT & BADGES (8)';
     document.getElementById('train-back-btn').textContent = currentLang === 'es' ? '← VOLVER' : '← BACK';
     document.getElementById('train-hud-title').textContent = currentLang === 'es' ? '🧭 TOCA CUALQUIER PAÍS O MAR' : '🧭 TAP ANY COUNTRY OR SEA';
@@ -3411,13 +3538,20 @@ if (typeof module !== 'undefined' && module.exports) {
       btnEl.classList.add('correct');
       NextGenAudio.playVictoryChord(streak + 1);
       confetti.spawn();
-      showToast(currentLang === 'es' ? '¡PERFECTO! 🔥' : 'PERFECT! 🔥');
       
       const mult = DIFF_MULTIPLIERS[currentDifficulty] || 1.0;
-      score += Math.round(100 * mult * (streak >= 3 ? 2 : 1));
+      const addedPoints = Math.round(100 * mult * (streak >= 3 ? 2 : 1));
+      score += addedPoints;
       streak++;
 
-      GamificationSystem.recordCorrectCapital(continentName, countryName, timeLeft > 12);
+      showCelebrationBanner(
+        currentLang === 'es' ? (streak >= 3 ? `🔥 ¡COMBO x${streak}!` : '🎯 ¡CORRECTO!') : (streak >= 3 ? `🔥 COMBO x${streak}!` : '🎯 CORRECT!'),
+        `+${addedPoints} PTS`
+      );
+
+      try {
+        GamificationSystem.recordCorrectCapital(continentName, countryName, timeLeft > 12);
+      } catch(e) {}
     } else {
       btnEl.classList.add('wrong');
       NextGenAudio.playMegaBomb();
@@ -3428,6 +3562,7 @@ if (typeof module !== 'undefined' && module.exports) {
       optionsGrid.querySelectorAll('.option-card-btn').forEach(b => {
         if (b.textContent === correctCap) b.classList.add('correct');
       });
+      showCelebrationBanner(currentLang === 'es' ? '❌ INCORRECTO' : '❌ WRONG', `-1 VIDA`);
     }
     updateHUD();
 
@@ -3443,7 +3578,7 @@ if (typeof module !== 'undefined' && module.exports) {
         spinBtn.style.display = 'block';
         spinBtn.textContent = currentLang === 'es' ? '🎲 ¡SIGUIENTE GIRO!' : '🎲 NEXT SPIN!';
       }
-    }, 1300);
+    }, 1400);
   }
 
   function handleTimeout() {
@@ -3456,7 +3591,7 @@ if (typeof module !== 'undefined' && module.exports) {
     lives--;
     streak = 0;
     updateHUD();
-    showToast(currentLang === 'es' ? '⏰ ¡TIEMPO AGOTADO! -150 PTS' : '⏰ TIME OUT! -150 PTS');
+    showCelebrationBanner(currentLang === 'es' ? '⏰ ¡TIEMPO AGOTADO!' : '⏰ TIME OUT!', `-150 PTS`);
 
     setTimeout(() => {
       if (lives <= 0) {
@@ -3468,7 +3603,14 @@ if (typeof module !== 'undefined' && module.exports) {
         spinBtn.style.display = 'block';
         spinBtn.textContent = currentLang === 'es' ? '🎲 ¡SIGUIENTE GIRO!' : '🎲 NEXT SPIN!';
       }
-    }, 1300);
+    }, 1400);
+  }
+
+  function showCelebrationBanner(title, points) {
+    document.getElementById('celeb-title').textContent = title;
+    document.getElementById('celeb-points').textContent = points;
+    celebBanner.classList.add('show');
+    setTimeout(() => celebBanner.classList.remove('show'), 1200);
   }
 
   function triggerTriviaModal() {
@@ -3507,13 +3649,6 @@ if (typeof module !== 'undefined' && module.exports) {
     document.getElementById('val-score').textContent = score;
     document.getElementById('val-streak').textContent = streak;
     document.getElementById('val-lives').textContent = '❤️'.repeat(lives) + '🖤'.repeat(3 - lives);
-  }
-
-  function showToast(text) {
-    const toast = document.getElementById('modern-toast');
-    toast.textContent = text;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 1100);
   }
 
   function triggerGameOver() {
