@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>GEO ORBIT: World Odyssey 3D - HD Flags & Alien Multipliers</title>
+  <title>GEO ORBIT: World Odyssey 3D - Crystalline Water & Neon Scoreboard</title>
 
   <!-- FUENTES CYBER Y ARCADE -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +26,7 @@
       --whatsapp-green: #25d366;
       --alien-gray: #cbd5e1;
       --bg-dark: #020308;
-      --glass-panel: rgba(10, 18, 42, 0.85);
+      --glass-panel: rgba(10, 18, 42, 0.88);
       --glass-border: rgba(0, 240, 255, 0.4);
       --glass-glow: 0 12px 40px 0 rgba(0, 240, 255, 0.28);
       --font-main: 'Plus Jakarta Sans', sans-serif;
@@ -231,7 +231,7 @@
       border-radius: 20px;
     }
 
-    /* ESCENARIO HEROICO: COCO + GLOBO GIRATORIO + PEPE */
+    /* ESCENARIO HEROICO */
     .aliens-trio-hero-box {
       display: flex;
       align-items: center;
@@ -492,41 +492,39 @@
     }
     .passport-modal-overlay.hidden { display: none; }
 
-    /* CARTEL ARCADE JAPONÉS */
+    /* CARTEL DE CELEBRACIÓN CON PAÍS Y CAPITAL EXACTOS */
     .celebration-banner-wrap {
       position: absolute;
       top: 40%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0);
       width: 90%;
-      max-width: 480px;
-      padding: 24px 18px;
+      max-width: 500px;
+      padding: 22px 18px;
       text-align: center;
       z-index: 160;
       pointer-events: none;
       transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.4);
     }
     .celebration-banner-wrap.show {
-      transform: translate(-50%, -50%) scale(1.06);
+      transform: translate(-50%, -50%) scale(1.05);
     }
 
     .celebration-title {
       font-family: var(--font-title);
-      font-size: clamp(1.8rem, 6.5vw, 2.4rem);
+      font-size: clamp(1.4rem, 5.5vw, 2.0rem);
       font-weight: 900;
-      background: linear-gradient(135deg, var(--neon-gold) 0%, #ff8800 50%, var(--neon-magenta) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 24px rgba(255, 230, 0, 0.85));
-      margin-bottom: 6px;
+      color: #ffffff;
+      filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.85));
+      margin-bottom: 4px;
       line-height: 1.15;
     }
     .celebration-subtitle {
       font-family: var(--font-title);
       font-size: 0.95rem;
       font-weight: 800;
-      color: #ffe600;
-      letter-spacing: 1px;
+      color: var(--neon-gold);
+      letter-spacing: 0.5px;
       margin-bottom: 4px;
     }
     .celebration-points {
@@ -537,7 +535,7 @@
       letter-spacing: 1.5px;
     }
 
-    /* MODALES TRIVIA Y SCOREBOARD */
+    /* MODAL SCOREBOARD CON NEON GLOW Y AUTO-CIERRE */
     .modal-backdrop {
       position: absolute;
       top: 0;
@@ -550,9 +548,31 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
     }
     .modal-backdrop.hidden { display: none; }
+
+    .score-row-top1 {
+      background: rgba(255, 230, 0, 0.15);
+      border-left: 3px solid var(--neon-gold);
+      box-shadow: 0 0 16px rgba(255, 230, 0, 0.4);
+      color: var(--neon-gold);
+      font-weight: 900;
+    }
+    .score-row-top2 {
+      background: rgba(0, 240, 255, 0.12);
+      border-left: 3px solid var(--neon-cyan);
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.35);
+      color: var(--neon-cyan);
+      font-weight: 800;
+    }
+    .score-row-top3 {
+      background: rgba(255, 0, 127, 0.12);
+      border-left: 3px solid var(--neon-magenta);
+      box-shadow: 0 0 14px rgba(255, 0, 127, 0.35);
+      color: #ff80bf;
+      font-weight: 800;
+    }
 
     .screen-shake {
       animation: shake 0.45s cubic-bezier(.36,.07,.19,.97) both;
@@ -575,7 +595,6 @@
   <canvas id="confetti-canvas" class="full-canvas"></canvas>
 
   <!-- OVNIS CON COCO Y PEPE -->
-  <!-- 1. COCO (Mothership Z-400 / Alien Verde) -->
   <div id="mothership-ufo" class="vector-ufo-wrap" style="width: 130px; height: 82px;">
     <svg viewBox="0 0 120 75" width="130" height="82" style="filter: drop-shadow(0 0 20px #00f0ff) drop-shadow(0 0 35px #39ff14);">
       <ellipse cx="60" cy="30" rx="27" ry="25" fill="rgba(0, 240, 255, 0.45)" stroke="#00f0ff" stroke-width="2"/>
@@ -607,7 +626,6 @@
     </svg>
   </div>
 
-  <!-- 2. PEPE (Scout Glider / Alien Gris) -->
   <div id="scout-ufo" class="vector-ufo-wrap" style="width: 85px; height: 58px;">
     <svg viewBox="0 0 80 55" width="85" height="58" style="filter: drop-shadow(0 0 20px #ff007f) drop-shadow(0 0 30px #cbd5e1);">
       <ellipse cx="40" cy="24" rx="20" ry="18" fill="rgba(255, 0, 127, 0.50)" stroke="#ff007f" stroke-width="2"/>
@@ -758,10 +776,10 @@
     <div id="terminal-content" style="font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.45; color: #f8fafc;"></div>
   </div>
 
-  <!-- CARTEL ARCADE JAPONÉS -->
+  <!-- CARTEL DE CELEBRACIÓN CON PAÍS Y CAPITAL EXACTOS -->
   <div id="celebration-banner" class="celebration-banner-wrap glass-card">
-    <div id="celeb-title" class="celebration-title">SUGOI! 🌟</div>
-    <div id="celeb-sub" class="celebration-subtitle">¡NIVEL DIOS DE LA GEOGRAFÍA!</div>
+    <div id="celeb-title" class="celebration-title">🎉 ¡CORRECTO!</div>
+    <div id="celeb-sub" class="celebration-subtitle">BUENOS AIRES (ARGENTINA)</div>
     <div id="celeb-points" class="celebration-points">+200 PTS</div>
   </div>
 
@@ -786,31 +804,36 @@
     </div>
   </div>
 
-  <!-- MODAL SCOREBOARD -->
+  <!-- MODAL SCOREBOARD MEJORADO: GLOW NEÓN + AUTO-CIERRE EN 8 SEGUNDOS -->
   <div id="score-modal" class="modal-backdrop hidden">
-    <div class="glass-card" style="width: 100%; max-width: 440px; padding: 24px; text-align: center;">
-      <h2 style="font-family: var(--font-title); font-size: 1.8rem; font-weight: 900; color: var(--neon-red); margin-bottom: 4px;">MISIÓN TERMINADA</h2>
-      <div id="final-score-text" style="font-family: var(--font-title); font-size: 1.3rem; font-weight: 800; color: var(--neon-cyan); margin-bottom: 14px;">PUNTUACIÓN: 0 PTS</div>
+    <div class="glass-card" style="width: 100%; max-width: 420px; max-height: 88vh; overflow-y: auto; padding: 18px 20px; text-align: center; border-color: var(--neon-cyan);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <h2 style="font-family: var(--font-title); font-size: 1.5rem; font-weight: 900; color: var(--neon-cyan); letter-spacing: 0.5px;">🏆 SALÓN DE LA FAMA</h2>
+        <div id="scoreboard-countdown" style="font-family: var(--font-mono); font-size: 0.8rem; color: #94a3b8; background: rgba(255,255,255,0.08); padding: 3px 8px; border-radius: 12px;">⏱️ 8s</div>
+      </div>
+      
+      <div id="final-score-text" style="font-family: var(--font-title); font-size: 1.15rem; font-weight: 800; color: var(--neon-gold); margin-bottom: 10px;">PUNTUACIÓN: 0 PTS</div>
 
-      <div id="initials-form" style="margin-bottom: 14px;">
-        <div style="font-size: 0.85rem; color: var(--neon-gold); font-weight: 800; margin-bottom: 6px;">¡NUEVO RÉCORD! TUS 4 INICIALES:</div>
-        <input type="text" id="player-initials" maxlength="4" placeholder="JUG1" style="width: 110px; text-align: center; font-family: var(--font-title); font-size: 1.1rem; font-weight: 800; padding: 8px; border: 1.5px solid var(--neon-gold); background: #000; color: #fff; border-radius: 10px; text-transform: uppercase;">
-        <button id="save-score-btn" class="btn-3d-glow" style="display: inline-flex; width: auto; padding: 8px 16px; font-size: 0.95rem; margin-left: 6px;">GUARDAR</button>
+      <div id="initials-form" style="margin-bottom: 12px; background: rgba(0, 240, 255, 0.08); border: 1.5px dashed var(--neon-cyan); border-radius: 14px; padding: 8px;">
+        <div style="font-size: 0.80rem; color: #fff; font-weight: 800; margin-bottom: 4px;">¡NUEVO RÉCORD! TUS 4 INICIALES:</div>
+        <div style="display: flex; justify-content: center; gap: 6px;">
+          <input type="text" id="player-initials" maxlength="4" placeholder="JUG1" style="width: 100px; text-align: center; font-family: var(--font-title); font-size: 1.05rem; font-weight: 800; padding: 6px; border: 1.5px solid var(--neon-cyan); background: #000; color: #fff; border-radius: 10px; text-transform: uppercase;">
+          <button id="save-score-btn" class="btn-3d-glow" style="padding: 6px 14px; font-size: 0.9rem;">GUARDAR</button>
+        </div>
       </div>
 
-      <div style="font-family: var(--font-title); font-size: 1.05rem; font-weight: 800; color: var(--neon-gold); margin-top: 10px;">🏆 SALÓN DE LA FAMA (TOP 10)</div>
-      <table style="width: 100%; border-collapse: collapse; margin: 12px 0; font-family: var(--font-title); font-size: 0.9rem;">
+      <table style="width: 100%; border-collapse: collapse; margin: 8px 0; font-family: var(--font-title); font-size: 0.88rem;">
         <thead>
-          <tr>
-            <th style="color: #94a3b8; padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.1);">POS</th>
-            <th style="color: #94a3b8; padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.1);">JUGADOR</th>
-            <th style="color: #94a3b8; padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.1);">PUNTOS</th>
+          <tr style="border-bottom: 1.5px solid rgba(0, 240, 255, 0.3);">
+            <th style="color: #94a3b8; padding: 5px 4px;">POS</th>
+            <th style="color: #94a3b8; padding: 5px 4px;">JUGADOR</th>
+            <th style="color: #94a3b8; padding: 5px 4px;">PUNTOS</th>
           </tr>
         </thead>
         <tbody id="leaderboard-rows"></tbody>
       </table>
 
-      <button id="modal-menu-btn" class="btn-3d-glow" style="width: 100%; margin-top: 10px; padding: 12px; font-size: 1rem;">🏠 VOLVER AL MENÚ</button>
+      <button id="modal-menu-btn" class="btn-3d-glow" style="width: 100%; margin-top: 8px; padding: 10px; font-size: 0.95rem;">🏠 VOLVER AL MENÚ</button>
     </div>
   </div>
 </div>
@@ -1428,7 +1451,7 @@ if (typeof module !== 'undefined' && module.exports) {
 
 
 /* ==========================================================================
-   HOVERING DIFERENCIADO (COCO: GRAVE / PEPE: AGUDO) & SPLASH LÍQUIDO CRISTALINO
+   SINTETIZADOR DE GOTA DE AGUA CRISTALINA PURA (WATER DROP PING)
    ========================================================================== */
 NextGenAudio.activeHoverNode = null;
 
@@ -1494,54 +1517,63 @@ NextGenAudio.stopDifferentiatedHover = function() {
   }
 };
 
-NextGenAudio.playCrystalSplash = function() {
+// SONIDO DE GOTA DE AGUA CRISTALINA LÍQUIDA (CRYSTALLINE WATER DROP)
+NextGenAudio.playCrystallineWaterDrop = function() {
   if (!this.ctx) this.init();
   if (!this.ctx) return;
   const ctx = this.ctx;
   const now = ctx.currentTime;
 
-  const bufferSize = ctx.sampleRate * 0.35;
-  const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-  const output = noiseBuffer.getChannelData(0);
-  for (let i = 0; i < bufferSize; i++) {
-    output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.08));
-  }
-  const noiseSource = ctx.createBufferSource();
-  noiseSource.buffer = noiseBuffer;
+  // 1. GOTA PRINCIPAL (Curva de frecuencia ascendente característica de gota de agua cayendo en líquido)
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
 
-  const waterFilter = ctx.createBiquadFilter();
-  waterFilter.type = 'lowpass';
-  waterFilter.frequency.setValueAtTime(1400, now);
-  waterFilter.frequency.exponentialRampToValueAtTime(350, now + 0.35);
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(1150, now);
+  osc.frequency.exponentialRampToValueAtTime(2250, now + 0.09); // Ascenso a 2250 Hz
 
-  const noiseGain = ctx.createGain();
-  noiseGain.gain.setValueAtTime(0.55, now);
-  noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+  gain.gain.setValueAtTime(0.65, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
 
-  noiseSource.connect(waterFilter);
-  waterFilter.connect(noiseGain);
-  noiseGain.connect(this.masterGain);
-  noiseSource.start(now);
+  osc.connect(gain);
+  gain.connect(this.masterGain);
 
-  const freqs = [380, 520, 680, 840, 1100];
-  freqs.forEach((f, idx) => {
-    const dropOsc = ctx.createOscillator();
-    const dropGain = ctx.createGain();
-    const tOffset = now + 0.03 + idx * 0.045;
+  osc.start(now);
+  osc.stop(now + 0.19);
 
-    dropOsc.type = 'sine';
-    dropOsc.frequency.setValueAtTime(f, tOffset);
-    dropOsc.frequency.exponentialRampToValueAtTime(f * 1.6, tOffset + 0.08);
+  // 2. ARMÓNICO CRISTALINO PING
+  const crystalOsc = ctx.createOscillator();
+  const crystalGain = ctx.createGain();
 
-    dropGain.gain.setValueAtTime(0.22, tOffset);
-    dropGain.gain.exponentialRampToValueAtTime(0.001, tOffset + 0.08);
+  crystalOsc.type = 'sine';
+  crystalOsc.frequency.setValueAtTime(3400, now);
+  crystalOsc.frequency.exponentialRampToValueAtTime(4200, now + 0.06);
 
-    dropOsc.connect(dropGain);
-    dropGain.connect(this.masterGain);
+  crystalGain.gain.setValueAtTime(0.28, now);
+  crystalGain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
 
-    dropOsc.start(tOffset);
-    dropOsc.stop(tOffset + 0.09);
-  });
+  crystalOsc.connect(crystalGain);
+  crystalGain.connect(this.masterGain);
+
+  crystalOsc.start(now);
+  crystalOsc.stop(now + 0.13);
+
+  // 3. MICRO-GOTA SECUNDARIA (Echo droplet a los 80ms)
+  const drop2Osc = ctx.createOscillator();
+  const drop2Gain = ctx.createGain();
+
+  drop2Osc.type = 'sine';
+  drop2Osc.frequency.setValueAtTime(1600, now + 0.08);
+  drop2Osc.frequency.exponentialRampToValueAtTime(2800, now + 0.16);
+
+  drop2Gain.gain.setValueAtTime(0.25, now + 0.08);
+  drop2Gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+
+  drop2Osc.connect(drop2Gain);
+  drop2Gain.connect(this.masterGain);
+
+  drop2Osc.start(now + 0.08);
+  drop2Osc.stop(now + 0.23);
 };
 
 NextGenAudio.playSubBassHeartbeat = function(urgencyFactor) {
@@ -2577,9 +2609,7 @@ NextGenAudio.playSciFi50sRay = function() {
     }
   }
 
-  /* ==========================================================================
-     MOTOR DE CONFETI DE CELEBRACIÓN (CELEBRATION FX)
-     ========================================================================== */
+  /* MOTOR DE CONFETI DE CELEBRACIÓN */
   class CelebrationConfettiEngine {
     constructor(canvasId) {
       this.canvas = document.getElementById(canvasId);
@@ -2642,9 +2672,7 @@ NextGenAudio.playSciFi50sRay = function() {
 
   const confetti = new CelebrationConfettiEngine('confetti-canvas');
 
-  /* ==========================================================================
-     FONDO ESPACIAL AVANZADO: GALAXIAS EN ESPIRAL, NEBULOSAS Y GLOW RADIAL
-     ========================================================================== */
+  /* FONDO ESPACIAL AVANZADO */
   class DeepCosmicOdysseyBackground {
     constructor(canvasId) {
       this.canvas = document.getElementById(canvasId);
@@ -2852,9 +2880,7 @@ NextGenAudio.playSciFi50sRay = function() {
     }
   }
 
-  /* ==========================================================================
-     SISTEMA DE RAYOS SCI-FI CLÁSICOS AÑOS 50
-     ========================================================================== */
+  /* SISTEMA DE RAYOS SCI-FI Y ONDAS DE AGUA */
   class SciFi50sRayFXEngine {
     constructor(canvasId) {
       this.canvas = document.getElementById(canvasId);
@@ -2862,6 +2888,7 @@ NextGenAudio.playSciFi50sRay = function() {
       this.discs = [];
       this.beams = [];
       this.shockwaves = [];
+      this.waterRipples = [];
       this.resize();
       window.addEventListener('resize', () => this.resize());
       this.animate = this.animate.bind(this);
@@ -2890,8 +2917,40 @@ NextGenAudio.playSciFi50sRay = function() {
     spawnMegaShockwave(cx, cy, color = '#ff0033') {
       this.shockwaves.push({ cx, cy, radius: 20, maxRadius: 280, alpha: 1.0, color });
     }
+    spawnWaterRipples(x, y) {
+      for (let i = 0; i < 3; i++) {
+        this.waterRipples.push({
+          x, y,
+          radius: 6 + i * 14,
+          maxRadius: 75 + i * 25,
+          alpha: 0.9 - i * 0.2,
+          speed: 2.2 + i * 0.6
+        });
+      }
+    }
     animate() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+      // ONDAS DE AGUA CRISTALINAS
+      for (let i = this.waterRipples.length - 1; i >= 0; i--) {
+        const wr = this.waterRipples[i];
+        wr.radius += wr.speed;
+        wr.alpha -= 0.024;
+        if (wr.alpha <= 0 || wr.radius > wr.maxRadius) {
+          this.waterRipples.splice(i, 1);
+          continue;
+        }
+        this.ctx.save();
+        this.ctx.globalAlpha = wr.alpha;
+        this.ctx.strokeStyle = '#00f0ff';
+        this.ctx.lineWidth = 2.5;
+        this.ctx.shadowColor = '#00f0ff';
+        this.ctx.shadowBlur = 14;
+        this.ctx.beginPath();
+        this.ctx.ellipse(wr.x, wr.y, wr.radius * 1.3, wr.radius * 0.75, 0, 0, Math.PI * 2);
+        this.ctx.stroke();
+        this.ctx.restore();
+      }
 
       for (let i = this.beams.length - 1; i >= 0; i--) {
         const b = this.beams[i];
@@ -2959,9 +3018,7 @@ NextGenAudio.playSciFi50sRay = function() {
 
   const fxEngine = new SciFi50sRayFXEngine('fx-canvas');
 
-  /* ==========================================================================
-     MOTOR 3D DEL GLOBO
-     ========================================================================== */
+  /* MOTOR 3D DEL GLOBO */
   class ThreeGlobeEngine {
     constructor(containerId) {
       this.container = document.getElementById(containerId);
@@ -3146,6 +3203,7 @@ NextGenAudio.playSciFi50sRay = function() {
           return;
         }
 
+        // TOQUE EN AGUA -> GOTA CRISTALINA PURA + ONDAS DE AGUA VISUALES
         let matchedOcean = null;
         const boundedMatches = [];
         for (let i = 0; i < OCEANS.length; i++) {
@@ -3168,8 +3226,11 @@ NextGenAudio.playSciFi50sRay = function() {
         if (matchedOcean) {
           this.selectedFeature = null;
           this.waterPin = coords;
-          NextGenAudio.playCrystalSplash();
-          NextGenAudio.playVictoryChord(1);
+          
+          // Sonido cristalino de gota de agua y efecto visual de ondas
+          NextGenAudio.playCrystallineWaterDrop();
+          fxEngine.spawnWaterRipples(screenX, screenY);
+
           this.centerCoordinates(matchedOcean.centroid[0], matchedOcean.centroid[1], () => {
             terminal.showOcean(matchedOcean);
           });
@@ -3432,7 +3493,12 @@ NextGenAudio.playSciFi50sRay = function() {
     }
   }
 
-  /* SCOREBOARD TOP 10 */
+  /* ==========================================================================
+     SCOREBOARD TOP 10 CON EFECTO NEON GLOW Y AUTO-CIERRE EN 8 SEGUNDOS
+     ========================================================================== */
+  let scoreboardAutoDismissTimer = null;
+  let scoreboardSecondsLeft = 8;
+
   const Leaderboard = {
     key: 'MY_WORLD_APP_TOP10_MASTER',
     getDefaults() {
@@ -3471,19 +3537,39 @@ NextGenAudio.playSciFi50sRay = function() {
       const medals = ['🥇 1°', '🥈 2°', '🥉 3°', '4°', '5°', '6°', '7°', '8°', '9°', '10°'];
       this.getScores().forEach((s, i) => {
         const tr = document.createElement('tr');
+        if (i === 0) tr.className = 'score-row-top1';
+        else if (i === 1) tr.className = 'score-row-top2';
+        else if (i === 2) tr.className = 'score-row-top3';
+
         tr.innerHTML = `
-          <td style="padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.05);">${medals[i] || (i + 1 + '°')}</td>
-          <td style="padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--neon-cyan); font-weight: 800;">${s.name}</td>
-          <td style="padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.05);"><b>${s.score}</b></td>
+          <td style="padding: 5px 4px; border-bottom: 1px solid rgba(255,255,255,0.06);">${medals[i] || (i + 1 + '°')}</td>
+          <td style="padding: 5px 4px; border-bottom: 1px solid rgba(255,255,255,0.06); font-family: var(--font-title); font-weight: 800;">${s.name}</td>
+          <td style="padding: 5px 4px; border-bottom: 1px solid rgba(255,255,255,0.06);"><b>${s.score}</b></td>
         `;
         tbody.appendChild(tr);
       });
+    },
+    startAutoDismiss() {
+      clearInterval(scoreboardAutoDismissTimer);
+      scoreboardSecondsLeft = 8;
+      const countEl = document.getElementById('scoreboard-countdown');
+      if (countEl) countEl.textContent = `⏱️ ${scoreboardSecondsLeft}s`;
+
+      scoreboardAutoDismissTimer = setInterval(() => {
+        scoreboardSecondsLeft--;
+        if (countEl) countEl.textContent = `⏱️ ${scoreboardSecondsLeft}s`;
+        if (scoreboardSecondsLeft <= 0) {
+          clearInterval(scoreboardAutoDismissTimer);
+          returnHome();
+        }
+      }, 1000);
+    },
+    stopAutoDismiss() {
+      clearInterval(scoreboardAutoDismissTimer);
     }
   };
 
-  /* ==========================================================================
-     GESTOR DE OVNIS CON MULTIPLICADORES: COCO (x2 BONUS) & PEPE (x4 BONUS)
-     ========================================================================== */
+  /* GESTOR DE OVNIS CON MULTIPLICADORES */
   class GuaranteedFrontalUFOManager {
     constructor(motherId, scoutId) {
       this.motherEl = document.getElementById(motherId); // COCO
@@ -3657,7 +3743,7 @@ NextGenAudio.playSciFi50sRay = function() {
       confetti.spawn(this.x + 35, this.y + 25);
       GamificationSystem.recordUFODown();
 
-      // BONUS: x2 para el grande (Coco) y x4 para el pequeño (Pepe)
+      // BONUS: x2 para Coco y x4 para Pepe
       const basePoints = isScout ? DIFF_CONFIG[currentDifficulty].ufoScoreScout : DIFF_CONFIG[currentDifficulty].ufoScoreMother;
       const multiplier = isScout ? 4 : 2;
       const earned = basePoints * multiplier;
@@ -3682,34 +3768,6 @@ NextGenAudio.playSciFi50sRay = function() {
         if (this.animId) cancelAnimationFrame(this.animId);
       }
     }
-  }
-
-  /* FRASES ARCADE JAPONESAS */
-  const JAPANESE_PRAISES_ES = [
-    { title: "SUGOI! 🌟", sub: "¡NIVEL DIOS DE LA GEOGRAFÍA!" },
-    { title: "KAMI-SAMA! 👑", sub: "¡TU CEREBRO TIENE 500 IQ!" },
-    { title: "BAKUDAN! 💣💥", sub: "¡EXPLOSIÓN DE ACIERTOS CÓSMICA!" },
-    { title: "SAIKOU! 🚀", sub: "¡GEOGRAFÍA A VELOCIDAD LUZ!" },
-    { title: "SENPAI PERFECTO! 🌸", sub: "¡NI LA NASA LO SABÍA MEJOR!" },
-    { title: "GIGACHAD DEL ATLAS! 🗿", sub: "¡MAPA DOMINADO AL 100%!" },
-    { title: "YATTA! 🎌", sub: "¡PRECISIÓN QUIRÚRGICA TOTAL!" },
-    { title: "SUBARASHII! 🌈", sub: "¡ORBITANDO COMO UN MAESTRO!" }
-  ];
-
-  const JAPANESE_PRAISES_EN = [
-    { title: "SUGOI! 🌟", sub: "GOD-TIER GEOGRAPHY BRAIN!" },
-    { title: "KAMI-SAMA! 👑", sub: "500 IQ GALAXY BRAIN MOMENT!" },
-    { title: "BAKUDAN! 💣💥", sub: "COSMIC COMBO EXPLOSION!" },
-    { title: "SAIKOU! 🚀", sub: "HYPERSPEED GEOGRAPHY MASTER!" },
-    { title: "PERFECT SENPAI! 🌸", sub: "EVEN NASA IS JEALOUS!" },
-    { title: "ATLAS GIGACHAD! 🗿", sub: "100% ORBIT MASTERY ACHIEVED!" },
-    { title: "YATTA! 🎌", sub: "SURGICAL PINPOINT ACCURACY!" },
-    { title: "SUBARASHII! 🌈", sub: "PLANETARY BRAIN OVERCLOCK!" }
-  ];
-
-  function getRandomPraise() {
-    const list = currentLang === 'es' ? JAPANESE_PRAISES_ES : JAPANESE_PRAISES_EN;
-    return list[Math.floor(Math.random() * list.length)];
   }
 
   /* ==========================================================================
@@ -3747,6 +3805,8 @@ NextGenAudio.playSciFi50sRay = function() {
   function returnHome() {
     clearInterval(timerInterval);
     if (triviaTimer) clearInterval(triviaTimer);
+    Leaderboard.stopAutoDismiss();
+
     gameHud.style.display = 'none';
     timeBarWrap.style.display = 'none';
     countryTargetPill.style.display = 'none';
@@ -3880,7 +3940,6 @@ NextGenAudio.playSciFi50sRay = function() {
     const meta = feature.meta;
     const d = meta[currentLang] || meta.es;
 
-    // RENDER DE BANDERA GRÁFICA HD REAL (NO CÓDIGO DE LETRAS BI/AR)
     document.getElementById('country-flag-box').innerHTML = getFlagImgHTML(meta.flag, "width: 62px; height: 42px;");
     document.getElementById('country-name').textContent = d.name.toUpperCase();
     document.getElementById('country-continent').textContent = d.continent.toUpperCase();
@@ -3935,6 +3994,7 @@ NextGenAudio.playSciFi50sRay = function() {
     }, 100);
   }
 
+  /* COMPROBACIÓN CON CONFIRMACIÓN EXACTA DE CIUDAD Y PAÍS */
   function checkAnswer(isCorrect, btnEl, correctCap, continentName, countryName) {
     clearInterval(timerInterval);
     roundCount++;
@@ -3957,17 +4017,16 @@ NextGenAudio.playSciFi50sRay = function() {
         confetti.spawn(window.innerWidth * 0.25, window.innerHeight * 0.45);
         confetti.spawn(window.innerWidth * 0.75, window.innerHeight * 0.45);
         showCelebrationBanner(
-          '🔥 SUPER SAIYAN STREAK! 🔥',
-          currentLang === 'es' ? `¡${streak} ACIERTOS SEGUIDOS! (x2 PUNTOS)` : `${streak} IN A ROW! (2X POINTS)`,
+          `🔥 ¡SUPER RACHA DE ${streak}!`,
+          `📍 ${correctCap.toUpperCase()} (${countryName.toUpperCase()}) - x2 PUNTOS`,
           `+${addedPoints} PTS`
         );
       } else {
         NextGenAudio.playVictoryChord(streak);
         confetti.spawn();
-        const praise = getRandomPraise();
         showCelebrationBanner(
-          praise.title,
-          streak >= 2 ? `${praise.sub} (RACHA x${streak})` : praise.sub,
+          `🎉 ¡CORRECTO!`,
+          `📍 ${correctCap.toUpperCase()} (${countryName.toUpperCase()})`,
           `+${addedPoints} PTS`
         );
       }
@@ -3985,7 +4044,11 @@ NextGenAudio.playSciFi50sRay = function() {
       optionsGrid.querySelectorAll('.option-card-btn').forEach(b => {
         if (b.textContent === correctCap) b.classList.add('correct');
       });
-      showCelebrationBanner('❌ DAME DESU! ❌', currentLang === 'es' ? '¡INCORRECTO! PIERDES 1 VIDA' : 'INCORRECT! LOST 1 LIFE', `-1 VIDA`);
+      showCelebrationBanner(
+        `❌ ¡INCORRECTO!`,
+        `📍 LA CAPITAL ERA: ${correctCap.toUpperCase()} (${countryName.toUpperCase()})`,
+        `-1 VIDA`
+      );
     }
     updateHUD();
 
@@ -4014,7 +4077,7 @@ NextGenAudio.playSciFi50sRay = function() {
     lives--;
     streak = 0;
     updateHUD();
-    showCelebrationBanner('⏰ TIME OVER! ⏰', currentLang === 'es' ? '¡TIEMPO AGOTADO!' : 'TIME RAN OUT!', `-${penalty} PTS`);
+    showCelebrationBanner('⏰ TIME OVER!', currentLang === 'es' ? '¡TIEMPO AGOTADO!' : 'TIME RAN OUT!', `-${penalty} PTS`);
 
     setTimeout(() => {
       if (lives <= 0) {
@@ -4034,7 +4097,7 @@ NextGenAudio.playSciFi50sRay = function() {
     document.getElementById('celeb-sub').textContent = sub;
     document.getElementById('celeb-points').textContent = points;
     celebBanner.classList.add('show');
-    setTimeout(() => celebBanner.classList.remove('show'), 1250);
+    setTimeout(() => celebBanner.classList.remove('show'), 1350);
   }
 
   function triggerTriviaModal() {
@@ -4079,7 +4142,7 @@ NextGenAudio.playSciFi50sRay = function() {
   function triggerGameOver() {
     ufoManager.dismiss();
     clearInterval(timerInterval);
-    document.getElementById('final-score-text').textContent = (currentLang === 'es' ? 'PUNTUACIÓN: ' : 'SCORE: ') + score + ' PTS';
+    document.getElementById('final-score-text').textContent = (currentLang === 'es' ? 'PUNTUACIÓN FINAL: ' : 'FINAL SCORE: ') + score + ' PTS';
     const form = document.getElementById('initials-form');
     const scores = Leaderboard.getScores();
     const qualifies = score > 0 && (scores.length < 10 || score > scores[scores.length - 1].score);
@@ -4087,15 +4150,24 @@ NextGenAudio.playSciFi50sRay = function() {
 
     Leaderboard.render();
     scoreModal.classList.remove('hidden');
+
+    // Auto-cierre del scoreboard si no hay interacción
+    Leaderboard.startAutoDismiss();
   }
 
+  document.getElementById('player-initials').addEventListener('focus', () => {
+    Leaderboard.stopAutoDismiss();
+  });
+
   document.getElementById('save-score-btn').addEventListener('click', () => {
+    Leaderboard.stopAutoDismiss();
     const val = document.getElementById('player-initials').value.trim();
     Leaderboard.save(val, score);
     Leaderboard.render();
     document.getElementById('initials-form').style.display = 'none';
     NextGenAudio.playVictoryChord(3);
     confetti.spawn();
+    Leaderboard.startAutoDismiss();
   });
 
   document.getElementById('modal-menu-btn').addEventListener('click', () => {
