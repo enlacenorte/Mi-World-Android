@@ -203,7 +203,6 @@
       border-radius: 20px;
     }
 
-    /* ESCENARIO DEL ALIEN GRACIOSO EN NAVE CÓMICA */
     .comic-alien-hero-box {
       position: relative;
       width: 100%;
@@ -474,35 +473,23 @@
   <!-- 1. Mothership Z-400 (Platillo con Alien gracioso que saluda) -->
   <div id="mothership-ufo" class="vector-ufo-wrap" style="width: 120px; height: 75px;">
     <svg viewBox="0 0 120 75" width="120" height="75" style="filter: drop-shadow(0 0 20px #00f0ff) drop-shadow(0 0 35px #8a2be2);">
-      <!-- Cúpula de Cristal -->
       <ellipse cx="60" cy="30" rx="26" ry="24" fill="rgba(0, 240, 255, 0.45)" stroke="#00f0ff" stroke-width="2"/>
-      
-      <!-- Alienígena Verde Gracioso dentro -->
       <circle cx="60" cy="28" r="14" fill="#39ff14"/>
-      <!-- Ojos grandes saltones -->
       <ellipse cx="54" cy="24" rx="4.5" ry="6.5" fill="#fff"/>
       <ellipse cx="66" cy="24" rx="4.5" ry="6.5" fill="#fff"/>
       <circle cx="55" cy="24" r="2.5" fill="#000"/>
       <circle cx="67" cy="24" r="2.5" fill="#000"/>
-      <!-- Sonrisa cómica -->
       <path d="M 55 33 Q 60 38 65 33" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>
-      <!-- Antenas con bolitas -->
       <line x1="53" y1="15" x2="48" y2="7" stroke="#39ff14" stroke-width="3" stroke-linecap="round"/>
       <circle cx="47" cy="6" r="3.5" fill="#ffe600"/>
       <line x1="67" y1="15" x2="72" y2="7" stroke="#39ff14" stroke-width="3" stroke-linecap="round"/>
       <circle cx="73" cy="6" r="3.5" fill="#ffe600"/>
-
-      <!-- Cuerpo del Platillo -->
       <ellipse cx="60" cy="46" rx="56" ry="14" fill="url(#ufoPlatGrad)" stroke="#00f0ff" stroke-width="2.5"/>
-      
-      <!-- Luces LED inferiores multicolores -->
       <circle cx="20" cy="46" r="4" fill="#ff007f"/>
       <circle cx="36" cy="52" r="4" fill="#ffe600"/>
       <circle cx="60" cy="54" r="5" fill="#39ff14"/>
       <circle cx="84" cy="52" r="4" fill="#ffe600"/>
       <circle cx="100" cy="46" r="4" fill="#ff007f"/>
-
-      <!-- Propulsor gravitatorio -->
       <ellipse cx="60" cy="56" rx="26" ry="6" fill="rgba(0, 240, 255, 0.8)"/>
       <defs>
         <linearGradient id="ufoPlatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -518,13 +505,10 @@
   <!-- 2. Scout Cíclope Ultrarrápido (Nano Glider con un gran ojo curioso) -->
   <div id="scout-ufo" class="vector-ufo-wrap" style="width: 70px; height: 48px;">
     <svg viewBox="0 0 70 48" width="70" height="48" style="filter: drop-shadow(0 0 20px #ff007f) drop-shadow(0 0 30px #ffe600);">
-      <!-- Cúpula -->
       <path d="M 22 22 A 13 13 0 0 1 48 22 Z" fill="rgba(255, 0, 127, 0.85)" stroke="#ff007f" stroke-width="2"/>
-      <!-- Ojo Cíclope -->
       <circle cx="35" cy="18" r="7" fill="#fff" stroke="#000" stroke-width="1.5"/>
       <circle cx="35" cy="18" r="3.5" fill="#ffe600"/>
       <circle cx="36" cy="17" r="1.2" fill="#fff"/>
-      <!-- Disco -->
       <ellipse cx="35" cy="30" rx="32" ry="9" fill="url(#scoutPlatGrad)" stroke="#ff007f" stroke-width="2"/>
       <circle cx="12" cy="30" r="3" fill="#00f0ff"/>
       <circle cx="35" cy="34" r="3.5" fill="#ffe600"/>
@@ -551,7 +535,6 @@
       <div class="hero-subtitle">✨ 2026 COSMIC ODYSSEY</div>
 
       <div class="comic-alien-hero-box">
-        <!-- Mascota Alienígena Cómica -->
         <svg class="funny-alien-svg" viewBox="0 0 120 120">
           <ellipse cx="60" cy="85" rx="55" ry="16" fill="url(#heroUfo)" stroke="#00f0ff" stroke-width="2.5"/>
           <ellipse cx="60" cy="65" rx="28" ry="24" fill="rgba(0, 240, 255, 0.45)" stroke="#00f0ff" stroke-width="2"/>
@@ -1301,6 +1284,62 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = { NextGenAudioEngine, NextGenAudio };
 }
 
+
+/* Extensión del sintetizador de audio para descarga eléctrica metálica */
+NextGenAudio.playMetallicZap = function() {
+  if (!this.ctx) this.init();
+  if (!this.ctx) return;
+  const ctx = this.ctx;
+  const now = ctx.currentTime;
+
+  // 1. Oscilador modulador FM metálico
+  const modOsc = ctx.createOscillator();
+  const modGain = ctx.createGain();
+  modOsc.type = 'sawtooth';
+  modOsc.frequency.setValueAtTime(320, now);
+  modOsc.frequency.exponentialRampToValueAtTime(1400, now + 0.18);
+  modGain.gain.setValueAtTime(800, now);
+
+  // 2. Oscilador portador metálico
+  const carrier = ctx.createOscillator();
+  carrier.type = 'square';
+  carrier.frequency.setValueAtTime(450, now);
+  carrier.frequency.exponentialRampToValueAtTime(120, now + 0.22);
+  modGain.connect(carrier.frequency);
+
+  // 3. Generador de ruido de arco voltaico
+  const bufferSize = ctx.sampleRate * 0.22;
+  const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const output = noiseBuffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.06));
+  }
+  const noiseSource = ctx.createBufferSource();
+  noiseSource.buffer = noiseBuffer;
+
+  // 4. Filtro pasa banda resonante metálico
+  const bpf = ctx.createBiquadFilter();
+  bpf.type = 'bandpass';
+  bpf.frequency.setValueAtTime(1800, now);
+  bpf.Q.setValueAtTime(8.0, now);
+
+  const mainGain = ctx.createGain();
+  mainGain.gain.setValueAtTime(0.45, now);
+  mainGain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+
+  carrier.connect(bpf);
+  noiseSource.connect(bpf);
+  bpf.connect(mainGain);
+  mainGain.connect(this.masterGain);
+
+  modOsc.start(now);
+  carrier.start(now);
+  noiseSource.start(now);
+
+  modOsc.stop(now + 0.25);
+  carrier.stop(now + 0.25);
+  noiseSource.stop(now + 0.25);
+};
 </script>
 
 <script>
@@ -2296,14 +2335,14 @@ if (typeof module !== 'undefined' && module.exports) {
   const confetti = new CelebrationConfettiEngine('confetti-canvas');
 
   /* ==========================================================================
-     FONDO ESPACIAL AVANZADO: GALAXIAS EN ESPIRAL, NEBULOSAS Y COMETAS
+     FONDO ESPACIAL AVANZADO: GALAXIAS EN ESPIRAL, NEBULOSAS Y GLOW RADIAL
      ========================================================================== */
   class DeepCosmicOdysseyBackground {
     constructor(canvasId) {
       this.canvas = document.getElementById(canvasId);
       this.ctx = this.canvas.getContext('2d');
       this.stars = [];
-      this.flaringStars = [];
+      this.pulsars = [];
       this.comets = [];
       this.nebulae = [];
       this.spiralGalaxies = [];
@@ -2317,7 +2356,7 @@ if (typeof module !== 'undefined' && module.exports) {
 
       setInterval(() => {
         if (Math.random() < 0.7) this.spawnComet();
-      }, 3000);
+      }, 2800);
 
       this.render = this.render.bind(this);
       requestAnimationFrame(this.render);
@@ -2333,7 +2372,6 @@ if (typeof module !== 'undefined' && module.exports) {
       const w = this.canvas.width;
       const h = this.canvas.height;
       
-      // Nebulosas de Gas Cósmico
       this.nebulae = [
         { x: w * 0.15, y: h * 0.25, rx: w * 0.50, ry: h * 0.45, color: 'rgba(0, 240, 255, 0.22)', pulse: 0.0014, phase: 0 },
         { x: w * 0.82, y: h * 0.35, rx: w * 0.55, ry: h * 0.50, color: 'rgba(255, 0, 127, 0.20)', pulse: 0.0016, phase: 1.8 },
@@ -2341,10 +2379,9 @@ if (typeof module !== 'undefined' && module.exports) {
         { x: w * 0.30, y: h * 0.80, rx: w * 0.45, ry: h * 0.40, color: 'rgba(168, 85, 247, 0.16)', pulse: 0.0015, phase: 4.5 }
       ];
 
-      // 2 Galaxias en Espiral Cósmicas
       this.spiralGalaxies = [
-        { x: w * 0.20, y: h * 0.70, radius: 120, arms: 3, rot: 0, rotSpeed: 0.0012, color: '#00f0ff' },
-        { x: w * 0.85, y: h * 0.20, radius: 95, arms: 2, rot: 1.5, rotSpeed: -0.0010, color: '#ff007f' }
+        { x: w * 0.18, y: h * 0.72, radius: 130, arms: 3, rot: 0, rotSpeed: 0.0012, color: '#00f0ff' },
+        { x: w * 0.85, y: h * 0.22, radius: 100, arms: 2, rot: 1.5, rotSpeed: -0.0010, color: '#ff007f' }
       ];
     }
 
@@ -2352,11 +2389,11 @@ if (typeof module !== 'undefined' && module.exports) {
       const w = this.canvas.width;
       const h = this.canvas.height;
       this.stars = [];
-      this.flaringStars = [];
+      this.pulsars = [];
 
       const xmasPalette = ['#00f0ff', '#ff007f', '#39ff14', '#ffe600', '#ff3366', '#c77dff', '#ffffff'];
 
-      for (let i = 0; i < 280; i++) {
+      for (let i = 0; i < 260; i++) {
         this.stars.push({
           x: Math.random() * w,
           y: Math.random() * h,
@@ -2369,15 +2406,14 @@ if (typeof module !== 'undefined' && module.exports) {
         });
       }
 
-      for (let j = 0; j < 12; j++) {
-        this.flaringStars.push({
+      // Cuerpos estelares pulsantes con halo radial orgánico
+      for (let j = 0; j < 14; j++) {
+        this.pulsars.push({
           x: Math.random() * (w * 0.9) + w * 0.05,
           y: Math.random() * (h * 0.9) + h * 0.05,
-          size: Math.random() * 15 + 18,
+          maxRadius: Math.random() * 16 + 14,
           pulseSpeed: Math.random() * 0.035 + 0.015,
           phase: Math.random() * Math.PI * 2,
-          rot: Math.random() * Math.PI,
-          rotSpeed: (Math.random() - 0.5) * 0.004,
           colorIdx: j % xmasPalette.length,
           palette: xmasPalette
         });
@@ -2424,7 +2460,6 @@ if (typeof module !== 'undefined' && module.exports) {
         this.ctx.translate(g.x, g.y);
         this.ctx.rotate(g.rot);
 
-        // Núcleo
         const coreGrad = this.ctx.createRadialGradient(0, 0, 2, 0, 0, 25);
         coreGrad.addColorStop(0, '#ffffff');
         coreGrad.addColorStop(0.4, g.color);
@@ -2434,7 +2469,6 @@ if (typeof module !== 'undefined' && module.exports) {
         this.ctx.arc(0, 0, 25, 0, Math.PI * 2);
         this.ctx.fill();
 
-        // Brazos
         for (let a = 0; a < g.arms; a++) {
           const baseAng = (a * 2 * Math.PI) / g.arms;
           for (let st = 5; st < g.radius; st += 6) {
@@ -2470,35 +2504,23 @@ if (typeof module !== 'undefined' && module.exports) {
         this.ctx.restore();
       });
 
-      // 4. ESTRELLAS DESTELLANTES EN CRUZ
-      this.flaringStars.forEach(fs => {
+      // 4. PULSARES CON HALO RADIAL LUMINOSO (SIN CRUCES)
+      this.pulsars.forEach(ps => {
         this.ctx.save();
-        fs.rot += fs.rotSpeed;
-        const rawWave = Math.sin(this.time * fs.pulseSpeed + fs.phase);
-        const tw = Math.pow(Math.max(0, rawWave), 1.5);
-        const sz = fs.size * (0.6 + tw * 0.8);
-        const cShift = Math.floor((this.time * 0.008 + fs.colorIdx)) % fs.palette.length;
-        const color = fs.palette[cShift];
+        const rawWave = Math.sin(this.time * ps.pulseSpeed + ps.phase);
+        const tw = Math.pow(Math.max(0, rawWave), 1.4);
+        const cShift = Math.floor((this.time * 0.008 + ps.colorIdx)) % ps.palette.length;
+        const color = ps.palette[cShift];
 
-        this.ctx.translate(fs.x, fs.y);
-        this.ctx.rotate(fs.rot);
-        this.ctx.globalAlpha = Math.max(0.15, tw);
+        const haloGrad = this.ctx.createRadialGradient(ps.x, ps.y, 1, ps.x, ps.y, ps.maxRadius * (0.6 + tw * 0.6));
+        haloGrad.addColorStop(0, '#ffffff');
+        haloGrad.addColorStop(0.35, color);
+        haloGrad.addColorStop(1, 'transparent');
 
-        this.ctx.strokeStyle = color;
-        this.ctx.shadowColor = color;
-        this.ctx.shadowBlur = 24;
-        this.ctx.lineWidth = 2.0;
-
+        this.ctx.globalAlpha = Math.max(0.12, tw);
+        this.ctx.fillStyle = haloGrad;
         this.ctx.beginPath();
-        this.ctx.moveTo(0, -sz * 1.6);
-        this.ctx.lineTo(0, sz * 1.6);
-        this.ctx.moveTo(-sz * 1.6, 0);
-        this.ctx.lineTo(sz * 1.6, 0);
-        this.ctx.stroke();
-
-        this.ctx.fillStyle = '#ffffff';
-        this.ctx.beginPath();
-        this.ctx.arc(0, 0, 2.6, 0, Math.PI * 2);
+        this.ctx.arc(ps.x, ps.y, ps.maxRadius * (0.6 + tw * 0.6), 0, Math.PI * 2);
         this.ctx.fill();
         this.ctx.restore();
       });
@@ -2529,7 +2551,7 @@ if (typeof module !== 'undefined' && module.exports) {
   }
 
   /* ==========================================================================
-     SISTEMA DE PARTÍCULAS Y RELÁMPAGOS FRONTAL (FX ENGINE)
+     SISTEMA DE PARTÍCULAS Y RELÁMPAGOS METÁLICOS (FX ENGINE)
      ========================================================================== */
   class ParticleFXEngine {
     constructor(canvasId) {
@@ -2547,15 +2569,15 @@ if (typeof module !== 'undefined' && module.exports) {
       this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
     }
-    spawnPlasmaBolt(x1, y1, x2, y2, color, thickness = 4.5) {
+    spawnPlasmaBolt(x1, y1, x2, y2, color, thickness = 5.0) {
       const segments = [];
-      const steps = 14;
+      const steps = 16;
       let prevX = x1, prevY = y1;
       for (let i = 1; i <= steps; i++) {
         const t = i / steps;
         const bx = x1 + (x2 - x1) * t;
         const by = y1 + (y2 - y1) * t;
-        const disp = Math.sin(t * Math.PI) * 26;
+        const disp = Math.sin(t * Math.PI) * 32;
         const cx = (i === steps) ? x2 : bx + (Math.random() - 0.5) * disp;
         const cy = (i === steps) ? y2 : by + (Math.random() - 0.5) * disp;
         segments.push({ x1: prevX, y1: prevY, x2: cx, y2: cy });
@@ -2564,9 +2586,9 @@ if (typeof module !== 'undefined' && module.exports) {
       }
       this.bolts.push({ segments, alpha: 1.0, color: color || '#39ff14', thickness });
       
-      for (let k = 0; k < 14; k++) {
+      for (let k = 0; k < 18; k++) {
         const ang = Math.random() * Math.PI * 2;
-        const spd = Math.random() * 5 + 2.5;
+        const spd = Math.random() * 6 + 3.0;
         this.sparks.push({
           x: x2, y: y2,
           vx: Math.cos(ang) * spd,
@@ -2584,21 +2606,21 @@ if (typeof module !== 'undefined' && module.exports) {
 
       for (let i = this.bolts.length - 1; i >= 0; i--) {
         const b = this.bolts[i];
-        b.alpha -= 0.065;
+        b.alpha -= 0.07;
         if (b.alpha <= 0) { this.bolts.splice(i, 1); continue; }
 
         this.ctx.save();
         this.ctx.globalAlpha = b.alpha;
         this.ctx.strokeStyle = b.color;
-        this.ctx.lineWidth = (b.thickness || 4.5) * 1.6;
+        this.ctx.lineWidth = (b.thickness || 5.0) * 1.8;
         this.ctx.shadowColor = b.color;
-        this.ctx.shadowBlur = 25;
+        this.ctx.shadowBlur = 30;
         this.ctx.beginPath();
         b.segments.forEach(s => { this.ctx.moveTo(s.x1, s.y1); this.ctx.lineTo(s.x2, s.y2); });
         this.ctx.stroke();
 
         this.ctx.strokeStyle = '#ffffff';
-        this.ctx.lineWidth = (b.thickness || 4.5) * 0.45;
+        this.ctx.lineWidth = (b.thickness || 5.0) * 0.5;
         this.ctx.beginPath();
         b.segments.forEach(s => { this.ctx.moveTo(s.x1, s.y1); this.ctx.lineTo(s.x2, s.y2); });
         this.ctx.stroke();
@@ -2615,9 +2637,9 @@ if (typeof module !== 'undefined' && module.exports) {
         this.ctx.globalAlpha = s.alpha;
         this.ctx.fillStyle = s.color;
         this.ctx.shadowColor = s.color;
-        this.ctx.shadowBlur = 10;
+        this.ctx.shadowBlur = 12;
         this.ctx.beginPath();
-        this.ctx.arc(s.x, s.y, 3.2, 0, Math.PI * 2);
+        this.ctx.arc(s.x, s.y, 3.4, 0, Math.PI * 2);
         this.ctx.fill();
         this.ctx.restore();
       }
@@ -2656,6 +2678,8 @@ if (typeof module !== 'undefined' && module.exports) {
       this.renderer = null;
       this.earthMesh = null;
       this.atmosphereMesh = null;
+      
+      // Ángulos en grados (lon, lat)
       this.rotation = [-64, 15, 0];
       this.isSpinning = false;
       this.isTraining = false;
@@ -2784,8 +2808,10 @@ if (typeof module !== 'undefined' && module.exports) {
         const y = e.clientY || (e.touches && e.touches[0].clientY);
         const dx = x - startX;
         const dy = y - startY;
-        this.rotation[0] = lastRot[0] + dx * 0.35;
-        this.rotation[1] = Math.max(-80, Math.min(80, lastRot[1] - dy * 0.35));
+
+        // INVERSIÓN FÍSICA NATURAL DEL ARRASTRE
+        this.rotation[0] = lastRot[0] - dx * 0.35;
+        this.rotation[1] = Math.max(-80, Math.min(80, lastRot[1] + dy * 0.35));
       };
 
       const onUp = (e) => {
@@ -2855,7 +2881,9 @@ if (typeof module !== 'undefined' && module.exports) {
           this.waterPin = coords;
           NextGenAudio.playCrystalSplash();
           NextGenAudio.playVictoryChord(1);
-          terminal.showOcean(matchedOcean);
+          this.centerCoordinates(matchedOcean.centroid[0], matchedOcean.centroid[1], () => {
+            terminal.showOcean(matchedOcean);
+          });
         }
       }
     }
@@ -2864,9 +2892,14 @@ if (typeof module !== 'undefined' && module.exports) {
       this.selectedFeature = feature;
       this.waterPin = null;
       NextGenAudio.playBubblePop(1.4);
+      this.centerCoordinates(feature.centroid[0], feature.centroid[1], () => {
+        if (this.isTraining) terminal.showCountry(feature);
+      });
+    }
 
-      const targetLon = -feature.centroid[0];
-      const targetLat = -feature.centroid[1];
+    centerCoordinates(targetLonDeg, targetLatDeg, onDone) {
+      const targetLon = -targetLonDeg;
+      const targetLat = targetLatDeg;
       const startLon = this.rotation[0];
       const startLat = this.rotation[1];
 
@@ -2874,18 +2907,18 @@ if (typeof module !== 'undefined' && module.exports) {
       if (diffLon > 180) diffLon -= 360;
       if (diffLon < -180) diffLon += 360;
 
-      let frames = 25;
+      let frames = 28;
       let cur = 0;
       const step = () => {
         cur++;
-        const ease = cur / frames;
+        const ease = 1 - Math.pow(1 - (cur / frames), 3);
         this.rotation[0] = startLon + diffLon * ease;
         this.rotation[1] = startLat + (targetLat - startLat) * ease;
         if (cur < frames) requestAnimationFrame(step);
         else {
           this.rotation[0] = targetLon;
           this.rotation[1] = targetLat;
-          if (this.isTraining) terminal.showCountry(feature);
+          if (onDone) onDone();
         }
       };
       requestAnimationFrame(step);
@@ -2896,14 +2929,19 @@ if (typeof module !== 'undefined' && module.exports) {
       this.selectedFeature = null;
 
       let targetLon = -feature.centroid[0];
-      let targetLat = -feature.centroid[1];
+      let targetLat = feature.centroid[1];
 
-      const extraSpins = (2 + Math.floor(Math.random() * 2)) * 360;
-      let startLon = this.rotation[0];
-      let startLat = this.rotation[1];
-      let finalLon = startLon + extraSpins + ((targetLon - startLon) % 360);
+      // GIRO DINÁMICO ALEATORIO EN EJES X E Y
+      const spinDirection = Math.random() > 0.5 ? 1 : -1;
+      const fullSpins = (2 + Math.floor(Math.random() * 2)) * 360 * spinDirection;
+      const startLon = this.rotation[0];
+      const startLat = this.rotation[1];
+      const finalLon = startLon + fullSpins + ((targetLon - (startLon % 360) + 540) % 360 - 180);
+      
+      // Wobble aleatorio en latitud durante el spin
+      const latTiltPeak = (Math.random() - 0.5) * 50;
 
-      let totalFrames = 85;
+      let totalFrames = 90;
       let curFrame = 0;
 
       NextGenAudio.playBubblePop(0.8);
@@ -2911,12 +2949,15 @@ if (typeof module !== 'undefined' && module.exports) {
       const anim = () => {
         curFrame++;
         const t = curFrame / totalFrames;
-        const ease = 1 - Math.pow(1 - t, 3);
+        const ease = 1 - Math.pow(1 - t, 4);
 
         this.rotation[0] = startLon + (finalLon - startLon) * ease;
-        this.rotation[1] = startLat + (targetLat - startLat) * ease;
+        
+        // Curva suave en latitud que llega exactamente a targetLat
+        const latWobble = Math.sin(t * Math.PI) * latTiltPeak * (1 - t);
+        this.rotation[1] = startLat + (targetLat - startLat) * ease + latWobble;
 
-        if (curFrame % 8 === 0 && curFrame < totalFrames * 0.85) {
+        if (curFrame % 7 === 0 && curFrame < totalFrames * 0.85) {
           NextGenAudio.playBubblePop(1.0 + (curFrame / totalFrames) * 0.5, 0.4);
         }
 
@@ -3156,7 +3197,7 @@ if (typeof module !== 'undefined' && module.exports) {
   };
 
   /* ==========================================================================
-     GESTOR DE OVNIS MODERNOS Y GRACIOSOS
+     GESTOR DE OVNIS MODERNOS Y GRACIOSOS CON DESCARGA METÁLICA
      ========================================================================== */
   class GuaranteedFrontalUFOManager {
     constructor(motherId, scoutId) {
@@ -3269,7 +3310,8 @@ if (typeof module !== 'undefined' && module.exports) {
         const chosenColor = fluoColors[Math.floor(Math.random() * fluoColors.length)];
 
         fxEngine.spawnPlasmaBolt(this.x + 35, this.y + 25, targetX, targetY, chosenColor, 4.5);
-        NextGenAudio.playLaserZap(isScout ? 1 : 0);
+        if (NextGenAudio.playMetallicZap) NextGenAudio.playMetallicZap();
+        else NextGenAudio.playLaserZap(isScout ? 1 : 0);
       }
 
       this.animId = requestAnimationFrame(() => this.update());
