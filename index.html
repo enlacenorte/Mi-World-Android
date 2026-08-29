@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>🌍 MY WORLD - Hyper-Fluo Alien Invasion</title>
+  <title>🌍 MY WORLD - Deep Space Cosmic Nebula Edition</title>
 
   <!-- FUENTES CYBER MODERNAS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,8 +22,8 @@
       --neon-green: #39ff14;
       --neon-red: #ff0033;
       --bg-space: #030712;
-      --glass-bg: rgba(13, 22, 45, 0.84);
-      --glass-border: rgba(0, 240, 255, 0.32);
+      --glass-bg: rgba(10, 18, 40, 0.78);
+      --glass-border: rgba(0, 240, 255, 0.35);
       --glass-glow: 0 8px 32px 0 rgba(0, 240, 255, 0.22);
       --font-main: 'Plus Jakarta Sans', sans-serif;
       --font-title: 'Space Grotesk', sans-serif;
@@ -56,11 +56,11 @@
       height: 100vh;
       display: flex;
       flex-direction: column;
-      background: radial-gradient(circle at 50% 35%, #0e1c42 0%, #050b1a 65%, #02050e 100%);
+      background: radial-gradient(circle at 50% 40%, #0c1636 0%, #04091c 65%, #010309 100%);
       overflow: hidden;
     }
 
-    /* CANVASES (FX CANVAS ESTÁ EN EL FRENTE PARA QUE LOS RAYOS SIEMPRE PASEN POR DELANTE DEL GLOBO) */
+    /* CANVASES */
     canvas.full-canvas {
       position: absolute;
       top: 0;
@@ -68,8 +68,8 @@
       width: 100%;
       height: 100%;
     }
-    #stars-canvas {
-      z-index: 10;
+    #space-nebula-canvas {
+      z-index: 5;
       pointer-events: none;
     }
     #globe-canvas {
@@ -94,16 +94,16 @@
       box-shadow: var(--glass-glow);
     }
 
-    /* PANTALLA DE INICIO (ALIEN INVASION) */
+    /* PANTALLA DE INICIO */
     .intro-screen {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(3, 7, 18, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(3, 7, 18, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       z-index: 120;
       display: flex;
       flex-direction: column;
@@ -581,12 +581,12 @@
 
 <div id="app-container">
   <!-- CANVASES MULTICAPA -->
-  <canvas id="stars-canvas" class="full-canvas"></canvas>
+  <canvas id="space-nebula-canvas" class="full-canvas"></canvas>
   <canvas id="globe-canvas" class="full-canvas"></canvas>
   <canvas id="fx-canvas" class="full-canvas"></canvas>
 
   <!-- OVNIS VECTORIALES SVG -->
-  <!-- 1. Mothership (Grande y Lento) -->
+  <!-- 1. Mothership -->
   <div id="mothership-ufo" class="vector-ufo-wrap" style="width: 105px; height: 58px;">
     <svg viewBox="0 0 100 55" width="105" height="58" style="filter: drop-shadow(0 0 20px #00f0ff) drop-shadow(0 0 35px #8a2be2);">
       <path d="M 30 26 A 20 20 0 0 1 70 26 Z" fill="rgba(0, 240, 255, 0.7)" stroke="#00f0ff" stroke-width="2"/>
@@ -611,7 +611,7 @@
     </svg>
   </div>
 
-  <!-- 2. Cosmic Scout (Pequeño, Hiper-Ágil y Errático) -->
+  <!-- 2. Cosmic Scout -->
   <div id="scout-ufo" class="vector-ufo-wrap" style="width: 54px; height: 32px;">
     <svg viewBox="0 0 60 35" width="54" height="32" style="filter: drop-shadow(0 0 18px #ff007f) drop-shadow(0 0 28px #ffe600);">
       <path d="M 18 16 A 12 12 0 0 1 42 16 Z" fill="rgba(255, 0, 127, 0.85)" stroke="#ff007f" stroke-width="1.8"/>
@@ -630,7 +630,7 @@
     </svg>
   </div>
 
-  <!-- PANTALLA INICIAL (ALIEN INVASION ÉPICA) -->
+  <!-- PANTALLA INICIAL (ALIEN INVASION) -->
   <div id="splash-screen" class="intro-screen">
     <div class="top-lang-pill">
       <button class="lang-option active" data-lang="es">🇪🇸 ESPAÑOL</button>
@@ -639,7 +639,7 @@
 
     <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
       <h1 id="txt-app-title" class="app-title-glow">MI MUNDO</h1>
-      <div style="font-size: 0.85rem; font-weight: 700; color: #94a3b8; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">ALIEN INVASION EDITION</div>
+      <div style="font-size: 0.85rem; font-weight: 700; color: #94a3b8; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">COSMIC NEBULA EDITION</div>
 
       <div class="invasion-scene-box">
         <div class="hero-planet-vector">
@@ -795,7 +795,7 @@
   }
 
   /* ==========================================================================
-     SINTETIZADOR DE AUDIO SCI-FI CON THEREMIN, SPLASH & EXPLOSIONES
+     SINTETIZADOR DE AUDIO SCI-FI
      ========================================================================== */
   class SciFiArcadeAudioSynth {
     constructor() {
@@ -1044,6 +1044,277 @@
   const audio = new SciFiArcadeAudioSynth();
 
   /* ==========================================================================
+     MOTOR DE FONDO CÓSMICO DE NEBULOSA PROFUNDA (SPACE NEBULA CANVAS)
+     ========================================================================== */
+  class DeepSpaceCosmicNebula {
+    constructor(canvasId) {
+      this.canvas = document.getElementById(canvasId);
+      this.ctx = this.canvas.getContext('2d');
+      this.stars = [];
+      this.flaringStars = [];
+      this.comets = [];
+      this.constellations = [];
+      this.nebulaClouds = [];
+      this.time = 0;
+
+      this.resize();
+      window.addEventListener('resize', () => this.resize());
+
+      this.initNebulaClouds();
+      this.initStars();
+      this.initConstellations();
+
+      setInterval(() => {
+        if (Math.random() < 0.65) this.spawnComet();
+      }, 3500);
+
+      this.render = this.render.bind(this);
+      requestAnimationFrame(this.render);
+    }
+
+    resize() {
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = window.innerHeight;
+      this.initNebulaClouds();
+    }
+
+    initNebulaClouds() {
+      const w = this.canvas.width;
+      const h = this.canvas.height;
+      this.nebulaClouds = [
+        { x: w * 0.18, y: h * 0.30, rx: w * 0.45, ry: h * 0.40, color: 'rgba(0, 229, 255, 0.18)', pulseSpeed: 0.0012, phase: 0 },
+        { x: w * 0.78, y: h * 0.40, rx: w * 0.50, ry: h * 0.45, color: 'rgba(217, 70, 239, 0.16)', pulseSpeed: 0.0015, phase: 1.5 },
+        { x: w * 0.45, y: h * 0.20, rx: w * 0.38, ry: h * 0.32, color: 'rgba(99, 102, 241, 0.15)', pulseSpeed: 0.0009, phase: 3.0 },
+        { x: w * 0.30, y: h * 0.75, rx: w * 0.40, ry: h * 0.35, color: 'rgba(168, 85, 247, 0.14)', pulseSpeed: 0.0014, phase: 4.2 },
+        { x: w * 0.85, y: h * 0.80, rx: w * 0.35, ry: h * 0.30, color: 'rgba(14, 165, 233, 0.16)', pulseSpeed: 0.0011, phase: 2.1 }
+      ];
+    }
+
+    initStars() {
+      const w = this.canvas.width;
+      const h = this.canvas.height;
+      this.stars = [];
+      this.flaringStars = [];
+
+      // 1. 220 Estrellas pequeñas y medias
+      for (let i = 0; i < 220; i++) {
+        const isCyan = Math.random() < 0.35;
+        const isMagenta = Math.random() < 0.25;
+        const isGold = Math.random() < 0.15;
+        let c = '#ffffff';
+        if (isCyan) c = '#00f0ff';
+        else if (isMagenta) c = '#ff70a6';
+        else if (isGold) c = '#ffd166';
+
+        this.stars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 1.5 + 0.5,
+          alpha: Math.random() * 0.8 + 0.2,
+          speed: Math.random() * 0.003 + 0.001,
+          phase: Math.random() * Math.PI * 2,
+          color: c
+        });
+      }
+
+      // 2. 9 Estrellas Gigantes con Destello en Cruz (Diffraction Cross Flare Stars) como en la referencia
+      const flarePalettes = ['#00f0ff', '#ff007f', '#ffe600', '#70d6ff', '#ff9770', '#e0aaff'];
+      for (let j = 0; j < 9; j++) {
+        this.flaringStars.push({
+          x: Math.random() * (w * 0.9) + w * 0.05,
+          y: Math.random() * (h * 0.9) + h * 0.05,
+          color: flarePalettes[j % flarePalettes.length],
+          size: Math.random() * 12 + 16,
+          pulseSpeed: Math.random() * 0.002 + 0.0015,
+          rot: Math.random() * Math.PI,
+          rotSpeed: (Math.random() - 0.5) * 0.0006
+        });
+      }
+    }
+
+    initConstellations() {
+      const w = this.canvas.width;
+      const h = this.canvas.height;
+      this.constellations = [];
+
+      // Generar 3 patrones geométricos de constelaciones que brillan
+      for (let c = 0; c < 3; c++) {
+        const cx = Math.random() * (w * 0.7) + w * 0.15;
+        const cy = Math.random() * (h * 0.7) + h * 0.15;
+        const nodes = [];
+        for (let n = 0; n < 5; n++) {
+          nodes.push({
+            x: cx + (Math.random() - 0.5) * 160,
+            y: cy + (Math.random() - 0.5) * 160
+          });
+        }
+        this.constellations.push(nodes);
+      }
+    }
+
+    spawnComet() {
+      this.comets.push({
+        x: Math.random() * this.canvas.width * 0.8,
+        y: -30,
+        vx: Math.random() * 4.5 + 4,
+        vy: Math.random() * 2.8 + 2.4,
+        len: Math.random() * 95 + 75,
+        alpha: 1.0,
+        color: Math.random() > 0.5 ? '#00f0ff' : '#ff70a6'
+      });
+    }
+
+    render() {
+      this.time += 1;
+      const w = this.canvas.width;
+      const h = this.canvas.height;
+      this.ctx.clearRect(0, 0, w, h);
+
+      // 1. DIBUJAR NUBES DE NEBULOSA GASEOSA CON COLOR SHIFT ORGÁNICO
+      this.nebulaClouds.forEach(cloud => {
+        this.ctx.save();
+        const pulse = 0.85 + 0.15 * Math.sin(this.time * cloud.pulseSpeed + cloud.phase);
+        const grad = this.ctx.createRadialGradient(
+          cloud.x, cloud.y, 5,
+          cloud.x, cloud.y, Math.max(cloud.rx, cloud.ry) * pulse
+        );
+        grad.addColorStop(0, cloud.color);
+        grad.addColorStop(0.5, cloud.color.replace(/[\d\.]+\)$/, '0.08)'));
+        grad.addColorStop(1, 'transparent');
+
+        this.ctx.fillStyle = grad;
+        this.ctx.beginPath();
+        this.ctx.ellipse(cloud.x, cloud.y, cloud.rx * pulse, cloud.ry * pulse, 0, 0, Math.PI * 2);
+        this.ctx.fill();
+        this.ctx.restore();
+      });
+
+      // 2. LÍNEAS DE CONSTELACIÓN SUAVES
+      this.ctx.save();
+      this.constellations.forEach(nodes => {
+        this.ctx.strokeStyle = 'rgba(0, 240, 255, 0.18)';
+        this.ctx.lineWidth = 0.8;
+        this.ctx.beginPath();
+        for (let i = 0; i < nodes.length - 1; i++) {
+          this.ctx.moveTo(nodes[i].x, nodes[i].y);
+          this.ctx.lineTo(nodes[i + 1].x, nodes[i + 1].y);
+        }
+        this.ctx.stroke();
+
+        nodes.forEach(n => {
+          this.ctx.fillStyle = 'rgba(0, 240, 255, 0.6)';
+          this.ctx.beginPath();
+          this.ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
+          this.ctx.fill();
+        });
+      });
+      this.ctx.restore();
+
+      // 3. ESTRELLAS TITILANTES DE FONDO
+      this.stars.forEach(s => {
+        this.ctx.save();
+        const tw = 0.4 + 0.6 * Math.sin(this.time * s.speed + s.phase);
+        this.ctx.globalAlpha = s.alpha * tw;
+        this.ctx.fillStyle = s.color;
+        this.ctx.shadowColor = s.color;
+        this.ctx.shadowBlur = s.r * 3.5;
+        this.ctx.beginPath();
+        this.ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        this.ctx.fill();
+        this.ctx.restore();
+      });
+
+      // 4. ESTRELLAS CON DESTELLO EN CRUZ (DIFFRACTION CROSS FLARES)
+      this.flaringStars.forEach(fs => {
+        this.ctx.save();
+        fs.rot += fs.rotSpeed;
+        const pulse = 0.8 + 0.35 * Math.sin(this.time * fs.pulseSpeed);
+        const sz = fs.size * pulse;
+
+        this.ctx.translate(fs.x, fs.y);
+        this.ctx.rotate(fs.rot);
+
+        // Halo circular central
+        const centerGrad = this.ctx.createRadialGradient(0, 0, 1, 0, 0, sz * 0.7);
+        centerGrad.addColorStop(0, '#ffffff');
+        centerGrad.addColorStop(0.3, fs.color);
+        centerGrad.addColorStop(1, 'transparent');
+        this.ctx.fillStyle = centerGrad;
+        this.ctx.beginPath();
+        this.ctx.arc(0, 0, sz * 0.7, 0, Math.PI * 2);
+        this.ctx.fill();
+
+        // 4 Rayos largos principales de la cruz
+        this.ctx.strokeStyle = fs.color;
+        this.ctx.shadowColor = fs.color;
+        this.ctx.shadowBlur = 18;
+        this.ctx.lineWidth = 1.6;
+
+        this.ctx.beginPath();
+        // Rayo Vertical
+        this.ctx.moveTo(0, -sz * 1.5);
+        this.ctx.lineTo(0, sz * 1.5);
+        // Rayo Horizontal
+        this.ctx.moveTo(-sz * 1.5, 0);
+        this.ctx.lineTo(sz * 1.5, 0);
+        this.ctx.stroke();
+
+        // 4 Rayos diagonales más cortos
+        this.ctx.lineWidth = 0.9;
+        this.ctx.beginPath();
+        this.ctx.moveTo(-sz * 0.7, -sz * 0.7);
+        this.ctx.lineTo(sz * 0.7, sz * 0.7);
+        this.ctx.moveTo(sz * 0.7, -sz * 0.7);
+        this.ctx.lineTo(-sz * 0.7, sz * 0.7);
+        this.ctx.stroke();
+
+        // Núcleo blanco
+        this.ctx.fillStyle = '#ffffff';
+        this.ctx.beginPath();
+        this.ctx.arc(0, 0, 2.2, 0, Math.PI * 2);
+        this.ctx.fill();
+
+        this.ctx.restore();
+      });
+
+      // 5. COMETAS FLUIDOS
+      for (let i = this.comets.length - 1; i >= 0; i--) {
+        const c = this.comets[i];
+        c.x += c.vx;
+        c.y += c.vy;
+        c.alpha -= 0.012;
+
+        if (c.alpha <= 0 || c.x > w + 100 || c.y > h + 100) {
+          this.comets.splice(i, 1);
+          continue;
+        }
+
+        this.ctx.save();
+        this.ctx.globalAlpha = c.alpha;
+        const grad = this.ctx.createLinearGradient(c.x, c.y, c.x - c.vx * 16, c.y - c.vy * 16);
+        grad.addColorStop(0, '#ffffff');
+        grad.addColorStop(0.3, c.color);
+        grad.addColorStop(1, 'transparent');
+
+        this.ctx.strokeStyle = grad;
+        this.ctx.lineWidth = 2.4;
+        this.ctx.beginPath();
+        this.ctx.moveTo(c.x, c.y);
+        this.ctx.lineTo(c.x - c.vx * (c.len / 10), c.y - c.vy * (c.len / 10));
+        this.ctx.stroke();
+
+        this.ctx.fillStyle = '#ffffff';
+        this.ctx.beginPath();
+        this.ctx.arc(c.x, c.y, 2.4, 0, Math.PI * 2);
+        this.ctx.fill();
+        this.ctx.restore();
+      }
+
+      requestAnimationFrame(this.render);
+    }
+  }
+
+  /* ==========================================================================
      SISTEMA DE PARTÍCULAS Y RELÁMPAGOS ULTRA-FLUO (FX CANVAS EN FRENTE)
      ========================================================================== */
   class ParticleFXEngine {
@@ -1097,7 +1368,6 @@
     animate() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-      // 1. Rayos de plasma con doble capa: halo fluo exterior + núcleo blanco brillante
       for (let i = this.bolts.length - 1; i >= 0; i--) {
         const b = this.bolts[i];
         b.alpha -= 0.065;
@@ -1106,7 +1376,6 @@
         this.ctx.save();
         this.ctx.globalAlpha = b.alpha;
         
-        // Capa 1: Halo de resplandor FLUO intenso
         this.ctx.strokeStyle = b.color;
         this.ctx.lineWidth = (b.thickness || 4.5) * 1.6;
         this.ctx.shadowColor = b.color;
@@ -1115,7 +1384,6 @@
         b.segments.forEach(s => { this.ctx.moveTo(s.x1, s.y1); this.ctx.lineTo(s.x2, s.y2); });
         this.ctx.stroke();
 
-        // Capa 2: Núcleo blanco brillante
         this.ctx.strokeStyle = '#ffffff';
         this.ctx.lineWidth = (b.thickness || 4.5) * 0.45;
         this.ctx.shadowBlur = 10;
@@ -1126,7 +1394,6 @@
         this.ctx.restore();
       }
 
-      // 2. Chispas de impacto fluo
       for (let i = this.sparks.length - 1; i >= 0; i--) {
         const s = this.sparks[i];
         s.x += s.vx;
@@ -1144,7 +1411,6 @@
         this.ctx.restore();
       }
 
-      // 3. Ondas de choque expansivas
       for (let i = this.shockwaves.length - 1; i >= 0; i--) {
         const sw = this.shockwaves[i];
         sw.radius += 10;
@@ -1170,7 +1436,7 @@
   const fxEngine = new ParticleFXEngine('fx-canvas');
 
   /* ==========================================================================
-     MOTOR DEL GLOBO 3D VECTORIAL CON EFECTO DE IMPACTO ROJO ALIENÍGENA
+     MOTOR DEL GLOBO 3D VECTORIAL
      ========================================================================== */
   class ModernGlobe {
     constructor(canvasId) {
@@ -1531,106 +1797,6 @@
     }
   }
 
-  /* SIMULACIÓN MULTICAPA DE ESTRELLAS TITILANTES & COMETAS FLUIDOS */
-  class SpaceMultiverseCanvas {
-    constructor(id) {
-      this.canvas = document.getElementById(id);
-      this.ctx = this.canvas.getContext('2d');
-      this.stars = [];
-      this.comets = [];
-      this.resize();
-      window.addEventListener('resize', () => this.resize());
-
-      for (let i = 0; i < 180; i++) {
-        const layer = Math.random() < 0.6 ? 1 : (Math.random() < 0.85 ? 2 : 3);
-        this.stars.push({
-          x: Math.random() * this.canvas.width,
-          y: Math.random() * this.canvas.height,
-          r: layer === 1 ? (Math.random() * 0.8 + 0.4) : (layer === 2 ? (Math.random() * 1.3 + 0.8) : (Math.random() * 1.8 + 1.4)),
-          alpha: Math.random() * 0.8 + 0.2,
-          speed: Math.random() * 0.004 + 0.001,
-          color: layer === 3 ? (Math.random() > 0.5 ? '#00f0ff' : '#ff007f') : '#ffffff'
-        });
-      }
-
-      setInterval(() => {
-        if (Math.random() < 0.6) this.spawnComet();
-      }, 4000);
-
-      this.draw = this.draw.bind(this);
-      requestAnimationFrame(this.draw);
-    }
-
-    resize() {
-      this.canvas.width = window.innerWidth;
-      this.canvas.height = window.innerHeight;
-    }
-
-    spawnComet() {
-      const fromTop = Math.random() > 0.5;
-      this.comets.push({
-        x: Math.random() * this.canvas.width,
-        y: fromTop ? -20 : Math.random() * (this.canvas.height * 0.4),
-        vx: Math.random() * 4 + 4,
-        vy: Math.random() * 2.5 + 2.5,
-        len: Math.random() * 80 + 60,
-        alpha: 1.0,
-        color: Math.random() > 0.5 ? '#00f0ff' : '#ffe600'
-      });
-    }
-
-    draw() {
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-      this.stars.forEach(s => {
-        this.ctx.save();
-        const pulse = 0.5 + 0.5 * Math.sin(Date.now() * s.speed + s.x);
-        this.ctx.globalAlpha = s.alpha * pulse;
-        this.ctx.fillStyle = s.color;
-        this.ctx.shadowColor = s.color;
-        this.ctx.shadowBlur = s.r * 3;
-        this.ctx.beginPath();
-        this.ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        this.ctx.fill();
-        this.ctx.restore();
-      });
-
-      for (let i = this.comets.length - 1; i >= 0; i--) {
-        const c = this.comets[i];
-        c.x += c.vx;
-        c.y += c.vy;
-        c.alpha -= 0.012;
-
-        if (c.alpha <= 0 || c.x > this.canvas.width + 100 || c.y > this.canvas.height + 100) {
-          this.comets.splice(i, 1);
-          continue;
-        }
-
-        this.ctx.save();
-        this.ctx.globalAlpha = c.alpha;
-        const grad = this.ctx.createLinearGradient(c.x, c.y, c.x - c.vx * 15, c.y - c.vy * 15);
-        grad.addColorStop(0, '#ffffff');
-        grad.addColorStop(0.3, c.color);
-        grad.addColorStop(1, 'transparent');
-
-        this.ctx.strokeStyle = grad;
-        this.ctx.lineWidth = 2.2;
-        this.ctx.beginPath();
-        this.ctx.moveTo(c.x, c.y);
-        this.ctx.lineTo(c.x - c.vx * (c.len / 10), c.y - c.vy * (c.len / 10));
-        this.ctx.stroke();
-
-        this.ctx.fillStyle = '#ffffff';
-        this.ctx.beginPath();
-        this.ctx.arc(c.x, c.y, 2.2, 0, Math.PI * 2);
-        this.ctx.fill();
-        this.ctx.restore();
-      }
-
-      requestAnimationFrame(this.draw);
-    }
-  }
-
   /* TERMINAL CYBER-INFO */
   class CyberTerminal {
     constructor(boxId, titleId, contentId, closeBtnId) {
@@ -1761,7 +1927,7 @@
   };
 
   /* ==========================================================================
-     GESTOR DE OVNIS ERRÁTICOS MULTIDIRECCIONALES CON RAYOS ULTRA-FLUO
+     GESTOR DE OVNIS ERRÁTICOS MULTIDIRECCIONALES
      ========================================================================== */
   class AggressiveVectorUFOManager {
     constructor(motherId, scoutId) {
@@ -1801,29 +1967,24 @@
       const w = window.innerWidth;
       const h = window.innerHeight;
 
-      // ENTRADA DESDE CUALQUIERA DE LOS 4 PUNTOS CARDINALES (0: Izq, 1: Der, 2: Arriba, 3: Abajo)
       const entrySide = Math.floor(Math.random() * 4);
 
       if (entrySide === 0) {
-        // Entrada desde Izquierda
         this.x = -100;
         this.y = Math.random() * (h * 0.5) + 60;
         this.vx = isScout ? (Math.random() * 4 + 4.5) : (Math.random() * 1.5 + 1.8);
         this.vy = (Math.random() - 0.5) * 3;
       } else if (entrySide === 1) {
-        // Entrada desde Derecha
         this.x = w + 100;
         this.y = Math.random() * (h * 0.5) + 60;
         this.vx = -(isScout ? (Math.random() * 4 + 4.5) : (Math.random() * 1.5 + 1.8));
         this.vy = (Math.random() - 0.5) * 3;
       } else if (entrySide === 2) {
-        // Entrada desde Arriba
         this.x = Math.random() * (w * 0.7) + (w * 0.15);
         this.y = -80;
         this.vx = (Math.random() - 0.5) * 4;
         this.vy = isScout ? (Math.random() * 3.5 + 3.8) : (Math.random() * 1.5 + 1.6);
       } else {
-        // Entrada desde Abajo
         this.x = Math.random() * (w * 0.7) + (w * 0.15);
         this.y = h + 80;
         this.vx = (Math.random() - 0.5) * 4;
@@ -1842,7 +2003,6 @@
       const isScout = (this.activeUfo === 'scout');
       const el = isScout ? this.scoutEl : this.motherEl;
 
-      // CAMBIOS ERRÁTICOS DE SENTIDO Y GIROS BRUSCOS
       if (Math.random() < 0.045 && this.directionChanges < 3 && this.flightTime > 0.8) {
         this.directionChanges++;
         if (Math.random() > 0.5) this.vx = -this.vx * (Math.random() * 0.4 + 0.8);
@@ -1859,7 +2019,6 @@
 
       el.style.transform = `translate3d(${this.x}px, ${this.y}px, 0)`;
 
-      // DISPARO DE RAYOS DE PLASMA ULTRA-FLUO AL FRENTE DE LA TIERRA
       const now = Date.now();
       const zapInterval = isScout ? 600 : 1300;
       if (now - this.lastZap > zapInterval) {
@@ -1867,14 +2026,12 @@
         const targetX = window.innerWidth / 2 + (Math.random() - 0.5) * 170;
         const targetY = window.innerHeight / 2 + (Math.random() - 0.5) * 170;
         
-        // Colores Ultra-Fluorescentes (#39ff14 Verde Fluo, #00f0ff Cian Fluo, #ff007f Rosa Fluo, #ffe600 Amarillo Fluo)
         const fluoColors = ['#39ff14', '#00f0ff', '#ff007f', '#ffe600'];
         const chosenColor = fluoColors[Math.floor(Math.random() * fluoColors.length)];
 
         fxEngine.spawnPlasmaBolt(this.x + 25, this.y + 20, targetX, targetY, chosenColor, 4.5);
         audio.playAggressiveLaser();
 
-        // Ráfaga secundaria
         if (isScout && Math.random() > 0.35) {
           setTimeout(() => {
             const targetX2 = window.innerWidth / 2 + (Math.random() - 0.5) * 170;
@@ -1885,7 +2042,6 @@
         }
       }
 
-      // COMPROBAR SI SALIÓ DE LA PANTALLA
       const out = (this.x < -150 || this.x > window.innerWidth + 150 || this.y < -150 || this.y > window.innerHeight + 150);
       if (out && this.flightTime > 1.2) {
         this.triggerEscapeStrikeAndPenalty();
@@ -1902,7 +2058,6 @@
 
       this.dismiss();
 
-      // MEGA RAYO ULTRA-FLUO DIRECTO AL CENTRO DEL PLANETA
       fxEngine.spawnPlasmaBolt(ufoX, ufoY, earthCenterX, earthCenterY, '#ff0033', 10.0);
       fxEngine.spawnMegaShockwave(earthCenterX, earthCenterY, '#ff0033');
 
@@ -1946,7 +2101,7 @@
   /* ==========================================================================
      INICIALIZACIÓN DEL SISTEMA
      ========================================================================== */
-  const stars = new SpaceMultiverseCanvas('stars-canvas');
+  const nebula = new DeepSpaceCosmicNebula('space-nebula-canvas');
   const globe = new ModernGlobe('globe-canvas');
   const terminal = new CyberTerminal('cyber-terminal', 'terminal-title', 'terminal-content', 'terminal-close-btn');
   const ufoManager = new AggressiveVectorUFOManager('mothership-ufo', 'scout-ufo');
