@@ -19,7 +19,6 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#00f0ff">
 
-
   <!-- FUENTES CYBER Y ARCADE -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -196,7 +195,7 @@
       box-shadow: 0 2px 0 #075e54, 0 4px 10px rgba(37, 211, 102, 0.35);
     }
 
-    /* PANTALLA DE INICIO ADAPTATIVA */
+    /* PANTALLA DE INICIO */
     .intro-overlay {
       position: absolute;
       top: 0;
@@ -319,7 +318,7 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* SELECTOR DE DIFICULTAD SIMPLIFICADO & AMIGABLE PARA NIÑOS (VERDE / AMARILLO / ROJO) */
+    /* SELECTOR DE DIFICULTAD SIMPLIFICADO & AMIGABLE PARA NIÑOS */
     .diff-selector-card {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -538,16 +537,16 @@
       margin: -16px;
     }
 
-    /* MODAL PASAPORTE */
+    /* MODAL MI PASAPORTE */
     .passport-modal-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(2, 6, 18, 0.94);
-      backdrop-filter: blur(16px);
-      z-index: 150;
+      background: rgba(2, 6, 18, 0.95);
+      backdrop-filter: blur(18px);
+      z-index: 160;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -565,7 +564,7 @@
       max-width: 480px;
       padding: 20px 16px;
       text-align: center;
-      z-index: 160;
+      z-index: 170;
       pointer-events: none;
       transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.4);
     }
@@ -607,7 +606,7 @@
       height: 100%;
       background: rgba(2, 6, 18, 0.94);
       backdrop-filter: blur(18px);
-      z-index: 170;
+      z-index: 175;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -794,13 +793,13 @@
       </button>
     </div>
 
-    <!-- BOTONES DE ACCIÓN + DESAFÍA A UN AMIGO -->
+    <!-- BOTONES DE ACCIÓN + MI PASAPORTE + DESAFÍA A UN AMIGO -->
     <div style="width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 8px;">
       <button id="btn-start-play" class="btn-3d-glow">🎮 ¡COMENZAR MISIÓN!</button>
       
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
         <button id="btn-start-train" class="btn-3d-glass">🧭 EXPLORACIÓN</button>
-        <button id="btn-open-passport" class="btn-3d-glass" style="border-color: rgba(255, 230, 0, 0.4); color: var(--neon-gold);">📘 PASAPORTE (8)</button>
+        <button id="btn-open-passport" class="btn-3d-glass" style="border-color: rgba(255, 230, 0, 0.4); color: var(--neon-gold);">📘 MI PASAPORTE</button>
       </div>
 
       <button id="btn-share-whatsapp" class="btn-whatsapp-share">
@@ -871,18 +870,28 @@
     </div>
   </div>
 
-  <!-- MODAL DE PASAPORTE E INSIGNIAS (GAMIFICACIÓN) -->
+  <!-- POPUP INTERACTIVO: MI PASAPORTE MUNDIAL -->
   <div id="passport-modal" class="passport-modal-overlay hidden">
-    <div class="glass-card" style="width: 100%; max-width: 480px; max-height: 85vh; overflow-y: auto; padding: 20px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-        <h2 id="txt-passport-header" style="font-family: var(--font-title); font-size: 1.35rem; font-weight: 900; color: var(--neon-gold);">📘 PASAPORTE MUNDIAL</h2>
-        <button id="passport-close-btn" style="background: none; border: none; color: #94a3b8; font-size: 1.4rem; cursor: pointer;">✕</button>
+    <div class="glass-card" style="width: 100%; max-width: 520px; max-height: 88vh; overflow-y: auto; padding: 20px; border-color: var(--neon-gold); box-shadow: 0 0 35px rgba(255, 230, 0, 0.35);">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px dashed rgba(255, 230, 0, 0.4); padding-bottom: 10px; margin-bottom: 14px;">
+        <div>
+          <h2 id="txt-passport-header" style="font-family: var(--font-title); font-size: 1.35rem; font-weight: 900; color: var(--neon-gold); display: flex; align-items: center; gap: 8px;">
+            <span>📘 MI PASAPORTE MUNDIAL</span>
+          </h2>
+          <div id="passport-rank-badge" style="font-size: 0.82rem; color: var(--neon-cyan); font-weight: 800; margin-top: 2px;">🌟 RANGO: CADETE ESTELAR</div>
+        </div>
+        <button id="passport-close-btn" style="background: none; border: none; color: #94a3b8; font-size: 1.6rem; cursor: pointer; padding: 0 4px;">✕</button>
       </div>
+
+      <!-- CONTENEDOR DINÁMICO DEL PASAPORTE -->
       <div id="passport-content-area"></div>
+
+      <!-- BOTÓN VOLVER -->
+      <button id="passport-back-btn" class="btn-3d-glow" style="width: 100%; margin-top: 14px; padding: 11px; font-size: 0.95rem;">← VOLVER AL MENÚ</button>
     </div>
   </div>
 
-  <!-- MODAL SCOREBOARD: 12 SEGUNDOS DE AUTO-CIERRE -->
+  <!-- MODAL SCOREBOARD -->
   <div id="score-modal" class="modal-backdrop hidden">
     <div class="glass-card" style="width: 100%; max-width: 420px; max-height: 88vh; overflow-y: auto; padding: 18px 18px; text-align: center; border-color: var(--neon-cyan);">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
@@ -916,7 +925,7 @@
   </div>
 </div>
 
-<!-- CÓDIGO MODULAR GENERADO POR AGENT OS -->
+<!-- CÓDIGO DE AUDIO PROCEDURAL -->
 <script>
 /**
  * ============================================================================
@@ -1721,9 +1730,7 @@ NextGenAudio.playSciFi50sRay = function() {
   osc2.stop(now + 0.40);
 };
 
-/* ==========================================================================
-   SUSPENSIÓN INTELIGENTE DE AUDIO AL APAGAR PANTALLA O CAMBIAR DE PESTAÑA
-   ========================================================================== */
+/* SUSPENSIÓN INTELIGENTE DE AUDIO */
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
     if (NextGenAudio.ctx && NextGenAudio.ctx.state === 'running') {
@@ -1751,908 +1758,171 @@ window.addEventListener('focus', () => {
 });
 </script>
 
+<!-- SISTEMA COMPLETO DE MI PASAPORTE (GAMIFICACIÓN Y PROGRESO) -->
 <script>
-/**
- * ============================================================================
- * 🌍 AGENT OS - SISTEMA DE GAMIFICACIÓN Y PROGRESIÓN INFANTIL "MI MUNDO" 🌍
- * ============================================================================
- * Módulo: scratch/gamification_system.js
- * Descripción: Sistema integral y modular de retención pedagógica, pasaporte
- *              mundial interactivo, insignias coleccionables, tracker de dominio
- *              continental, racha diaria y banco de estrellas para desbloqueables.
- * Arquitectura: ES6 / UMD Standalone, 100% Kids-Safe, Zero-Dependencies,
- *               Persistencia LocalStorage, Multilingüe (ES, EN, JA, ZH, AR).
- * ============================================================================
- */
+const MyPassport = {
+  key: 'GEO_ORBIT_PASSPORT_V1',
+  load() {
+    try {
+      const raw = localStorage.getItem(this.key);
+      if (raw) return JSON.parse(raw);
+    } catch(e) {}
+    return {
+      totalCorrect: 0,
+      highScore: 0,
+      maxStreak: 0,
+      ufosDestroyed: 0,
+      masteredCountries: [],
+      badges: {
+        explorer_america: false,
+        master_europe: false,
+        african_safari: false,
+        asia_oceania_sage: false,
+        ocean_master: false,
+        ufo_hunter: false,
+        cosmic_speed: false,
+        planet_emperor: false
+      }
+    };
+  },
+  save(data) {
+    try {
+      localStorage.setItem(this.key, JSON.stringify(data));
+    } catch(e) {}
+  },
+  recordCorrect(countryName, continentName, flagEmoji) {
+    const p = this.load();
+    p.totalCorrect++;
+    
+    if (streak > p.maxStreak) p.maxStreak = streak;
+    if (score > p.highScore) p.highScore = score;
 
-(function (global, factory) {
-  if (typeof module === 'object' && typeof module.exports === 'object') {
-    module.exports = factory();
-  } else {
-    global.GamificationSystem = factory();
-  }
-})(typeof window !== 'undefined' ? window : this, function () {
-  'use strict';
-
-  // ============================================================================
-  // 1. CONFIGURACIÓN Y CONSTANTES DEL SISTEMA
-  // ============================================================================
-
-  const STORAGE_KEY = 'mi_mundo_gamification_v1';
-
-  /**
-   * Catálogo de 8 Insignias Coleccionables ("World Passport & Badges")
-   */
-  const BADGE_DEFINITIONS = [
-    {
-      id: 'explorer_america',
-      icon: '🌎',
-      rarity: 'rare',
-      color: '#00f3ff',
-      name: {
-        es: 'Explorador de América',
-        en: 'Explorer of the Americas',
-        ja: 'アメリカの大探検家',
-        zh: '美洲探险家',
-        ar: 'مستكشف الأمريكتين'
-      },
-      description: {
-        es: 'Domina al menos 15 capitales del continente americano.',
-        en: 'Master at least 15 capitals across the American continent.',
-        ja: '南北アメリカ大陸の首都を15問マスターする。',
-        zh: '掌握美洲大陆至少15个国家首都。',
-        ar: 'إتقان 15 عاصمة على الأقل في القارة الأمريكية.'
-      },
-      checkUnlock: (state) => {
-        const americasCount = (state.continentProgress?.Americas?.masteredCountries || []).length;
-        return americasCount >= 15;
-      }
-    },
-    {
-      id: 'master_europe',
-      icon: '🏰',
-      rarity: 'rare',
-      color: '#ffe600',
-      name: {
-        es: 'Maestro de Europa',
-        en: 'Master of Europe',
-        ja: 'ヨーロッパの巨匠',
-        zh: '欧洲地理大师',
-        ar: 'أستاذ قارة أوروبا'
-      },
-      description: {
-        es: 'Acierta 15 capitales europeas y demuestra tu cultura geográfica.',
-        en: 'Correctly identify 15 European capitals.',
-        ja: 'ヨーロッパの首都を15問マスターする。',
-        zh: '准确回答15个欧洲国家首都。',
-        ar: 'الإجابة الصحيحة على 15 عاصمة أوروبية.'
-      },
-      checkUnlock: (state) => {
-        const europeCount = (state.continentProgress?.Europe?.masteredCountries || []).length;
-        return europeCount >= 15;
-      }
-    },
-    {
-      id: 'african_safari',
-      icon: '🦁',
-      rarity: 'rare',
-      color: '#ff9900',
-      name: {
-        es: 'Safari Africano',
-        en: 'African Safari',
-        ja: 'アフリカン・サファリ',
-        zh: '非洲旷野向导',
-        ar: 'سفاري أفريقيا'
-      },
-      description: {
-        es: 'Conquista el conocimiento de 15 capitales del continente africano.',
-        en: 'Conquer the geography of 15 African capitals.',
-        ja: 'アフリカ大陸の首都を15問マスターする。',
-        zh: '掌握非洲大陆15个国家的首都。',
-        ar: 'اكتشاف وإتقان 15 عاصمة في القارة الأفريقية.'
-      },
-      checkUnlock: (state) => {
-        const africaCount = (state.continentProgress?.Africa?.masteredCountries || []).length;
-        return africaCount >= 15;
-      }
-    },
-    {
-      id: 'asia_oceania_sage',
-      icon: '🐉',
-      rarity: 'epic',
-      color: '#ff007f',
-      name: {
-        es: 'Sabio de Asia & Oceanía',
-        en: 'Sage of Asia & Oceania',
-        ja: 'アジアとオセアニアの賢者',
-        zh: '亚澳大陆智者',
-        ar: 'حكيم آسيا وأوقيانوسيا'
-      },
-      description: {
-        es: 'Domina 20 capitales combinadas entre Asia y Oceanía.',
-        en: 'Master 20 combined capitals across Asia and Oceania.',
-        ja: 'アジアとオセアニアの首都を計20問マスターする。',
-        zh: '掌握亚洲和大洋洲共计20个国家首都。',
-        ar: 'إتقان 20 عاصمة مشتركة بين آسيا وأوقيانوسيا.'
-      },
-      checkUnlock: (state) => {
-        const asiaCount = (state.continentProgress?.Asia?.masteredCountries || []).length;
-        const oceaniaCount = (state.continentProgress?.Oceania?.masteredCountries || []).length;
-        return (asiaCount + oceaniaCount) >= 20;
-      }
-    },
-    {
-      id: 'ocean_master',
-      icon: '🌊',
-      rarity: 'epic',
-      color: '#00d4ff',
-      name: {
-        es: 'Señor de los Océanos',
-        en: 'Lord of the Oceans',
-        ja: '大洋の覇者',
-        zh: '海洋领航者',
-        ar: 'سيد المحيطات'
-      },
-      description: {
-        es: 'Explora los 5 grandes océanos y 10 mares interactivos en el globo.',
-        en: 'Discover the 5 major oceans and 10 interactive seas.',
-        ja: '5大洋と10の主要な海を地球儀で探検する。',
-        zh: '在地球仪上探索5大洋以及10个关键海域。',
-        ar: 'استكشاف المحيطات الخمسة الرئيسية و 10 بحار تفاعلية.'
-      },
-      checkUnlock: (state) => {
-        return (state.exploredOceans || []).length >= 15;
-      }
-    },
-    {
-      id: 'ufo_hunter',
-      icon: '🛸',
-      rarity: 'epic',
-      color: '#39ff14',
-      name: {
-        es: 'Cazador de OVNIs',
-        en: 'UFO Hunter',
-        ja: 'UFOハンター',
-        zh: '飞碟太空猎手',
-        ar: 'صائد الأطباق الطائرة'
-      },
-      description: {
-        es: 'Neutraliza 10 platillos voladores y salva la Tierra de invasiones.',
-        en: 'Neutralize 10 flying saucers and protect Earth.',
-        ja: '飛来する未確認飛行物体（UFO）を10機撃退する。',
-        zh: '击落并拦截10艘入侵地球的UFO飞碟。',
-        ar: 'تحييد 10 أطباق طائرة وحماية كوكب الأرض.'
-      },
-      checkUnlock: (state) => {
-        return (state.stats?.ufosDestroyed || 0) >= 10;
-      }
-    },
-    {
-      id: 'cosmic_speed',
-      icon: '⚡',
-      rarity: 'legendary',
-      color: '#bf00ff',
-      name: {
-        es: 'Velocidad Cósmica',
-        en: 'Cosmic Velocity',
-        ja: 'コズミック・スピード',
-        zh: '光速反应大师',
-        ar: 'السرعة الكونية'
-      },
-      description: {
-        es: 'Responde 5 preguntas seguidas en menos de 3 segundos cada una.',
-        en: 'Answer 5 questions in a row in under 3 seconds each.',
-        ja: 'それぞれ3秒未満で5問連続正解を達成する。',
-        zh: '连续5道题目均在3秒以内秒速答对。',
-        ar: 'الإجابة على 5 أسئلة متتالية في أقل من 3 ثوانٍ لكل منها.'
-      },
-      checkUnlock: (state) => {
-        return (state.stats?.maxQuickAnswersStreak || 0) >= 5;
-      }
-    },
-    {
-      id: 'planet_emperor',
-      icon: '👑',
-      rarity: 'legendary',
-      color: '#ffd700',
-      name: {
-        es: 'Emperador del Planeta Tierra',
-        en: 'Emperor of Planet Earth',
-        ja: '地球の皇帝',
-        zh: '地球全域至尊霸主',
-        ar: 'إمبراطور كوكب الأرض'
-      },
-      description: {
-        es: 'Desbloquea las 7 insignias anteriores y alcanza 100 capitales dominadas.',
-        en: 'Unlock all other 7 badges and master 100 total capitals.',
-        ja: '他の7つのバッジをすべて獲得し、累計100都市の首都を制覇する。',
-        zh: '集齐其余7枚徽章并累计掌握100座世界首都。',
-        ar: 'فتح جميع الشارات السبع السابقة وإتقان 100 عاصمة عالمية.'
-      },
-      checkUnlock: (state) => {
-        const otherBadges = ['explorer_america', 'master_europe', 'african_safari', 'asia_oceania_sage', 'ocean_master', 'ufo_hunter', 'cosmic_speed'];
-        const hasAllOthers = otherBadges.every(id => state.unlockedBadges.includes(id));
-        const totalMastered = Object.values(state.continentProgress || {}).reduce((acc, c) => acc + (c.masteredCountries || []).length, 0);
-        return hasAllOthers && totalMastered >= 100;
-      }
-    }
-  ];
-
-  /**
-   * Continentes y Objetivos de Dominio
-   */
-  const CONTINENTS_CONFIG = {
-    Americas: { id: 'Americas', name: { es: 'América', en: 'Americas', ja: 'アメリカ', zh: '美洲', ar: 'الأمريكتين' }, total: 35, color: '#00f3ff', icon: '🌎' },
-    Europe: { id: 'Europe', name: { es: 'Europa', en: 'Europe', ja: 'ヨーロッパ', zh: '欧洲', ar: 'أوروبا' }, total: 44, color: '#ffe600', icon: '🏰' },
-    Africa: { id: 'Africa', name: { es: 'África', en: 'Africa', ja: 'アフリカ', zh: '非洲', ar: 'أفريقيا' }, total: 54, color: '#ff9900', icon: '🦁' },
-    Asia: { id: 'Asia', name: { es: 'Asia', en: 'Asia', ja: 'アジア', zh: '亚洲', ar: 'آسيا' }, total: 48, color: '#ff007f', icon: '⛩️' },
-    Oceania: { id: 'Oceania', name: { es: 'Oceanía', en: 'Oceania', ja: 'オセアニア', zh: '大洋洲', ar: 'أوقيانوسيا' }, total: 14, color: '#39ff14', icon: '🏝️' }
-  };
-
-  /**
-   * Catálogo de la Tienda de Estrellas (Skins del Globo y Estelas)
-   */
-  const STAR_SHOP_ITEMS = {
-    skins: [
-      {
-        id: 'skin_classic',
-        type: 'skin',
-        cost: 0,
-        unlockedByDefault: true,
-        previewColor: '#0a192f',
-        name: { es: 'Tierra Clásica HD', en: 'Classic Earth HD', ja: 'クラシック地球', zh: '经典高清地球', ar: 'الأرض الكلاسيكية' },
-        description: { es: 'El globo terráqueo vectorizado original con atmósfera azul.', en: 'The original vector globe with blue atmosphere.', ja: '青い大気を持つオリジナルのベクター地球儀。', zh: '带有经典蓝色大气层的原始矢量地球。', ar: 'الكرة الأرضية الأصلية مع الغلاف الجوي الأزرق.' },
-        theme: { ocean: '#051329', land: '#113a5d', border: '#00f3ff', glow: 'rgba(0, 243, 255, 0.4)' }
-      },
-      {
-        id: 'skin_cyberpunk',
-        type: 'skin',
-        cost: 50,
-        previewColor: '#ff007f',
-        name: { es: 'Cyberpunk Neón 2099', en: 'Cyberpunk Neon 2099', ja: 'サイバーパンク・ネオン', zh: '赛博朋克霓虹', ar: 'سايبر بانك نيون' },
-        description: { es: 'Líneas fucsia láser y océanos de silicio oscuro brillante.', en: 'Laser magenta borders and glowing obsidian oceans.', ja: 'マゼンタレーザーと輝く漆黒の海。', zh: '品红激光边界与暗黑发光硅基海洋。', ar: 'حدود ليزر وردية ومحيطات براقة.' },
-        theme: { ocean: '#14001a', land: '#38004d', border: '#ff007f', glow: 'rgba(255, 0, 127, 0.6)' }
-      },
-      {
-        id: 'skin_magma',
-        type: 'skin',
-        cost: 100,
-        previewColor: '#ff3b00',
-        name: { es: 'Manto de Magma & Lava', en: 'Magma & Lava Core', ja: 'マグマ＆ボルケーノ', zh: '熔岩炽热地核', ar: 'الحمم البركانية' },
-        description: { es: 'Continentes incandescentes con ríos de fuego volcánico.', en: 'Incandescent continents with volcanic magma rivers.', ja: '溶岩が脈打つ白熱の大陸。', zh: '炽热流淌火山岩浆的烈焰大陆。', ar: 'قارات ملتهبة مع أنهار من الصهارة البركانية.' },
-        theme: { ocean: '#1f0800', land: '#5e1b00', border: '#ff5500', glow: 'rgba(255, 85, 0, 0.6)' }
-      },
-      {
-        id: 'skin_ice_age',
-        type: 'skin',
-        cost: 150,
-        previewColor: '#00f0ff',
-        name: { es: 'Era de Hielo Glaciar', en: 'Glacial Ice Age', ja: '氷河期クリスタル', zh: '冰河极寒世纪', ar: 'العصر الجليدي' },
-        description: { es: 'Ecosistemas congelados con reflejos de diamante polar.', en: 'Frozen biomes with polar diamond reflections.', ja: '極地のダイヤモンドのような輝きを放つ氷の世界。', zh: '具有极光冰晶反射的极寒冰封地貌。', ar: 'عالم متجمد مع انعكاسات ألماسية قطبية.' },
-        theme: { ocean: '#061a29', land: '#004c6d', border: '#70f3ff', glow: 'rgba(112, 243, 255, 0.7)' }
-      },
-      {
-        id: 'skin_emerald',
-        type: 'skin',
-        cost: 250,
-        previewColor: '#39ff14',
-        name: { es: 'Cristal Esmeralda Alien', en: 'Alien Emerald Matrix', ja: 'エメラルド・マトリックス', zh: '外星翡翠矩阵', ar: 'الزمرد الفضائي' },
-        description: { es: 'Esfera holográfica con energía cuántica de bio-radar verde.', en: 'Holographic matrix sphere glowing with quantum green.', ja: 'バイオレーダーのような量子グリーンのホログラム。', zh: '绿色量子生物雷达能量全息球体。', ar: 'كرة ثلاثية الأبعاد خضراء بطاقة كمومية.' },
-        theme: { ocean: '#03170a', land: '#0a421b', border: '#39ff14', glow: 'rgba(57, 255, 20, 0.6)' }
-      },
-      {
-        id: 'skin_galactic_gold',
-        type: 'skin',
-        cost: 500,
-        previewColor: '#ffd700',
-        name: { es: 'Oro Imperial Galáctico', en: 'Galactic Imperial Gold', ja: 'ギャラクティック・ゴールド', zh: '银河至尊金耀', ar: 'الذهب الإمبراطوري المجري' },
-        description: { es: 'El globo dorado supremo reservado para los sabios del cosmos.', en: 'The supreme golden globe for masters of the cosmos.', ja: '宇宙の知恵者にのみ許された至高の黄金地球儀。', zh: '宇宙大师专属的尊贵纯金光耀地球。', ar: 'الكرة الذهبية الفائقة المخصصة لعلماء الكون.' },
-        theme: { ocean: '#1a1400', land: '#4a3800', border: '#ffd700', glow: 'rgba(255, 215, 0, 0.8)' }
-      }
-    ],
-    trails: [
-      {
-        id: 'trail_stardust',
-        type: 'trail',
-        cost: 0,
-        unlockedByDefault: true,
-        icon: '✨',
-        name: { es: 'Polvo de Estrellas', en: 'Stardust Sparkle', ja: '星くずの輝き', zh: '闪烁星尘', ar: 'غبار النجوم' },
-        particleColor: '#00f3ff'
-      },
-      {
-        id: 'trail_meteor',
-        type: 'trail',
-        cost: 40,
-        icon: '🔥',
-        name: { es: 'Cometa Ígneo', en: 'Fire Meteor Trail', ja: '火球コメット', zh: '烈焰陨石彗尾', ar: 'ذيل النيزك الناري' },
-        particleColor: '#ff4500'
-      },
-      {
-        id: 'trail_plasma',
-        type: 'trail',
-        cost: 80,
-        icon: '⚡',
-        name: { es: 'Relámpago de Plasma', en: 'Plasma Lightning', ja: 'プラズマ・ボルト', zh: '等离子闪电链', ar: 'صواعق البلازما' },
-        particleColor: '#bf00ff'
-      },
-      {
-        id: 'trail_rainbow',
-        type: 'trail',
-        cost: 120,
-        icon: '🌈',
-        name: { es: 'Estela Arcoíris', en: 'Quantum Rainbow', ja: 'レインボー・ウェイブ', zh: '量子彩虹光波', ar: 'قوس قزح الكمومي' },
-        particleColor: 'rainbow'
-      },
-      {
-        id: 'trail_alien_aura',
-        type: 'trail',
-        cost: 200,
-        icon: '👾',
-        name: { es: 'Aura Antigravedad', en: 'Anti-Gravity Aura', ja: '反重力エイリアンオーラ', zh: '反重力异星光环', ar: 'هالة مضادة للجاذبية' },
-        particleColor: '#39ff14'
-      }
-    ]
-  };
-
-  // ============================================================================
-  // 2. CLASE PRINCIPAL: GamificationSystem
-  // ============================================================================
-
-  class GamificationSystem {
-    /**
-     * @param {Object} options Configuración inicial y callbacks
-     */
-    constructor(options = {}) {
-      this.language = options.language || 'es';
-      this.onBadgeUnlocked = options.onBadgeUnlocked || null;
-      this.onStarEarned = options.onStarEarned || null;
-      this.onStreakUpdated = options.onStreakUpdated || null;
-      this.onSkinChanged = options.onSkinChanged || null;
-
-      this.state = this._loadState();
-      this._evaluateDailyStreak();
+    // Registrar país dominado
+    const exists = p.masteredCountries.find(c => c.name === countryName);
+    if (!exists) {
+      p.masteredCountries.unshift({ name: countryName, continent: continentName, flag: flagEmoji, date: new Date().toLocaleDateString() });
+      if (p.masteredCountries.length > 8) p.masteredCountries.pop();
     }
 
-    // --------------------------------------------------------------------------
-    // A. PERSISTENCIA Y ESTADO
-    // --------------------------------------------------------------------------
+    // Desbloquear insignias
+    const contLower = (continentName || '').toLowerCase();
+    if (contLower.includes('amér') || contLower.includes('amer')) p.badges.explorer_america = true;
+    if (contLower.includes('eur')) p.badges.master_europe = true;
+    if (contLower.includes('áfri') || contLower.includes('afri')) p.badges.african_safari = true;
+    if (contLower.includes('asi') || contLower.includes('oce')) p.badges.asia_oceania_sage = true;
+    if (p.maxStreak >= 5) p.badges.cosmic_speed = true;
+    if (p.totalCorrect >= 25) p.badges.planet_emperor = true;
 
-    _getDefaultState() {
-      return {
-        playerName: 'Capitán Explorador',
-        avatar: '🚀',
-        createdAt: new Date().toISOString(),
-        starBank: {
-          totalEarned: 0,
-          currentBalance: 0
-        },
-        streak: {
-          currentDays: 1,
-          maxDays: 1,
-          lastActiveDate: new Date().toISOString().split('T')[0],
-          shieldsRemaining: 1
-        },
-        unlockedBadges: [],
-        badgeUnlockDates: {},
-        continentProgress: {
-          Americas: { masteredCountries: [], totalAttempts: 0, correctAttempts: 0 },
-          Europe: { masteredCountries: [], totalAttempts: 0, correctAttempts: 0 },
-          Africa: { masteredCountries: [], totalAttempts: 0, correctAttempts: 0 },
-          Asia: { masteredCountries: [], totalAttempts: 0, correctAttempts: 0 },
-          Oceania: { masteredCountries: [], totalAttempts: 0, correctAttempts: 0 }
-        },
-        exploredOceans: [],
-        unlockedSkins: ['skin_classic'],
-        activeSkin: 'skin_classic',
-        unlockedTrails: ['trail_stardust'],
-        activeTrail: 'trail_stardust',
-        stats: {
-          totalQuestionsAnswered: 0,
-          totalQuestionsCorrect: 0,
-          ufosDestroyed: 0,
-          currentQuickAnswersStreak: 0,
-          maxQuickAnswersStreak: 0
-        }
-      };
-    }
+    this.save(p);
+  },
+  recordUfo() {
+    const p = this.load();
+    p.ufosDestroyed++;
+    p.badges.ufo_hunter = true;
+    if (score > p.highScore) p.highScore = score;
+    this.save(p);
+  },
+  recordOcean() {
+    const p = this.load();
+    p.badges.ocean_master = true;
+    this.save(p);
+  },
+  getRankTitle(totalCorrect, isEs) {
+    if (totalCorrect >= 50) return isEs ? '👑 EMPERADOR DEL COSMOS' : '👑 COSMIC EMPEROR';
+    if (totalCorrect >= 30) return isEs ? '🚀 GRAN ALMIRANTE' : '🚀 GRAND ADMIRAL';
+    if (totalCorrect >= 15) return isEs ? '⭐ CAPITÁN EXPLORADOR' : '⭐ EXPLORER CAPTAIN';
+    if (totalCorrect >= 5) return isEs ? '🧭 GUÍA ESPACIAL' : '🧭 SPACE GUIDE';
+    return isEs ? '🌱 CADETE NOBATO' : '🌱 NOVICE CADET';
+  },
+  renderHTML(isEs) {
+    const p = this.load();
+    const rankTitle = this.getRankTitle(p.totalCorrect, isEs);
 
-    _loadState() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          return Object.assign(this._getDefaultState(), parsed);
-        }
-      } catch (err) {
-        console.warn('[GamificationSystem] Error cargando localStorage. Usando memoria:', err);
-      }
-      return this._getDefaultState();
-    }
+    const badgeCatalog = [
+      { id: 'explorer_america', icon: '🌎', title: isEs ? 'Explorador de América' : 'Americas Explorer', desc: isEs ? 'Acierta capitales de América' : 'Guess American capitals', unlocked: p.badges.explorer_america },
+      { id: 'master_europe', icon: '🏰', title: isEs ? 'Maestro de Europa' : 'Europe Master', desc: isEs ? 'Acierta capitales de Europa' : 'Guess European capitals', unlocked: p.badges.master_europe },
+      { id: 'african_safari', icon: '🦁', title: isEs ? 'Guardián de África' : 'African Guardian', desc: isEs ? 'Acierta capitales de África' : 'Guess African capitals', unlocked: p.badges.african_safari },
+      { id: 'asia_oceania_sage', icon: '🐉', title: isEs ? 'Sabio de Asia y Oceanía' : 'Asia & Oceania Sage', desc: isEs ? 'Acierta capitales orientales' : 'Guess Eastern capitals', unlocked: p.badges.asia_oceania_sage },
+      { id: 'ocean_master', icon: '🌊', title: isEs ? 'Señor de los Océanos' : 'Lord of the Oceans', desc: isEs ? 'Explora mares en 3D' : 'Explore oceans in 3D', unlocked: p.badges.ocean_master },
+      { id: 'ufo_hunter', icon: '🛸', title: isEs ? 'Cazador de OVNIs' : 'UFO Hunter', desc: isEs ? 'Derriba a Coco o Pepe' : 'Shoot down Coco or Pepe', unlocked: p.badges.ufo_hunter },
+      { id: 'cosmic_speed', icon: '⚡', title: isEs ? 'Racha Relámpago' : 'Lightning Streak', desc: isEs ? 'Alcanza racha de 5 aciertos' : 'Achieve 5-streak', unlocked: p.badges.cosmic_speed },
+      { id: 'planet_emperor', icon: '👑', title: isEs ? 'Sabio del Planeta' : 'Planet Sage', desc: isEs ? 'Acierta 25 capitales' : 'Master 25 capitals', unlocked: p.badges.planet_emperor }
+    ];
 
-    saveState() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state));
-      } catch (err) {
-        console.warn('[GamificationSystem] Error guardando en localStorage:', err);
-      }
-    }
+    let badgesHTML = '';
+    badgeCatalog.forEach(b => {
+      const glowStyle = b.unlocked
+        ? 'background: rgba(255, 230, 0, 0.15); border: 1.5px solid var(--neon-gold); box-shadow: 0 0 12px rgba(255, 230, 0, 0.4);'
+        : 'background: rgba(255, 255, 255, 0.04); border: 1.5px dashed rgba(255, 255, 255, 0.2); opacity: 0.55;';
+      const statusBadge = b.unlocked
+        ? `<span style="font-size: 0.65rem; background: var(--neon-gold); color: #000; font-weight: 900; padding: 2px 6px; border-radius: 8px;">✅ ${isEs ? 'LOGRADO' : 'UNLOCKED'}</span>`
+        : `<span style="font-size: 0.65rem; background: rgba(255,255,255,0.1); color: #94a3b8; padding: 2px 6px; border-radius: 8px;">🔒 ${isEs ? 'PENDIENTE' : 'LOCKED'}</span>`;
 
-    setLanguage(lang) {
-      if (['es', 'en', 'ja', 'zh', 'ar'].includes(lang)) {
-        this.language = lang;
-      }
-    }
+      badgesHTML += `
+        <div style="display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 14px; ${glowStyle}">
+          <div style="font-size: 1.8rem; flex-shrink: 0;">${b.icon}</div>
+          <div style="flex: 1; text-align: left;">
+            <div style="font-family: var(--font-title); font-size: 0.82rem; font-weight: 800; color: #fff;">${b.title}</div>
+            <div style="font-size: 0.70rem; color: #94a3b8; line-height: 1.2;">${b.desc}</div>
+          </div>
+          <div>${statusBadge}</div>
+        </div>
+      `;
+    });
 
-    // --------------------------------------------------------------------------
-    // B. DAILY STREAK & STAR BANK
-    // --------------------------------------------------------------------------
-
-    _evaluateDailyStreak() {
-      const today = new Date().toISOString().split('T')[0];
-      const lastDate = this.state.streak.lastActiveDate;
-
-      if (!lastDate) {
-        this.state.streak.lastActiveDate = today;
-        this.state.streak.currentDays = 1;
-        this.saveState();
-        return;
-      }
-
-      if (lastDate === today) {
-        // Mismo día, no cambia la racha
-        return;
-      }
-
-      const lastMs = new Date(lastDate).getTime();
-      const todayMs = new Date(today).getTime();
-      const diffDays = Math.round((todayMs - lastMs) / (1000 * 60 * 60 * 24));
-
-      if (diffDays === 1) {
-        // Día consecutivo: suma racha
-        this.state.streak.currentDays += 1;
-        if (this.state.streak.currentDays > this.state.streak.maxDays) {
-          this.state.streak.maxDays = this.state.streak.currentDays;
-        }
-        this.state.streak.lastActiveDate = today;
-
-        // Bono de estrellas por racha
-        const bonusStars = Math.min(25, this.state.streak.currentDays * 2);
-        this.addStars(bonusStars, `Racha Diaria Día ${this.state.streak.currentDays} 🔥`);
-
-        if (typeof this.onStreakUpdated === 'function') {
-          this.onStreakUpdated(this.state.streak);
-        }
-      } else if (diffDays > 1) {
-        // Se perdió un día: verifica escudo protector
-        if (this.state.streak.shieldsRemaining > 0) {
-          this.state.streak.shieldsRemaining -= 1;
-          this.state.streak.lastActiveDate = today;
-          // Escudo salvó la racha
-        } else {
-          this.state.streak.currentDays = 1;
-          this.state.streak.lastActiveDate = today;
-        }
-      }
-      this.saveState();
-    }
-
-    /**
-     * Añadir estrellas al banco con animación o notificación
-     * @param {number} amount Cantidad de estrellas a otorgar
-     * @param {string} reason Motivo pedagógico
-     */
-    addStars(amount, reason = '') {
-      if (amount <= 0) return;
-      this.state.starBank.totalEarned += amount;
-      this.state.starBank.currentBalance += amount;
-      this.saveState();
-
-      if (typeof this.onStarEarned === 'function') {
-        this.onStarEarned({
-          amount,
-          currentBalance: this.state.starBank.currentBalance,
-          reason
-        });
-      }
-    }
-
-    getStarsBalance() {
-      return this.state.starBank.currentBalance;
-    }
-
-    getStreakInfo() {
-      return {
-        current: this.state.streak.currentDays,
-        max: this.state.streak.maxDays,
-        shields: this.state.streak.shieldsRemaining,
-        multiplier: 1 + Math.min(1.0, this.state.streak.currentDays * 0.1) // Hasta +100% de bonificación
-      };
-    }
-
-    // --------------------------------------------------------------------------
-    // C. CONTINENT MASTERY TRACKER
-    // --------------------------------------------------------------------------
-
-    /**
-     * Registra un intento de respuesta de país
-     * @param {string} continent Nombre del continente (ej: 'Americas', 'Europe', 'Africa', 'Asia', 'Oceania')
-     * @param {string} countryCode Código ISO o ID de país (ej: 'ARG', 'FRA')
-     * @param {boolean} isCorrect Si acertó
-     * @param {number} responseTimeSeconds Tiempo que tardó en responder en segundos
-     */
-    recordAnswer(continent, countryCode, isCorrect, responseTimeSeconds = 5) {
-      this.state.stats.totalQuestionsAnswered += 1;
-
-      if (!this.state.continentProgress[continent]) {
-        this.state.continentProgress[continent] = {
-          masteredCountries: [],
-          totalAttempts: 0,
-          correctAttempts: 0
-        };
-      }
-
-      const contObj = this.state.continentProgress[continent];
-      contObj.totalAttempts += 1;
-
-      if (isCorrect) {
-        this.state.stats.totalQuestionsCorrect += 1;
-        contObj.correctAttempts += 1;
-
-        if (!contObj.masteredCountries.includes(countryCode)) {
-          contObj.masteredCountries.push(countryCode);
-          // Bono de 3 estrellas por nueva capital dominada
-          this.addStars(3, `¡Capital dominada: ${countryCode}! 🌟`);
-        } else {
-          this.addStars(1, 'Acierto de práctica ⭐');
-        }
-
-        // Racha de velocidad cósmica (< 3s)
-        if (responseTimeSeconds <= 3) {
-          this.state.stats.currentQuickAnswersStreak += 1;
-          if (this.state.stats.currentQuickAnswersStreak > this.state.stats.maxQuickAnswersStreak) {
-            this.state.stats.maxQuickAnswersStreak = this.state.stats.currentQuickAnswersStreak;
-          }
-        } else {
-          this.state.stats.currentQuickAnswersStreak = 0;
-        }
-      } else {
-        this.state.stats.currentQuickAnswersStreak = 0;
-      }
-
-      this.saveState();
-      this.checkAndUnlockBadges();
-    }
-
-    /**
-     * Registra la exploración interactiva de un océano o mar
-     * @param {string} oceanId Identificador del océano o mar
-     */
-    recordOceanExplored(oceanId) {
-      if (!this.state.exploredOceans.includes(oceanId)) {
-        this.state.exploredOceans.push(oceanId);
-        this.addStars(2, `¡Mundo Marino descubierto: ${oceanId}! 🌊`);
-        this.saveState();
-        this.checkAndUnlockBadges();
-      }
-    }
-
-    /**
-     * Registra el derribo de un OVNI en el mini-juego espacial
-     */
-    recordUfoDestroyed() {
-      this.state.stats.ufosDestroyed += 1;
-      this.addStars(5, '¡Invasor espacial repelido! 🛸💥');
-      this.saveState();
-      this.checkAndUnlockBadges();
-    }
-
-    /**
-     * Obtiene el progreso desglosado por continente
-     */
-    getContinentMasterySummary() {
-      const summary = {};
-      for (const [key, conf] of Object.entries(CONTINENTS_CONFIG)) {
-        const contData = this.state.continentProgress[key] || { masteredCountries: [], totalAttempts: 0, correctAttempts: 0 };
-        const masteredCount = contData.masteredCountries.length;
-        const total = conf.total;
-        const percent = Math.min(100, Math.round((masteredCount / total) * 100));
-
-        let rankTitle = 'Novato';
-        if (percent >= 100) rankTitle = 'Maestro Absoluto 👑';
-        else if (percent >= 75) rankTitle = 'Gran Guía 🧭';
-        else if (percent >= 40) rankTitle = 'Explorador 🗺️';
-        else if (percent >= 15) rankTitle = 'Aprendiz 🎒';
-
-        summary[key] = {
-          id: key,
-          name: conf.name[this.language] || conf.name.es,
-          icon: conf.icon,
-          color: conf.color,
-          mastered: masteredCount,
-          total: total,
-          percentage: percent,
-          rankTitle: rankTitle,
-          accuracy: contData.totalAttempts > 0 ? Math.round((contData.correctAttempts / contData.totalAttempts) * 100) : 0
-        };
-      }
-      return summary;
-    }
-
-    // --------------------------------------------------------------------------
-    // D. WORLD PASSPORT & BADGES
-    // --------------------------------------------------------------------------
-
-    /**
-     * Evalúa todas las insignias y desbloquea las nuevas
-     */
-    checkAndUnlockBadges() {
-      const newlyUnlocked = [];
-
-      BADGE_DEFINITIONS.forEach(badge => {
-        if (!this.state.unlockedBadges.includes(badge.id)) {
-          if (badge.checkUnlock(this.state)) {
-            this.state.unlockedBadges.push(badge.id);
-            this.state.badgeUnlockDates[badge.id] = new Date().toISOString();
-            newlyUnlocked.push(badge);
-
-            // Recompensa en estrellas por desbloquear insignia
-            const badgeReward = badge.rarity === 'legendary' ? 100 : badge.rarity === 'epic' ? 50 : 25;
-            this.addStars(badgeReward, `Insignia ${badge.name[this.language] || badge.name.es} 🏆`);
-
-            if (typeof this.onBadgeUnlocked === 'function') {
-              this.onBadgeUnlocked(badge);
-            }
-          }
-        }
+    let recentHTML = '';
+    if (p.masteredCountries.length > 0) {
+      p.masteredCountries.forEach(c => {
+        const flagImg = getFlagImgHTML(c.flag, "width: 32px; height: 22px;");
+        recentHTML += `
+          <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 240, 255, 0.12); border: 1px solid var(--neon-cyan); padding: 4px 8px; border-radius: 10px; margin: 3px; font-size: 0.78rem; font-weight: 700;">
+            ${flagImg} <span>${c.name}</span>
+          </div>
+        `;
       });
-
-      if (newlyUnlocked.length > 0) {
-        this.saveState();
-      }
-      return newlyUnlocked;
+    } else {
+      recentHTML = `<div style="font-size: 0.80rem; color: #94a3b8; font-style: italic;">${isEs ? '¡Juega partidas para llenar tu pasaporte de países!' : 'Play games to stamp countries on your passport!'}</div>`;
     }
 
-    /**
-     * Retorna todas las insignias con su estado actual de desbloqueo
-     */
-    getAllBadges() {
-      return BADGE_DEFINITIONS.map(b => ({
-        id: b.id,
-        icon: b.icon,
-        rarity: b.rarity,
-        color: b.color,
-        name: b.name[this.language] || b.name.es,
-        description: b.description[this.language] || b.description.es,
-        isUnlocked: this.state.unlockedBadges.includes(b.id),
-        unlockedAt: this.state.badgeUnlockDates[b.id] || null
-      }));
-    }
-
-    // --------------------------------------------------------------------------
-    // E. TIENDA DE ESTRELLAS: SKINS Y ESTELAS
-    // --------------------------------------------------------------------------
-
-    getStarShopCatalog() {
-      return {
-        skins: STAR_SHOP_ITEMS.skins.map(s => ({
-          ...s,
-          name: s.name[this.language] || s.name.es,
-          description: s.description[this.language] || s.description.es,
-          isUnlocked: this.state.unlockedSkins.includes(s.id),
-          isActive: this.state.activeSkin === s.id
-        })),
-        trails: STAR_SHOP_ITEMS.trails.map(t => ({
-          ...t,
-          name: t.name[this.language] || t.name.es,
-          isUnlocked: this.state.unlockedTrails.includes(t.id),
-          isActive: this.state.activeTrail === t.id
-        }))
-      };
-    }
-
-    /**
-     * Comprar o equipar un Skin del Globo
-     * @param {string} skinId ID del skin
-     */
-    equipOrBuySkin(skinId) {
-      const item = STAR_SHOP_ITEMS.skins.find(s => s.id === skinId);
-      if (!item) return { success: false, message: 'Skin no encontrado' };
-
-      // Ya está desbloqueado: solo equipar
-      if (this.state.unlockedSkins.includes(skinId)) {
-        this.state.activeSkin = skinId;
-        this.saveState();
-        if (typeof this.onSkinChanged === 'function') this.onSkinChanged(item);
-        return { success: true, action: 'equipped', item };
-      }
-
-      // No está desbloqueado: verificar saldo
-      if (this.state.starBank.currentBalance >= item.cost) {
-        this.state.starBank.currentBalance -= item.cost;
-        this.state.unlockedSkins.push(skinId);
-        this.state.activeSkin = skinId;
-        this.saveState();
-        if (typeof this.onSkinChanged === 'function') this.onSkinChanged(item);
-        return { success: true, action: 'purchased_and_equipped', item };
-      }
-
-      return { success: false, message: 'Estrellas insuficientes ⭐' };
-    }
-
-    /**
-     * Comprar o equipar una Estela de Partículas
-     * @param {string} trailId ID de la estela
-     */
-    equipOrBuyTrail(trailId) {
-      const item = STAR_SHOP_ITEMS.trails.find(t => t.id === trailId);
-      if (!item) return { success: false, message: 'Estela no encontrada' };
-
-      if (this.state.unlockedTrails.includes(trailId)) {
-        this.state.activeTrail = trailId;
-        this.saveState();
-        return { success: true, action: 'equipped', item };
-      }
-
-      if (this.state.starBank.currentBalance >= item.cost) {
-        this.state.starBank.currentBalance -= item.cost;
-        this.state.unlockedTrails.push(trailId);
-        this.state.activeTrail = trailId;
-        this.saveState();
-        return { success: true, action: 'purchased_and_equipped', item };
-      }
-
-      return { success: false, message: 'Estrellas insuficientes ⭐' };
-    }
-
-    getActiveSkinConfig() {
-      return STAR_SHOP_ITEMS.skins.find(s => s.id === this.state.activeSkin) || STAR_SHOP_ITEMS.skins[0];
-    }
-
-    getActiveTrailConfig() {
-      return STAR_SHOP_ITEMS.trails.find(t => t.id === this.state.activeTrail) || STAR_SHOP_ITEMS.trails[0];
-    }
-
-    // --------------------------------------------------------------------------
-    // F. RENDERIZADORES DE INTERFAZ HTML MODULARES (KIDS UI)
-    // --------------------------------------------------------------------------
-
-    /**
-     * Genera el HTML completo del Pasaporte Mundial Interactivo
-     */
-    renderPassportHTML() {
-      const badges = this.getAllBadges();
-      const mastery = this.getContinentMasterySummary();
-      const streak = this.getStreakInfo();
-      const stars = this.getStarsBalance();
-      const unlockedCount = badges.filter(b => b.isUnlocked).length;
-
-      return `
-      <div class="passport-modal-content" style="background: radial-gradient(circle at top, #0d1b2a, #050a12); color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; border: 2px solid #00f3ff; border-radius: 16px; padding: 24px; max-width: 720px; margin: auto; box-shadow: 0 0 30px rgba(0,243,255,0.3); text-shadow: 0 0 2px #000;">
-        <!-- Header del Pasaporte -->
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #00f3ff; padding-bottom: 16px; margin-bottom: 20px;">
-          <div>
-            <div style="font-size: 12px; letter-spacing: 3px; color: #00f3ff; text-transform: uppercase;">PLANET EARTH OFFICIAL PASSPORT</div>
-            <h2 style="margin: 4px 0 0 0; font-size: 24px; color: #ffe600; display: flex; align-items: center; gap: 8px;">
-              <span>🌐 PASAPORTE MUNDIAL</span>
-            </h2>
-          </div>
-          <div style="text-align: right; background: rgba(0,243,255,0.1); padding: 8px 16px; border-radius: 12px; border: 1px solid #00f3ff;">
-            <div style="font-size: 11px; color: #88a0c0;">BANCO ESTELAR</div>
-            <div style="font-size: 20px; font-weight: bold; color: #ffd700;">⭐ ${stars}</div>
-          </div>
+    return `
+      <!-- TARJETA DE ESTADÍSTICAS DEL NIÑO -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+        <div style="background: rgba(0, 240, 255, 0.08); border: 1px solid var(--neon-cyan); border-radius: 14px; padding: 8px 10px; text-align: left;">
+          <div style="font-size: 0.72rem; color: var(--neon-cyan); font-weight: 800;">⭐ ${isEs ? 'ACIERTOS TOTALES' : 'TOTAL CORRECT'}</div>
+          <div style="font-family: var(--font-title); font-size: 1.4rem; font-weight: 900; color: #fff;">${p.totalCorrect} <span style="font-size: 0.8rem; color: var(--neon-cyan);">${isEs ? 'capitales' : 'capitals'}</span></div>
         </div>
-
-        <!-- Ficha del Viajero y Racha -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: rgba(255,255,255,0.04); padding: 16px; border-radius: 12px; margin-bottom: 20px;">
-          <div>
-            <div style="font-size: 12px; color: #88a0c0;">TITULAR / EXPLORADOR:</div>
-            <div style="font-size: 16px; font-weight: bold; color: #fff;">${this.state.playerName} ${this.state.avatar}</div>
-            <div style="font-size: 11px; color: #39ff14; margin-top: 4px;">ESTADO: ACTIVO EN MISIÓN 🚀</div>
-          </div>
-          <div>
-            <div style="font-size: 12px; color: #88a0c0;">RACHA DE VUELO:</div>
-            <div style="font-size: 16px; font-weight: bold; color: #ff9900;">🔥 ${streak.current} Días Seguidos</div>
-            <div style="font-size: 11px; color: #00f3ff; margin-top: 4px;">Multiplicador Estelar: x${streak.multiplier.toFixed(1)} ⚡</div>
-          </div>
+        <div style="background: rgba(255, 230, 0, 0.08); border: 1px solid var(--neon-gold); border-radius: 14px; padding: 8px 10px; text-align: left;">
+          <div style="font-size: 0.72rem; color: var(--neon-gold); font-weight: 800;">🏆 ${isEs ? 'RÉCORD PERSONAL' : 'HIGH SCORE'}</div>
+          <div style="font-family: var(--font-title); font-size: 1.4rem; font-weight: 900; color: #fff;">${p.highScore} <span style="font-size: 0.8rem; color: var(--neon-gold);">PTS</span></div>
         </div>
-
-        <!-- Progreso de Continentes -->
-        <h3 style="color: #00f3ff; font-size: 16px; margin: 16px 0 8px 0; display: flex; align-items: center; gap: 6px;">
-          <span>🧭 DOMINIO CONTINENTAL</span>
-        </h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 24px;">
-          ${Object.values(mastery).map(m => `
-            <div style="background: rgba(0,0,0,0.4); border: 1px solid ${m.color}; border-radius: 8px; padding: 10px; text-align: center;">
-              <div style="font-size: 20px;">${m.icon}</div>
-              <div style="font-size: 12px; font-weight: bold; color: ${m.color}; margin-top: 2px;">${m.name}</div>
-              <div style="font-size: 14px; font-weight: bold; color: #fff; margin: 4px 0;">${m.mastered}/${m.total}</div>
-              <div style="background: #222; border-radius: 6px; height: 6px; overflow: hidden; margin-bottom: 4px;">
-                <div style="background: ${m.color}; width: ${m.percentage}%; height: 100%;"></div>
-              </div>
-              <div style="font-size: 9px; color: #aaa;">${m.rankTitle}</div>
-            </div>
-          `).join('')}
+        <div style="background: rgba(255, 0, 127, 0.08); border: 1px solid var(--neon-magenta); border-radius: 14px; padding: 8px 10px; text-align: left;">
+          <div style="font-size: 0.72rem; color: var(--neon-magenta); font-weight: 800;">🔥 ${isEs ? 'MEJOR RACHA' : 'MAX STREAK'}</div>
+          <div style="font-family: var(--font-title); font-size: 1.4rem; font-weight: 900; color: #fff;">${p.maxStreak} <span style="font-size: 0.8rem; color: var(--neon-magenta);">${isEs ? 'seguidas' : 'in a row'}</span></div>
         </div>
-
-        <!-- Vitrina de 8 Insignias Coleccionables -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <h3 style="color: #ffe600; font-size: 16px; margin: 0; display: flex; align-items: center; gap: 6px;">
-            <span>🏆 SELLOS E INSIGNIAS ESPACIALES (${unlockedCount}/8)</span>
-          </h3>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
-          ${badges.map(b => `
-            <div style="background: ${b.isUnlocked ? 'rgba(0, 243, 255, 0.08)' : 'rgba(0,0,0,0.6)'}; border: 1px solid ${b.isUnlocked ? b.color : '#333'}; border-radius: 10px; padding: 12px 8px; text-align: center; position: relative; opacity: ${b.isUnlocked ? '1' : '0.45'}; filter: ${b.isUnlocked ? 'none' : 'grayscale(80%)'}; transition: transform 0.2s;">
-              <div style="font-size: 32px; filter: drop-shadow(0 0 ${b.isUnlocked ? '8px ' + b.color : '0px transparent'});">${b.icon}</div>
-              <div style="font-size: 12px; font-weight: bold; color: ${b.isUnlocked ? '#fff' : '#888'}; margin-top: 6px;">${b.name}</div>
-              <div style="font-size: 9px; color: #aaa; margin-top: 4px; line-height: 1.2;">${b.description}</div>
-              ${b.isUnlocked ? `<div style="margin-top: 6px; display: inline-block; font-size: 8px; background: ${b.color}; color: #000; font-weight: bold; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">DESBLOQUEADO</div>` : `<div style="margin-top: 6px; font-size: 8px; color: #666;">BLOQUEADO 🔒</div>`}
-            </div>
-          `).join('')}
+        <div style="background: rgba(57, 255, 20, 0.08); border: 1px solid var(--neon-green); border-radius: 14px; padding: 8px 10px; text-align: left;">
+          <div style="font-size: 0.72rem; color: var(--neon-green); font-weight: 800;">🛸 ${isEs ? 'OVNIS CAZADOS' : 'UFOS SHOT DOWN'}</div>
+          <div style="font-family: var(--font-title); font-size: 1.4rem; font-weight: 900; color: #fff;">${p.ufosDestroyed} <span style="font-size: 0.8rem; color: var(--neon-green);">${isEs ? 'naves' : 'ships'}</span></div>
         </div>
       </div>
-      `;
-    }
 
-    /**
-     * Genera el HTML de la Tienda de Estrellas (Star Shop)
-     */
-    renderShopHTML() {
-      const shop = this.getStarShopCatalog();
-      const currentStars = this.getStarsBalance();
-
-      return `
-      <div class="star-shop-content" style="background: #080e18; color: #fff; border: 2px solid #ffd700; border-radius: 16px; padding: 24px; max-width: 720px; margin: auto; box-shadow: 0 0 30px rgba(255,215,0,0.25); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-        <!-- Header Tienda -->
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ffd700; padding-bottom: 12px; margin-bottom: 20px;">
-          <div>
-            <h2 style="margin: 0; color: #ffd700; font-size: 22px;">⭐ TIENDA CÓSMICA DE ESTRELLAS</h2>
-            <div style="font-size: 12px; color: #aaa;">Desbloquea aspectos visuales y efectos de vuelo para tu globo</div>
-          </div>
-          <div style="background: rgba(255,215,0,0.15); border: 1px solid #ffd700; border-radius: 10px; padding: 6px 16px; font-size: 20px; font-weight: bold; color: #ffd700;">
-            ⭐ ${currentStars}
-          </div>
-        </div>
-
-        <!-- Sección Skins del Globo -->
-        <h3 style="color: #00f3ff; font-size: 15px; margin: 16px 0 10px 0;">🌍 ASPECTOS DEL GLOBO TERRÁQUEO (SKINS)</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px;">
-          ${shop.skins.map(skin => `
-            <div style="background: rgba(255,255,255,0.03); border: 2px solid ${skin.isActive ? '#39ff14' : skin.isUnlocked ? '#00f3ff' : '#444'}; border-radius: 10px; padding: 12px; text-align: center;">
-              <div style="width: 40px; height: 40px; border-radius: 50%; background: ${skin.previewColor}; margin: 0 auto 8px auto; box-shadow: 0 0 10px ${skin.previewColor};"></div>
-              <div style="font-weight: bold; font-size: 13px; color: #fff;">${skin.name}</div>
-              <div style="font-size: 10px; color: #aaa; margin: 4px 0 10px 0;">${skin.description}</div>
-              <button onclick="window.__gamificationInstance?.equipOrBuySkin('${skin.id}')" style="cursor: pointer; width: 100%; border: none; border-radius: 6px; padding: 6px; font-weight: bold; font-size: 11px; background: ${skin.isActive ? '#39ff14' : skin.isUnlocked ? '#00f3ff' : currentStars >= skin.cost ? '#ffd700' : '#444'}; color: #000;">
-                ${skin.isActive ? 'EQUIPADO ✔' : skin.isUnlocked ? 'EQUIPAR' : `COMPRAR (⭐ ${skin.cost})`}
-              </button>
-            </div>
-          `).join('')}
-        </div>
-
-        <!-- Sección Estelas de Cursor -->
-        <h3 style="color: #ff007f; font-size: 15px; margin: 16px 0 10px 0;">✨ ESTELAS Y EFECTOS DE CURSOR</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
-          ${shop.trails.map(trail => `
-            <div style="background: rgba(255,255,255,0.03); border: 2px solid ${trail.isActive ? '#39ff14' : trail.isUnlocked ? '#ff007f' : '#444'}; border-radius: 10px; padding: 12px; text-align: center;">
-              <div style="font-size: 28px; margin-bottom: 4px;">${trail.icon}</div>
-              <div style="font-weight: bold; font-size: 13px; color: #fff;">${trail.name}</div>
-              <div style="margin: 10px 0 4px 0;">
-                <button onclick="window.__gamificationInstance?.equipOrBuyTrail('${trail.id}')" style="cursor: pointer; width: 100%; border: none; border-radius: 6px; padding: 6px; font-weight: bold; font-size: 11px; background: ${trail.isActive ? '#39ff14' : trail.isUnlocked ? '#ff007f' : currentStars >= trail.cost ? '#ffd700' : '#444'}; color: #000;">
-                  ${trail.isActive ? 'EQUIPADO ✔' : trail.isUnlocked ? 'EQUIPAR' : `COMPRAR (⭐ ${trail.cost})`}
-                </button>
-              </div>
-            </div>
-          `).join('')}
-        </div>
+      <!-- INSIGNIAS Y SELLOS ESPACIALES -->
+      <div style="font-family: var(--font-title); font-size: 0.90rem; font-weight: 900; color: var(--neon-gold); margin-bottom: 6px; text-align: left;">
+        🏅 ${isEs ? 'SELLOS E INSIGNIAS ESPACIALES' : 'SPACE STAMPS & BADGES'} (8)
       </div>
-      `;
-    }
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 14px;">
+        ${badgesHTML}
+      </div>
+
+      <!-- ÚLTIMOS PAÍSES CONQUISTADOS -->
+      <div style="font-family: var(--font-title); font-size: 0.90rem; font-weight: 900; color: var(--neon-cyan); margin-bottom: 6px; text-align: left;">
+        📍 ${isEs ? 'ÚLTIMOS DESCUBRIMIENTOS' : 'RECENT DISCOVERIES'}
+      </div>
+      <div style="text-align: left; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+        ${recentHTML}
+      </div>
+    `;
   }
-
-  return GamificationSystem;
-});
-
+};
 </script>
 
 <script>
@@ -3154,7 +2424,7 @@ window.addEventListener('focus', () => {
 
   const fxEngine = new SciFi50sRayFXEngine('fx-canvas');
 
-  /* MOTOR 3D DEL GLOBO (CON ZOOM OUT DINÁMICO AL GIRAR Y ZOOM IN AL FIJAR PAÍS) */
+  /* MOTOR 3D DEL GLOBO */
   class ThreeGlobeEngine {
     constructor(containerId) {
       this.container = document.getElementById(containerId);
@@ -3381,6 +2651,7 @@ window.addEventListener('focus', () => {
           
           NextGenAudio.playCrystallineWaterDrop();
           fxEngine.spawnWaterRipples(screenX, screenY);
+          MyPassport.recordOcean();
 
           this.centerCoordinates(matchedOcean.centroid[0], matchedOcean.centroid[1], () => {
             terminal.showOcean(matchedOcean);
@@ -3426,7 +2697,6 @@ window.addEventListener('focus', () => {
       requestAnimationFrame(step);
     }
 
-    /* SPIN CON ZOOM OUT DURANTE EL GIRO Y ZOOM IN AL FIJAR EL PAÍS */
     spinTo(feature, onComplete) {
       this.isSpinning = true;
       this.selectedFeature = null;
@@ -3464,7 +2734,6 @@ window.addEventListener('focus', () => {
         const latWobble = Math.sin(t * Math.PI) * latTiltPeak * (1 - t);
         this.rotation[1] = startRotX + (targetRotX - startRotX) * ease + latWobble;
 
-        // ZOOM OUT DURANTE EL GIRO Y ZOOM IN AL FINAL
         if (t < 0.6) {
           const zoomEase = Math.sin((t / 0.6) * (Math.PI / 2));
           this.camera.position.z = startCamZ + (peakZoomOutZ - startCamZ) * zoomEase;
@@ -3677,7 +2946,7 @@ window.addEventListener('focus', () => {
     }
   }
 
-  /* SCOREBOARD TOP 10 (12 SEGUNDOS DE AUTO-CIERRE) */
+  /* SCOREBOARD TOP 10 */
   let scoreboardAutoDismissTimer = null;
   let scoreboardSecondsLeft = 12;
 
@@ -3925,7 +3194,7 @@ window.addEventListener('focus', () => {
       this.dismiss();
       NextGenAudio.playLaserZap(2);
       confetti.spawn(this.x + 35, this.y + 25);
-      GamificationSystem.recordUFODown();
+      MyPassport.recordUfo();
 
       const basePoints = isScout ? DIFF_CONFIG[currentDifficulty].ufoScoreScout : DIFF_CONFIG[currentDifficulty].ufoScoreMother;
       const multiplier = isScout ? 4 : 2;
@@ -4030,7 +3299,7 @@ window.addEventListener('focus', () => {
 
     document.getElementById('btn-start-play').textContent = isEs ? '🎮 ¡COMENZAR MISIÓN!' : '🎮 START MISSION!';
     document.getElementById('btn-start-train').textContent = isEs ? '🧭 EXPLORACIÓN' : '🧭 EXPLORATION';
-    document.getElementById('btn-open-passport').textContent = isEs ? '📘 PASAPORTE (8)' : '📘 PASSPORT (8)';
+    document.getElementById('btn-open-passport').textContent = isEs ? '📘 MI PASAPORTE' : '📘 MY PASSPORT';
     document.getElementById('txt-wa-btn').textContent = isEs ? 'DESAFÍA A UN AMIGO' : 'CHALLENGE A FRIEND';
 
     document.getElementById('lbl-streak-hud').textContent = isEs ? '🔥 RACHA:' : '🔥 STREAK:';
@@ -4038,7 +3307,9 @@ window.addEventListener('focus', () => {
     document.getElementById('train-hud-title').textContent = isEs ? '🧭 TOCA CUALQUIER PAÍS O MAR' : '🧭 TAP ANY COUNTRY OR SEA';
 
     document.getElementById('txt-trivia-header').textContent = isEs ? '¿SABÍAS QUE...?' : 'DID YOU KNOW?';
-    document.getElementById('txt-passport-header').textContent = isEs ? '📘 PASAPORTE MUNDIAL' : '📘 WORLD PASSPORT';
+    document.getElementById('txt-passport-header').innerHTML = `<span>📘 ${isEs ? 'MI PASAPORTE MUNDIAL' : 'MY WORLD PASSPORT'}</span>`;
+    document.getElementById('passport-back-btn').textContent = isEs ? '← VOLVER AL MENÚ' : '← BACK TO MENU';
+
     document.getElementById('txt-scoreboard-header').textContent = isEs ? '🏆 SALÓN DE LA FAMA' : '🏆 HALL OF FAME';
     document.getElementById('txt-highscore-prompt').textContent = isEs ? '¡NUEVO RÉCORD! TUS 4 INICIALES:' : 'NEW HIGH SCORE! ENTER 4 INITIALS:';
     document.getElementById('save-score-btn').textContent = isEs ? 'GUARDAR' : 'SAVE';
@@ -4107,14 +3378,24 @@ window.addEventListener('focus', () => {
     returnHome();
   });
 
+  /* APERTURA Y CIERRE DE MI PASAPORTE */
   document.getElementById('btn-open-passport').addEventListener('click', () => {
     NextGenAudio.init();
     NextGenAudio.playBubblePop(1.3);
-    document.getElementById('passport-content-area').innerHTML = GamificationSystem.renderPassportHTML();
+    const isEs = (currentLang === 'es');
+    const p = MyPassport.load();
+    const rankTitle = MyPassport.getRankTitle(p.totalCorrect, isEs);
+    document.getElementById('passport-rank-badge').textContent = `🌟 ${isEs ? 'RANGO:' : 'RANK:'} ${rankTitle}`;
+    document.getElementById('passport-content-area').innerHTML = MyPassport.renderHTML(isEs);
     passportModal.classList.remove('hidden');
   });
 
   document.getElementById('passport-close-btn').addEventListener('click', () => {
+    NextGenAudio.playBubblePop(0.9);
+    passportModal.classList.add('hidden');
+  });
+
+  document.getElementById('passport-back-btn').addEventListener('click', () => {
     NextGenAudio.playBubblePop(0.9);
     passportModal.classList.add('hidden');
   });
@@ -4135,7 +3416,6 @@ window.addEventListener('focus', () => {
     currentTarget = pool[Math.floor(Math.random() * pool.length)];
     sessionUsedCountries.add(currentTarget.properties.name);
 
-    // Giro con Zoom Out y Zoom In al destino
     globe.spinTo(currentTarget, () => {
       showQuestion(currentTarget);
     });
@@ -4159,7 +3439,7 @@ window.addEventListener('focus', () => {
       const btn = document.createElement('button');
       btn.className = 'option-card-btn';
       btn.textContent = opt;
-      btn.addEventListener('click', () => checkAnswer(opt === d.capital, btn, d.capital, d.continent, d.name));
+      btn.addEventListener('click', () => checkAnswer(opt === d.capital, btn, d.capital, d.continent, d.name, meta.flag));
       optionsGrid.appendChild(btn);
     });
 
@@ -4199,7 +3479,7 @@ window.addEventListener('focus', () => {
     }, 100);
   }
 
-  function checkAnswer(isCorrect, btnEl, correctCap, continentName, countryName) {
+  function checkAnswer(isCorrect, btnEl, correctCap, continentName, countryName, flagEmoji) {
     clearInterval(timerInterval);
     roundCount++;
 
@@ -4215,6 +3495,9 @@ window.addEventListener('focus', () => {
       
       const addedPoints = Math.round(cfg.basePoints * cfg.mult * streakMultiplier);
       score += addedPoints;
+
+      // Registrar acierto en MI PASAPORTE
+      MyPassport.recordCorrect(countryName, continentName, flagEmoji);
 
       if (isMegaStreak) {
         NextGenAudio.playVictoryChord(4);
@@ -4237,10 +3520,6 @@ window.addEventListener('focus', () => {
           1350
         );
       }
-
-      try {
-        GamificationSystem.recordCorrectCapital(continentName, countryName, timeLeft > (TIME_LIMITS[currentDifficulty] * 0.6));
-      } catch(e) {}
 
       updateHUD();
       setTimeout(() => proceedNextStep(), 1400);
