@@ -3,31 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>🌍 MY WORLD: Earth Explorer 3D - Award Winning Edition</title>
+  <title>GEO ORBIT: World Odyssey 3D - 2026 Studio Edition</title>
 
-  <!-- FUENTES DE VANGUARDIA -->
+  <!-- FUENTES CYBER MODERNAS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&family=Space+Grotesk:wght@600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=Space+Grotesk:wght@600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
 
+  <!-- MOTOR 3D Y GEOESPACIAL -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
 
   <style>
     :root {
-      --primary-cyan: #00f0ff;
-      --primary-magenta: #ff007f;
-      --primary-gold: #ffe600;
-      --primary-green: #39ff14;
-      --primary-violet: #8a2be2;
-      --primary-red: #ff0033;
-      --bg-space: #03040c;
-      --glass-surface: rgba(13, 20, 48, 0.78);
+      --neon-cyan: #00f0ff;
+      --neon-magenta: #ff007f;
+      --neon-gold: #ffe600;
+      --neon-green: #39ff14;
+      --neon-violet: #8a2be2;
+      --neon-red: #ff0033;
+      --bg-dark: #02040a;
+      --glass-panel: rgba(10, 18, 42, 0.82);
       --glass-border: rgba(0, 240, 255, 0.35);
       --glass-glow: 0 12px 40px 0 rgba(0, 240, 255, 0.25);
-      --font-body: 'Plus Jakarta Sans', sans-serif;
-      --font-display: 'Space Grotesk', sans-serif;
-      --font-code: 'JetBrains Mono', monospace;
+      --font-main: 'Plus Jakarta Sans', sans-serif;
+      --font-title: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
     * {
@@ -45,12 +47,12 @@
       height: 100vh;
       height: 100dvh;
       overflow: hidden;
-      background-color: var(--bg-space);
-      font-family: var(--font-body);
+      background-color: var(--bg-dark);
+      font-family: var(--font-main);
       color: #f8fafc;
     }
 
-    #app-container {
+    #game-viewport {
       position: relative;
       width: 100vw;
       height: 100vh;
@@ -60,7 +62,7 @@
       overflow: hidden;
     }
 
-    /* CANVASES (ESPACIO -> GLOBO -> RAYOS & PARTÍCULAS -> CONFETI) */
+    /* CANVASES */
     canvas.full-canvas {
       position: absolute;
       top: 0;
@@ -69,14 +71,13 @@
       height: 100%;
     }
     #space-nebula-canvas { z-index: 5; pointer-events: none; }
-    #globe-canvas { z-index: 20; pointer-events: auto; cursor: grab; }
-    #globe-canvas:active { cursor: grabbing; }
+    #three-globe-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; cursor: grab; }
+    #three-globe-container:active { cursor: grabbing; }
     #fx-canvas { z-index: 30; pointer-events: none; }
     #confetti-canvas { z-index: 100; pointer-events: none; }
 
-    /* TARJETAS GLASSMORPHISM 2.0 CON BORDES VIVOS */
-    .glass-panel {
-      background: var(--glass-surface);
+    .glass-card {
+      background: var(--glass-panel);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
       border: 1.5px solid var(--glass-border);
@@ -84,11 +85,11 @@
       box-shadow: var(--glass-glow);
     }
 
-    /* BOTONES TÁCTILES 3D CON REBOTE */
-    .btn-tactile-primary {
-      background: linear-gradient(135deg, var(--primary-cyan) 0%, #0088ff 100%);
+    /* BOTONES 3D DE CONSOLA */
+    .btn-3d-glow {
+      background: linear-gradient(135deg, var(--neon-cyan) 0%, #0088ff 100%);
       color: #020617;
-      font-family: var(--font-display);
+      font-family: var(--font-title);
       font-size: 1.15rem;
       font-weight: 800;
       padding: 16px 28px;
@@ -102,15 +103,15 @@
       justify-content: center;
       gap: 8px;
     }
-    .btn-tactile-primary:active {
+    .btn-3d-glow:active {
       transform: translateY(4px);
       box-shadow: 0 2px 0 #0055aa, 0 6px 15px rgba(0, 240, 255, 0.4);
     }
 
-    .btn-tactile-secondary {
+    .btn-3d-glass {
       background: rgba(255, 255, 255, 0.08);
       color: #ffffff;
-      font-family: var(--font-display);
+      font-family: var(--font-title);
       font-size: 1.05rem;
       font-weight: 700;
       padding: 14px 24px;
@@ -120,13 +121,13 @@
       backdrop-filter: blur(10px);
       transition: all 0.15s ease;
     }
-    .btn-tactile-secondary:active {
+    .btn-3d-glass:active {
       transform: scale(0.96);
       background: rgba(255, 255, 255, 0.15);
     }
 
-    /* PANTALLA INTRODUCCIÓN */
-    .intro-screen {
+    /* PANTALLA DE INICIO */
+    .intro-overlay {
       position: absolute;
       top: 0;
       left: 0;
@@ -142,13 +143,13 @@
       padding: 16px 20px 24px 20px;
       transition: opacity 0.4s ease, visibility 0.4s;
     }
-    .intro-screen.hidden {
+    .intro-overlay.hidden {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
     }
 
-    .lang-pill-wrap {
+    .lang-switch {
       display: flex;
       background: rgba(15, 23, 42, 0.85);
       border: 1.5px solid rgba(0, 240, 255, 0.4);
@@ -161,7 +162,7 @@
       background: transparent;
       border: none;
       color: #94a3b8;
-      font-family: var(--font-display);
+      font-family: var(--font-title);
       font-size: 0.85rem;
       font-weight: 800;
       padding: 6px 18px;
@@ -170,17 +171,17 @@
       transition: all 0.2s ease;
     }
     .lang-btn.active {
-      background: linear-gradient(135deg, var(--primary-cyan) 0%, #0088ff 100%);
+      background: linear-gradient(135deg, var(--neon-cyan) 0%, #0088ff 100%);
       color: #020617;
       box-shadow: 0 0 16px rgba(0, 240, 255, 0.6);
     }
 
-    .hero-heroic-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 10vw, 4.2rem);
+    .hero-title-main {
+      font-family: var(--font-title);
+      font-size: clamp(2.6rem, 10vw, 4.4rem);
       font-weight: 900;
       letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #ffffff 0%, var(--primary-cyan) 45%, var(--primary-magenta) 100%);
+      background: linear-gradient(135deg, #ffffff 0%, var(--neon-cyan) 45%, var(--neon-magenta) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.6));
@@ -188,11 +189,11 @@
       line-height: 1.05;
     }
 
-    .hero-badge-pill {
-      font-family: var(--font-display);
+    .hero-subtitle {
+      font-family: var(--font-title);
       font-size: 0.85rem;
       font-weight: 800;
-      color: var(--primary-gold);
+      color: var(--neon-gold);
       letter-spacing: 2px;
       text-transform: uppercase;
       margin-top: 4px;
@@ -200,63 +201,6 @@
       border: 1px solid rgba(255, 230, 0, 0.35);
       padding: 4px 14px;
       border-radius: 20px;
-    }
-
-    .hero-stage-box {
-      position: relative;
-      width: 100%;
-      max-width: 440px;
-      height: 210px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .hero-planet-globe {
-      position: absolute;
-      width: 175px;
-      height: 175px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: radial-gradient(circle, #0e3868 0%, #081d38 60%, #020712 100%);
-      box-shadow: 0 0 50px rgba(0, 240, 255, 0.85), inset 0 0 35px rgba(0, 240, 255, 0.5);
-      animation: floatPlanet 3.8s ease-in-out infinite alternate;
-    }
-    @keyframes floatPlanet {
-      0% { transform: translateY(-5px) scale(0.98); }
-      100% { transform: translateY(6px) scale(1.02); }
-    }
-
-    .diff-control-wrap {
-      display: flex;
-      width: 100%;
-      max-width: 360px;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 18px;
-      padding: 4px;
-      gap: 4px;
-    }
-    .diff-btn {
-      flex: 1;
-      padding: 9px 4px;
-      font-family: var(--font-display);
-      font-size: 0.82rem;
-      font-weight: 700;
-      text-align: center;
-      background: transparent;
-      border: none;
-      color: #94a3b8;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .diff-btn.active {
-      background: rgba(0, 240, 255, 0.2);
-      border: 1px solid var(--primary-cyan);
-      color: var(--primary-cyan);
-      box-shadow: 0 0 14px rgba(0, 240, 255, 0.35);
     }
 
     /* HUD SUPERIOR */
@@ -277,12 +221,12 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      font-family: var(--font-display);
+      font-family: var(--font-title);
       font-size: 0.95rem;
       font-weight: 800;
     }
 
-    /* BARRA DE CUENTA REGRESIVA CON ALARMA */
+    /* TEMPORIZADOR */
     .timer-container {
       position: absolute;
       top: 72px;
@@ -299,14 +243,14 @@
     .timer-fill {
       height: 100%;
       width: 100%;
-      background: linear-gradient(90deg, var(--primary-cyan) 0%, #0088ff 100%);
+      background: linear-gradient(90deg, var(--neon-cyan) 0%, #0088ff 100%);
       border-radius: 8px;
-      box-shadow: 0 0 14px var(--primary-cyan);
+      box-shadow: 0 0 14px var(--neon-cyan);
       transition: width 0.1s linear;
     }
     .timer-fill.alarm {
-      background: linear-gradient(90deg, var(--primary-magenta) 0%, var(--primary-red) 100%);
-      box-shadow: 0 0 20px var(--primary-red);
+      background: linear-gradient(90deg, var(--neon-magenta) 0%, var(--neon-red) 100%);
+      box-shadow: 0 0 20px var(--neon-red);
       animation: alarmGlow 0.3s infinite alternate;
     }
     @keyframes alarmGlow {
@@ -314,8 +258,8 @@
       100% { opacity: 0.35; }
     }
 
-    /* TARJETA DE PAÍS / CAPITAL OBJETIVO (STICKER STYLE) */
-    .target-country-sticker {
+    /* TARJETA PAÍS */
+    .target-country-card {
       position: absolute;
       top: 88px;
       left: 50%;
@@ -332,19 +276,19 @@
       100% { transform: translate(-50%, 0) scale(1); opacity: 1; }
     }
 
-    /* BOTÓN GIRAR GLOBO */
+    /* BOTÓN GIRAR MUNDO */
     .spin-globe-btn {
       position: absolute;
       bottom: 28px;
       left: 50%;
       transform: translateX(-50%);
       padding: 18px 42px;
-      font-family: var(--font-display);
+      font-family: var(--font-title);
       font-size: 1.2rem;
       font-weight: 900;
       letter-spacing: 0.5px;
       color: #020617;
-      background: linear-gradient(135deg, var(--primary-gold) 0%, #ff8800 100%);
+      background: linear-gradient(135deg, var(--neon-gold) 0%, #ff8800 100%);
       border: none;
       border-radius: 35px;
       cursor: pointer;
@@ -357,7 +301,7 @@
       box-shadow: 0 2px 0 #cc6600, 0 6px 20px rgba(255, 183, 3, 0.5);
     }
 
-    /* GRID DE 4 OPCIONES TIPO STICKER */
+    /* GRID 4 OPCIONES */
     .options-grid-wrap {
       position: absolute;
       bottom: 20px;
@@ -372,12 +316,12 @@
     }
     .option-card-btn {
       padding: 16px 12px;
-      background: var(--glass-surface);
+      background: var(--glass-panel);
       backdrop-filter: blur(14px);
       border: 2px solid var(--glass-border);
       border-radius: 18px;
       color: #ffffff;
-      font-family: var(--font-body);
+      font-family: var(--font-main);
       font-size: 1.05rem;
       font-weight: 800;
       text-align: center;
@@ -393,18 +337,18 @@
     }
     .option-card-btn.correct {
       background: rgba(57, 255, 20, 0.25) !important;
-      border-color: var(--primary-green) !important;
-      color: var(--primary-green) !important;
+      border-color: var(--neon-green) !important;
+      color: var(--neon-green) !important;
       box-shadow: 0 0 30px rgba(57, 255, 20, 0.7) !important;
     }
     .option-card-btn.wrong {
       background: rgba(255, 0, 51, 0.25) !important;
-      border-color: var(--primary-red) !important;
-      color: var(--primary-red) !important;
+      border-color: var(--neon-red) !important;
+      color: var(--neon-red) !important;
       box-shadow: 0 0 30px rgba(255, 0, 51, 0.7) !important;
     }
 
-    /* OVNIS FRONTALES CON HITBOX GENEROSA */
+    /* OVNIS FRONTALES */
     .vector-ufo-wrap {
       position: absolute;
       z-index: 95;
@@ -415,7 +359,7 @@
       margin: -16px;
     }
 
-    /* MODAL DE PASAPORTE / INSIGNIAS */
+    /* MODAL PASAPORTE */
     .passport-modal-overlay {
       position: absolute;
       top: 0;
@@ -432,7 +376,7 @@
     }
     .passport-modal-overlay.hidden { display: none; }
 
-    /* TOAST ELEGANTE */
+    /* TOAST */
     .toast-pill {
       position: absolute;
       top: 36%;
@@ -440,11 +384,11 @@
       transform: translate(-50%, -50%) scale(0);
       padding: 16px 32px;
       border-radius: 30px;
-      font-family: var(--font-display);
+      font-family: var(--font-title);
       font-size: 1.6rem;
       font-weight: 900;
       color: #020617;
-      background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-magenta) 100%);
+      background: linear-gradient(135deg, var(--neon-gold) 0%, var(--neon-magenta) 100%);
       box-shadow: 0 0 50px rgba(255, 183, 3, 0.9), 0 0 70px rgba(255, 0, 127, 0.7);
       z-index: 160;
       pointer-events: none;
@@ -454,25 +398,8 @@
       transform: translate(-50%, -50%) scale(1.05);
     }
 
-    /* MODAL DE TRIVIA */
-    .trivia-modal-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(2, 6, 18, 0.92);
-      backdrop-filter: blur(16px);
-      z-index: 140;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .trivia-modal-overlay.hidden { display: none; }
-
-    /* MODAL SCOREBOARD */
-    .score-modal-overlay {
+    /* MODALES TRIVIA Y SCOREBOARD */
+    .modal-backdrop {
       position: absolute;
       top: 0;
       left: 0;
@@ -486,7 +413,7 @@
       justify-content: center;
       padding: 20px;
     }
-    .score-modal-overlay.hidden { display: none; }
+    .modal-backdrop.hidden { display: none; }
 
     .screen-shake {
       animation: shake 0.45s cubic-bezier(.36,.07,.19,.97) both;
@@ -501,10 +428,10 @@
 </head>
 <body>
 
-<div id="app-container">
-  <!-- CANVASES MULTICAPA DE MÁXIMO RENDIMIENTO -->
+<div id="game-viewport">
+  <!-- CANVASES MULTICAPA -->
   <canvas id="space-nebula-canvas" class="full-canvas"></canvas>
-  <canvas id="globe-canvas" class="full-canvas"></canvas>
+  <div id="three-globe-container"></div>
   <canvas id="fx-canvas" class="full-canvas"></canvas>
   <canvas id="confetti-canvas" class="full-canvas"></canvas>
 
@@ -515,14 +442,14 @@
       <circle cx="50" cy="19" r="5" fill="#39ff14"/>
       <circle cx="47" cy="17" r="1.4" fill="#000"/>
       <circle cx="53" cy="17" r="1.4" fill="#000"/>
-      <ellipse cx="50" cy="30" rx="46" ry="12" fill="url(#ufoGrad1)" stroke="#00f0ff" stroke-width="2.5"/>
+      <ellipse cx="50" cy="30" rx="46" ry="12" fill="url(#ufoG1)" stroke="#00f0ff" stroke-width="2.5"/>
       <circle cx="16" cy="30" r="3" fill="#ff007f"/>
       <circle cx="28" cy="34" r="3" fill="#ffe600"/>
       <circle cx="50" cy="36" r="3.5" fill="#39ff14"/>
       <circle cx="72" cy="34" r="3" fill="#ffe600"/>
       <circle cx="84" cy="30" r="3" fill="#ff007f"/>
       <defs>
-        <linearGradient id="ufoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="ufoG1" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#ffffff"/>
           <stop offset="30%" stop-color="#00f0ff"/>
           <stop offset="70%" stop-color="#1e1b4b"/>
@@ -536,12 +463,12 @@
     <svg viewBox="0 0 60 35" width="64" height="38" style="filter: drop-shadow(0 0 20px #ff007f) drop-shadow(0 0 30px #ffe600);">
       <path d="M 18 16 A 12 12 0 0 1 42 16 Z" fill="rgba(255, 0, 127, 0.9)" stroke="#ff007f" stroke-width="2"/>
       <circle cx="30" cy="11" r="3.4" fill="#ffe600"/>
-      <ellipse cx="30" cy="20" rx="28" ry="7" fill="url(#scoutGrad1)" stroke="#ff007f" stroke-width="2.2"/>
+      <ellipse cx="30" cy="20" rx="28" ry="7" fill="url(#scoutG1)" stroke="#ff007f" stroke-width="2.2"/>
       <circle cx="10" cy="20" r="2.4" fill="#00f0ff"/>
       <circle cx="30" cy="23" r="3.0" fill="#ffe600"/>
       <circle cx="50" cy="20" r="2.4" fill="#00f0ff"/>
       <defs>
-        <linearGradient id="scoutGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="scoutG1" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#ffe600"/>
           <stop offset="50%" stop-color="#ff007f"/>
           <stop offset="100%" stop-color="#4c0519"/>
@@ -550,43 +477,41 @@
     </svg>
   </div>
 
-  <!-- PANTALLA DE INICIO (AWARD WINNING INTRO) -->
-  <div id="splash-screen" class="intro-screen">
-    <div class="lang-pill-wrap">
+  <!-- PANTALLA DE INICIO (AWARD WINNING) -->
+  <div id="splash-screen" class="intro-overlay">
+    <div class="lang-switch">
       <button class="lang-btn active" data-lang="es">🇪🇸 ESPAÑOL</button>
       <button class="lang-btn" data-lang="en">🇬🇧 ENGLISH</button>
     </div>
 
     <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-      <h1 id="txt-app-title" class="hero-heroic-title">MI MUNDO</h1>
-      <div class="hero-badge-pill">✨ EARTH EXPLORER 3D</div>
+      <h1 id="txt-app-title" class="hero-title-main">GEO ORBIT</h1>
+      <div class="hero-subtitle">✨ WORLD ODYSSEY 3D</div>
 
-      <div class="hero-stage-box">
-        <div class="hero-planet-globe">
-          <div style="font-size: 6.8rem; line-height: 1; filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.85));">🌍</div>
-        </div>
+      <div style="position: relative; width: 100%; max-width: 440px; height: 190px; display: flex; justify-content: center; align-items: center;">
+        <div style="font-size: 6.8rem; line-height: 1; filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.85));">🌍</div>
       </div>
     </div>
 
     <!-- Dificultad -->
-    <div class="diff-control-wrap">
-      <button class="diff-btn active" data-diff="easy">FÁCIL (16s)</button>
-      <button class="diff-btn" data-diff="med">MEDIO (10s)</button>
-      <button class="diff-btn" data-diff="exp">EXPERTO (5s)</button>
+    <div style="display: flex; width: 100%; max-width: 360px; background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 18px; padding: 4px; gap: 4px;">
+      <button class="diff-btn active" data-diff="easy" style="flex: 1; padding: 9px 4px; font-family: var(--font-title); font-size: 0.82rem; font-weight: 700; background: transparent; border: none; color: #94a3b8; border-radius: 14px; cursor: pointer;">FÁCIL (16s)</button>
+      <button class="diff-btn" data-diff="med" style="flex: 1; padding: 9px 4px; font-family: var(--font-title); font-size: 0.82rem; font-weight: 700; background: transparent; border: none; color: #94a3b8; border-radius: 14px; cursor: pointer;">MEDIO (10s)</button>
+      <button class="diff-btn" data-diff="exp" style="flex: 1; padding: 9px 4px; font-family: var(--font-title); font-size: 0.82rem; font-weight: 700; background: transparent; border: none; color: #94a3b8; border-radius: 14px; cursor: pointer;">EXPERTO (5s)</button>
     </div>
 
-    <!-- Botones Principales -->
+    <!-- Botones de Acción -->
     <div style="width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 10px;">
-      <button id="btn-start-play" class="btn-tactile-primary">🎮 ¡COMENZAR MISIÓN!</button>
-      <button id="btn-start-train" class="btn-tactile-secondary">🧭 EXPLORACIÓN LIBRE</button>
-      <button id="btn-open-passport" class="btn-tactile-secondary" style="border-color: rgba(255, 230, 0, 0.4); color: var(--primary-gold);">📘 PASAPORTE E INSIGNIAS (8)</button>
+      <button id="btn-start-play" class="btn-3d-glow">🎮 ¡COMENZAR MISIÓN!</button>
+      <button id="btn-start-train" class="btn-3d-glass">🧭 EXPLORACIÓN LIBRE</button>
+      <button id="btn-open-passport" class="btn-3d-glass" style="border-color: rgba(255, 230, 0, 0.4); color: var(--neon-gold);">📘 PASAPORTE E INSIGNIAS (8)</button>
     </div>
   </div>
 
   <!-- HUD EN JUEGO -->
-  <div id="game-hud" class="top-hud-bar glass-panel" style="display: none;">
-    <div class="hud-chip" style="color: var(--primary-cyan);">⭐ <span id="val-score">0</span> PTS</div>
-    <div class="hud-chip" style="color: var(--primary-gold);">🔥 x<span id="val-streak">0</span></div>
+  <div id="game-hud" class="top-hud-bar glass-card" style="display: none;">
+    <div class="hud-chip" style="color: var(--neon-cyan);">⭐ <span id="val-score">0</span> PTS</div>
+    <div class="hud-chip" style="color: var(--neon-gold);">🔥 x<span id="val-streak">0</span></div>
     <div id="val-lives" class="hud-chip" style="letter-spacing: 2px;">❤️❤️❤️</div>
   </div>
 
@@ -596,10 +521,10 @@
   </div>
 
   <!-- STICKER DE PAÍS OBJETIVO -->
-  <div id="country-target-pill" class="target-country-sticker glass-panel" style="display: none;">
+  <div id="country-target-pill" class="target-country-card glass-card" style="display: none;">
     <div id="country-flag" style="font-size: 2.2rem;">🇦🇷</div>
     <div>
-      <div id="country-name" style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 900; color: var(--primary-cyan);">ARGENTINA</div>
+      <div id="country-name" style="font-family: var(--font-title); font-size: 1.3rem; font-weight: 900; color: var(--neon-cyan);">ARGENTINA</div>
       <div id="country-continent" style="font-size: 0.82rem; color: #94a3b8; font-weight: 700;">AMÉRICA DEL SUR</div>
     </div>
   </div>
@@ -611,38 +536,38 @@
   <div id="options-grid" class="options-grid-wrap" style="display: none;"></div>
 
   <!-- HUD DE EXPLORACIÓN -->
-  <div id="training-hud" class="top-hud-bar glass-panel" style="display: none;">
-    <button id="train-back-btn" class="btn-tactile-secondary" style="padding: 6px 16px; font-size: 0.85rem;">← VOLVER</button>
-    <div id="train-hud-title" style="font-family: var(--font-display); font-size: 0.9rem; font-weight: 800; color: var(--primary-cyan);">🧭 TOCA CUALQUIER PAÍS O MAR</div>
+  <div id="training-hud" class="top-hud-bar glass-card" style="display: none;">
+    <button id="train-back-btn" class="btn-3d-glass" style="padding: 6px 16px; font-size: 0.85rem;">← VOLVER</button>
+    <div id="train-hud-title" style="font-family: var(--font-title); font-size: 0.9rem; font-weight: 800; color: var(--neon-cyan);">🧭 TOCA CUALQUIER PAÍS O MAR</div>
   </div>
 
   <!-- CONSOLA DE INFORMACIÓN EN EXPLORACIÓN -->
-  <div id="cyber-terminal" class="glass-panel" style="position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); width: calc(100% - 24px); max-width: 760px; padding: 14px 18px; display: none; z-index: 75;">
+  <div id="cyber-terminal" class="glass-card" style="position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); width: calc(100% - 24px); max-width: 760px; padding: 14px 18px; display: none; z-index: 75;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-      <div id="terminal-title" style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 900; color: var(--primary-cyan);">ARGENTINA</div>
+      <div id="terminal-title" style="font-family: var(--font-title); font-size: 1.25rem; font-weight: 900; color: var(--neon-cyan);">ARGENTINA</div>
       <button id="terminal-close-btn" style="background: none; border: none; color: #94a3b8; font-size: 1.4rem; cursor: pointer;">✕</button>
     </div>
-    <div id="terminal-content" style="font-family: var(--font-code); font-size: 0.95rem; line-height: 1.45; color: #f8fafc;"></div>
+    <div id="terminal-content" style="font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.45; color: #f8fafc;"></div>
   </div>
 
   <!-- TOAST DE FELICITACIÓN -->
   <div id="modern-toast" class="toast-pill">¡PERFECTO! 🔥</div>
 
   <!-- MODAL DE TRIVIA -->
-  <div id="trivia-modal" class="trivia-modal-overlay hidden">
-    <div class="glass-panel" style="width: 100%; max-width: 440px; padding: 24px; text-align: center; border-color: var(--primary-gold);">
+  <div id="trivia-modal" class="modal-backdrop hidden">
+    <div class="glass-card" style="width: 100%; max-width: 440px; padding: 24px; text-align: center; border-color: var(--neon-gold);">
       <div style="font-size: 2.5rem; margin-bottom: 4px;">💡</div>
-      <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 900; color: var(--primary-gold); margin-bottom: 8px;">¿SABÍAS QUE...? / DID YOU KNOW?</h3>
+      <h3 style="font-family: var(--font-title); font-size: 1.3rem; font-weight: 900; color: var(--neon-gold); margin-bottom: 8px;">¿SABÍAS QUE...? / DID YOU KNOW?</h3>
       <p id="trivia-text" style="font-size: 1.05rem; line-height: 1.45; color: #f8fafc; margin-bottom: 18px;"></p>
-      <button id="trivia-next-btn" class="btn-tactile-primary" style="width: 100%; font-size: 1rem; padding: 12px;">¡CONTINUAR! (10s)</button>
+      <button id="trivia-next-btn" class="btn-3d-glow" style="width: 100%; font-size: 1rem; padding: 12px;">¡CONTINUAR! (10s)</button>
     </div>
   </div>
 
   <!-- MODAL DE PASAPORTE E INSIGNIAS (GAMIFICACIÓN) -->
   <div id="passport-modal" class="passport-modal-overlay hidden">
-    <div class="glass-panel" style="width: 100%; max-width: 500px; max-height: 85vh; overflow-y: auto; padding: 22px;">
+    <div class="glass-card" style="width: 100%; max-width: 500px; max-height: 85vh; overflow-y: auto; padding: 22px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <h2 style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; color: var(--primary-gold);">📘 PASAPORTE MUNDIAL</h2>
+        <h2 style="font-family: var(--font-title); font-size: 1.4rem; font-weight: 900; color: var(--neon-gold);">📘 PASAPORTE MUNDIAL</h2>
         <button id="passport-close-btn" style="background: none; border: none; color: #94a3b8; font-size: 1.4rem; cursor: pointer;">✕</button>
       </div>
       <div id="passport-content-area"></div>
@@ -650,19 +575,19 @@
   </div>
 
   <!-- MODAL SCOREBOARD -->
-  <div id="score-modal" class="score-modal-overlay hidden">
-    <div class="glass-panel" style="width: 100%; max-width: 440px; padding: 24px; text-align: center;">
-      <h2 style="font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; color: var(--primary-red); margin-bottom: 4px;">MISIÓN TERMINADA</h2>
-      <div id="final-score-text" style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: var(--primary-cyan); margin-bottom: 14px;">PUNTUACIÓN: 0 PTS</div>
+  <div id="score-modal" class="modal-backdrop hidden">
+    <div class="glass-card" style="width: 100%; max-width: 440px; padding: 24px; text-align: center;">
+      <h2 style="font-family: var(--font-title); font-size: 1.8rem; font-weight: 900; color: var(--neon-red); margin-bottom: 4px;">MISIÓN TERMINADA</h2>
+      <div id="final-score-text" style="font-family: var(--font-title); font-size: 1.3rem; font-weight: 800; color: var(--neon-cyan); margin-bottom: 14px;">PUNTUACIÓN: 0 PTS</div>
 
       <div id="initials-form" style="margin-bottom: 14px;">
-        <div style="font-size: 0.85rem; color: var(--primary-gold); font-weight: 800; margin-bottom: 6px;">¡NUEVO RÉCORD! TUS 4 INICIALES:</div>
-        <input type="text" id="player-initials" maxlength="4" placeholder="JUG1" style="width: 110px; text-align: center; font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; padding: 8px; border: 1.5px solid var(--primary-gold); background: #000; color: #fff; border-radius: 10px; text-transform: uppercase;">
-        <button id="save-score-btn" class="btn-tactile-primary" style="display: inline-flex; width: auto; padding: 8px 16px; font-size: 0.95rem; margin-left: 6px;">GUARDAR</button>
+        <div style="font-size: 0.85rem; color: var(--neon-gold); font-weight: 800; margin-bottom: 6px;">¡NUEVO RÉCORD! TUS 4 INICIALES:</div>
+        <input type="text" id="player-initials" maxlength="4" placeholder="JUG1" style="width: 110px; text-align: center; font-family: var(--font-title); font-size: 1.1rem; font-weight: 800; padding: 8px; border: 1.5px solid var(--neon-gold); background: #000; color: #fff; border-radius: 10px; text-transform: uppercase;">
+        <button id="save-score-btn" class="btn-3d-glow" style="display: inline-flex; width: auto; padding: 8px 16px; font-size: 0.95rem; margin-left: 6px;">GUARDAR</button>
       </div>
 
-      <div style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 800; color: var(--primary-gold); margin-top: 10px;">🏆 SALÓN DE LA FAMA (TOP 10)</div>
-      <table style="width: 100%; border-collapse: collapse; margin: 12px 0; font-family: var(--font-display); font-size: 0.9rem;">
+      <div style="font-family: var(--font-title); font-size: 1.05rem; font-weight: 800; color: var(--neon-gold); margin-top: 10px;">🏆 SALÓN DE LA FAMA (TOP 10)</div>
+      <table style="width: 100%; border-collapse: collapse; margin: 12px 0; font-family: var(--font-title); font-size: 0.9rem;">
         <thead>
           <tr>
             <th style="color: #94a3b8; padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.1);">POS</th>
@@ -673,7 +598,7 @@
         <tbody id="leaderboard-rows"></tbody>
       </table>
 
-      <button id="modal-menu-btn" class="btn-tactile-primary" style="width: 100%; margin-top: 10px; padding: 12px; font-size: 1rem;">🏠 VOLVER AL MENÚ</button>
+      <button id="modal-menu-btn" class="btn-3d-glow" style="width: 100%; margin-top: 10px; padding: 12px; font-size: 1rem;">🏠 VOLVER AL MENÚ</button>
     </div>
   </div>
 </div>
@@ -2590,12 +2515,16 @@ if (typeof module !== 'undefined' && module.exports) {
   const fxEngine = new ParticleFXEngine('fx-canvas');
 
   /* ==========================================================================
-     MOTOR DEL GLOBO 3D VECTORIAL
+     MOTOR 3D DEL GLOBO (THREE.JS / WEBGL & D3 HYBRID TEXTURE)
      ========================================================================== */
-  class ModernGlobe {
-    constructor(canvasId) {
-      this.canvas = document.getElementById(canvasId);
-      this.ctx = this.canvas.getContext('2d');
+  class ThreeGlobeEngine {
+    constructor(containerId) {
+      this.container = document.getElementById(containerId);
+      this.scene = null;
+      this.camera = null;
+      this.renderer = null;
+      this.earthMesh = null;
+      this.atmosphereMesh = null;
       this.rotation = [-64, 15, 0];
       this.isSpinning = false;
       this.isTraining = false;
@@ -2604,12 +2533,14 @@ if (typeof module !== 'undefined' && module.exports) {
       this.pulse = 0;
       this.redDamageGlow = 0;
 
-      this.baseRadius = 140;
-      this.currentScale = 140;
-      this.targetScale = 140;
+      // Canvas 2D de alta resolución como textura dinámica 3D
+      this.d3Canvas = document.createElement('canvas');
+      this.d3Canvas.width = 2048;
+      this.d3Canvas.height = 1024;
+      this.d3Ctx = this.d3Canvas.getContext('2d');
 
-      this.projection = d3.geoOrthographic().clipAngle(90);
-      this.path = d3.geoPath().projection(this.projection).context(this.ctx);
+      this.projection = d3.geoEquirectangular().translate([1024, 512]).scale(325.9);
+      this.path = d3.geoPath().projection(this.projection).context(this.d3Ctx);
       this.graticule = d3.geoGraticule10();
 
       this.worldFeatures = topojson.feature(WORLD_TOPOJSON, WORLD_TOPOJSON.objects.countries).features;
@@ -2628,24 +2559,84 @@ if (typeof module !== 'undefined' && module.exports) {
 
       this.playableFeatures = this.worldFeatures.filter(f => f.centroid && !isNaN(f.centroid[0]) && f.meta.isSovereign);
 
-      this.initSize();
+      this.initThree();
       this.initEvents();
       this.render = this.render.bind(this);
       requestAnimationFrame(this.render);
     }
 
-    initSize() {
-      const dpr = window.devicePixelRatio || 1;
+    initThree() {
       const w = window.innerWidth;
       const h = window.innerHeight;
-      this.canvas.width = w * dpr;
-      this.canvas.height = h * dpr;
-      this.canvas.style.width = w + 'px';
-      this.canvas.style.height = h + 'px';
 
-      this.baseRadius = Math.min(w, h) * 0.35;
-      this.currentScale = this.baseRadius;
-      this.targetScale = this.baseRadius;
+      this.scene = new THREE.Scene();
+      this.camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 1000);
+      this.camera.position.z = 2.8;
+
+      this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      this.renderer.setSize(w, h);
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      this.container.appendChild(this.renderer.domElement);
+
+      // Iluminación PBR
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+      this.scene.add(ambientLight);
+
+      const dirLight = new THREE.DirectionalLight(0x00f0ff, 1.2);
+      dirLight.position.set(5, 3, 5);
+      this.scene.add(dirLight);
+
+      // Textura Dinámica
+      this.earthTexture = new THREE.CanvasTexture(this.d3Canvas);
+      this.earthTexture.minFilter = THREE.LinearFilter;
+      this.earthTexture.magFilter = THREE.LinearFilter;
+
+      // Geometría Esférica PBR
+      const geometry = new THREE.SphereGeometry(1.0, 64, 64);
+      const material = new THREE.MeshStandardMaterial({
+        map: this.earthTexture,
+        roughness: 0.45,
+        metalness: 0.15,
+      });
+
+      this.earthMesh = new THREE.Mesh(geometry, material);
+      this.scene.add(this.earthMesh);
+
+      // Atmósfera de Brillo Fresnel
+      const atmosGeo = new THREE.SphereGeometry(1.06, 64, 64);
+      const atmosMat = new THREE.ShaderMaterial({
+        vertexShader: `
+          varying vec3 vNormal;
+          void main() {
+            vNormal = normalize(normalMatrix * normal);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          varying vec3 vNormal;
+          uniform vec3 color;
+          void main() {
+            float intensity = pow(0.65 - dot(vNormal, vec3(0, 0, 1.0)), 2.2);
+            gl_FragColor = vec4(color, 1.0) * intensity;
+          }
+        `,
+        uniforms: {
+          color: { value: new THREE.Color(0x00f0ff) }
+        },
+        blending: THREE.AdditiveBlending,
+        side: THREE.BackSide,
+        transparent: true
+      });
+      this.atmosphereMesh = new THREE.Mesh(atmosGeo, atmosMat);
+      this.scene.add(this.atmosphereMesh);
+
+      window.addEventListener('resize', () => {
+        const nw = window.innerWidth;
+        const nh = window.innerHeight;
+        this.camera.aspect = nw / nh;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(nw, nh);
+      });
     }
 
     initEvents() {
@@ -2667,8 +2658,8 @@ if (typeof module !== 'undefined' && module.exports) {
         const y = e.clientY || (e.touches && e.touches[0].clientY);
         const dx = x - startX;
         const dy = y - startY;
-        this.rotation[0] = lastRot[0] + dx * 0.45;
-        this.rotation[1] = Math.max(-85, Math.min(85, lastRot[1] - dy * 0.45));
+        this.rotation[0] = lastRot[0] + dx * 0.35;
+        this.rotation[1] = Math.max(-80, Math.min(80, lastRot[1] - dy * 0.35));
       };
 
       const onUp = (e) => {
@@ -2678,80 +2669,74 @@ if (typeof module !== 'undefined' && module.exports) {
         const y = e.clientY || (e.changedTouches && e.changedTouches[0].clientY);
         const dist = Math.hypot(x - startX, y - startY);
 
-        if (dist < 10 && this.isTraining) {
-          this.handleTrainingTouch(x, y);
+        if (dist < 12 && this.isTraining) {
+          this.handleTrainingRaycast(x, y);
         }
       };
 
-      this.canvas.addEventListener('mousedown', onDown);
+      this.renderer.domElement.addEventListener('mousedown', onDown);
       window.addEventListener('mousemove', onMove);
       window.addEventListener('mouseup', onUp);
 
-      this.canvas.addEventListener('touchstart', onDown, { passive: true });
+      this.renderer.domElement.addEventListener('touchstart', onDown, { passive: true });
       window.addEventListener('touchmove', onMove, { passive: true });
       window.addEventListener('touchend', onUp, { passive: true });
-
-      window.addEventListener('resize', () => this.initSize());
     }
 
-    handleTrainingTouch(x, y) {
-      const dpr = window.devicePixelRatio || 1;
-      const coords = this.projection.invert([x * dpr, y * dpr]);
-      if (!coords || isNaN(coords[0])) return;
+    handleTrainingRaycast(screenX, screenY) {
+      const raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2(
+        (screenX / window.innerWidth) * 2 - 1,
+        -(screenY / window.innerHeight) * 2 + 1
+      );
+      raycaster.setFromCamera(mouse, this.camera);
+      const intersects = raycaster.intersectObject(this.earthMesh);
 
-      const [lon, lat] = coords;
+      if (intersects.length > 0) {
+        const uv = intersects[0].uv;
+        const lon = (uv.x * 360) - 180;
+        const lat = (uv.y * 180) - 90;
+        const coords = [lon, lat];
 
-      const hitCountry = this.worldFeatures.find(f => d3.geoContains(f, coords));
-      if (hitCountry) {
-        this.centerCountry(hitCountry);
-        return;
-      }
-
-      let matchedOcean = null;
-      const boundedMatches = [];
-      for (let i = 0; i < OCEANS.length; i++) {
-        const o = OCEANS[i];
-        const b = o.bounds;
-        let inLon = false;
-        if (b.minLon <= b.maxLon) {
-          inLon = (lon >= b.minLon && lon <= b.maxLon);
-        } else {
-          inLon = (lon >= b.minLon || lon <= b.maxLon);
+        const hitCountry = this.worldFeatures.find(f => d3.geoContains(f, coords));
+        if (hitCountry) {
+          this.centerCountry(hitCountry);
+          return;
         }
-        if (inLon && lat >= b.minLat && lat <= b.maxLat) {
-          boundedMatches.push(o);
+
+        // Océano
+        let matchedOcean = null;
+        const boundedMatches = [];
+        for (let i = 0; i < OCEANS.length; i++) {
+          const o = OCEANS[i];
+          const b = o.bounds;
+          let inLon = (b.minLon <= b.maxLon) ? (lon >= b.minLon && lon <= b.maxLon) : (lon >= b.minLon || lon <= b.maxLon);
+          if (inLon && lat >= b.minLat && lat <= b.maxLat) boundedMatches.push(o);
         }
-      }
-
-      if (boundedMatches.length > 0) {
-        boundedMatches.sort((a, b) => (a.priority || 3) - (b.priority || 3));
-        matchedOcean = boundedMatches[0];
-      }
-
-      if (!matchedOcean) {
-        let minDist = Infinity;
-        OCEANS.forEach(o => {
-          const dist = d3.geoDistance(coords, o.centroid);
-          if (dist < minDist) {
-            minDist = dist;
-            matchedOcean = o;
-          }
-        });
-      }
-
-      if (matchedOcean) {
-        this.selectedFeature = null;
-        this.waterPin = coords;
-        NextGenAudio.playCrystalSplash();
-        NextGenAudio.playVictoryChord(1);
-        terminal.showOcean(matchedOcean);
+        if (boundedMatches.length > 0) {
+          boundedMatches.sort((a, b) => (a.priority || 3) - (b.priority || 3));
+          matchedOcean = boundedMatches[0];
+        }
+        if (!matchedOcean) {
+          let minDist = Infinity;
+          OCEANS.forEach(o => {
+            const dist = d3.geoDistance(coords, o.centroid);
+            if (dist < minDist) { minDist = dist; matchedOcean = o; }
+          });
+        }
+        if (matchedOcean) {
+          this.selectedFeature = null;
+          this.waterPin = coords;
+          NextGenAudio.playCrystalSplash();
+          NextGenAudio.playVictoryChord(1);
+          terminal.showOcean(matchedOcean);
+        }
       }
     }
 
     centerCountry(feature) {
       this.selectedFeature = feature;
       this.waterPin = null;
-      this.targetScale = this.baseRadius * 1.85;
       NextGenAudio.playBubblePop(1.4);
 
       const targetLon = -feature.centroid[0];
@@ -2783,7 +2768,6 @@ if (typeof module !== 'undefined' && module.exports) {
     spinTo(feature, onComplete) {
       this.isSpinning = true;
       this.selectedFeature = null;
-      this.targetScale = this.baseRadius;
 
       let targetLon = -feature.centroid[0];
       let targetLat = -feature.centroid[1];
@@ -2791,8 +2775,8 @@ if (typeof module !== 'undefined' && module.exports) {
       const extraSpins = (2 + Math.floor(Math.random() * 2)) * 360;
       let startLon = this.rotation[0];
       let startLat = this.rotation[1];
-
       let finalLon = startLon + extraSpins + ((targetLon - startLon) % 360);
+
       let totalFrames = 85;
       let curFrame = 0;
 
@@ -2817,7 +2801,6 @@ if (typeof module !== 'undefined' && module.exports) {
           this.rotation[1] = targetLat;
           this.isSpinning = false;
           this.selectedFeature = feature;
-          this.targetScale = this.baseRadius * 2.2;
           NextGenAudio.playVictoryChord(1);
           if (onComplete) onComplete();
         }
@@ -2829,124 +2812,91 @@ if (typeof module !== 'undefined' && module.exports) {
       this.redDamageGlow = 1.0;
     }
 
-    render() {
-      const dpr = window.devicePixelRatio || 1;
-      const w = this.canvas.width;
-      const h = this.canvas.height;
-      const cx = w / 2;
-      const cy = h / 2;
+    updateTexture() {
+      const ctx = this.d3Ctx;
+      ctx.clearRect(0, 0, 2048, 1024);
 
-      if (this.redDamageGlow > 0) {
-        this.redDamageGlow -= 0.022;
-      }
-
-      this.currentScale += (this.targetScale - this.currentScale) * 0.12;
-      this.projection
-        .scale(this.currentScale * dpr)
-        .translate([cx, cy])
-        .rotate(this.rotation);
-
-      this.ctx.clearRect(0, 0, w, h);
-
-      // Océano Esfera
-      const oceanGrad = this.ctx.createRadialGradient(cx - this.currentScale * 0.35 * dpr, cy - this.currentScale * 0.35 * dpr, 10, cx, cy, this.currentScale * dpr);
-      if (this.redDamageGlow > 0) {
-        oceanGrad.addColorStop(0, '#551122');
-        oceanGrad.addColorStop(0.65, '#22050e');
-        oceanGrad.addColorStop(1, '#080104');
-      } else {
-        oceanGrad.addColorStop(0, '#103965');
-        oceanGrad.addColorStop(0.65, '#061a33');
-        oceanGrad.addColorStop(1, '#020712');
-      }
-
-      this.ctx.fillStyle = oceanGrad;
-      this.ctx.beginPath();
-      this.path({ type: 'Sphere' });
-      this.ctx.fill();
+      // Océano Base
+      ctx.fillStyle = this.redDamageGlow > 0 ? '#380a14' : '#081e3d';
+      ctx.fillRect(0, 0, 2048, 1024);
 
       // Graticules
-      this.ctx.strokeStyle = this.redDamageGlow > 0 ? 'rgba(255, 0, 51, 0.3)' : 'rgba(0, 240, 255, 0.14)';
-      this.ctx.lineWidth = 0.85 * dpr;
-      this.ctx.beginPath();
+      ctx.strokeStyle = this.redDamageGlow > 0 ? 'rgba(255, 0, 51, 0.25)' : 'rgba(0, 240, 255, 0.12)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
       this.path(this.graticule);
-      this.ctx.stroke();
+      ctx.stroke();
 
-      // Tierras
+      // Masas de Tierra
       if (this.worldLand) {
-        this.ctx.fillStyle = this.redDamageGlow > 0 ? 'rgba(85, 20, 35, 0.85)' : 'rgba(10, 42, 75, 0.85)';
-        this.ctx.strokeStyle = this.redDamageGlow > 0 ? '#ff0033' : '#00f0ff';
-        this.ctx.lineWidth = 1.1 * dpr;
-        this.ctx.beginPath();
+        ctx.fillStyle = this.redDamageGlow > 0 ? '#5a1826' : '#0e3a64';
+        ctx.strokeStyle = this.redDamageGlow > 0 ? '#ff0033' : '#00f0ff';
+        ctx.lineWidth = 2.0;
+        ctx.beginPath();
         this.path(this.worldLand);
-        this.ctx.fill();
-        this.ctx.stroke();
+        ctx.fill();
+        ctx.stroke();
       }
 
       // Fronteras
-      this.ctx.strokeStyle = this.redDamageGlow > 0 ? 'rgba(255, 0, 51, 0.45)' : 'rgba(0, 240, 255, 0.3)';
-      this.ctx.lineWidth = 0.6 * dpr;
+      ctx.strokeStyle = this.redDamageGlow > 0 ? 'rgba(255, 0, 51, 0.45)' : 'rgba(0, 240, 255, 0.25)';
+      ctx.lineWidth = 1.0;
       this.worldFeatures.forEach(f => {
-        this.ctx.beginPath();
+        ctx.beginPath();
         this.path(f);
-        this.ctx.stroke();
+        ctx.stroke();
       });
 
       // País Seleccionado
       if (this.selectedFeature) {
         this.pulse += 0.08;
-        const color = this.isTraining ? '#39ff14' : '#ff007f';
-        this.ctx.save();
-        this.ctx.fillStyle = this.isTraining ? 'rgba(57, 255, 20, 0.45)' : 'rgba(255, 0, 127, 0.45)';
-        this.ctx.strokeStyle = color;
-        this.ctx.lineWidth = (3.0 + Math.sin(this.pulse) * 1.5) * dpr;
-        this.ctx.shadowColor = color;
-        this.ctx.shadowBlur = 18 * dpr;
-        this.ctx.beginPath();
+        const col = this.isTraining ? '#39ff14' : '#ff007f';
+        ctx.save();
+        ctx.fillStyle = this.isTraining ? 'rgba(57, 255, 20, 0.6)' : 'rgba(255, 0, 127, 0.6)';
+        ctx.strokeStyle = col;
+        ctx.lineWidth = 4.5 + Math.sin(this.pulse) * 2;
+        ctx.shadowColor = col;
+        ctx.shadowBlur = 20;
+        ctx.beginPath();
         this.path(this.selectedFeature);
-        this.ctx.fill();
-        this.ctx.stroke();
-        this.ctx.restore();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
       }
 
-      // Pin en Océanos
+      // Pin de Agua
       if (this.waterPin && this.isTraining) {
         const pt = this.projection(this.waterPin);
         if (pt) {
-          this.ctx.save();
-          this.pulse += 0.05;
-          const waveR = (Math.sin(this.pulse * 3) + 1) * 8 * dpr + 12 * dpr;
-          this.ctx.strokeStyle = 'rgba(0, 240, 255, 0.7)';
-          this.ctx.lineWidth = 1.6 * dpr;
-          this.ctx.beginPath();
-          this.ctx.arc(pt[0], pt[1], waveR, 0, Math.PI * 2);
-          this.ctx.stroke();
-
-          this.ctx.font = `${Math.round(22 * dpr)}px sans-serif`;
-          this.ctx.textAlign = 'center';
-          this.ctx.fillText('⛵', pt[0], pt[1] - 4 * dpr);
-          this.ctx.restore();
+          ctx.save();
+          ctx.font = '36px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('⛵', pt[0], pt[1]);
+          ctx.restore();
         }
       }
 
-      // Atmósfera
-      this.ctx.save();
-      this.ctx.beginPath();
-      this.ctx.arc(cx, cy, this.currentScale * dpr, 0, Math.PI * 2);
-      if (this.redDamageGlow > 0) {
-        this.ctx.strokeStyle = `rgba(255, 0, 51, ${Math.min(1.0, this.redDamageGlow * 1.5)})`;
-        this.ctx.lineWidth = (4.5 + this.redDamageGlow * 4.0) * dpr;
-        this.ctx.shadowColor = '#ff0033';
-        this.ctx.shadowBlur = 35 * dpr;
-      } else {
-        this.ctx.strokeStyle = 'rgba(0, 240, 255, 0.85)';
-        this.ctx.lineWidth = 3.0 * dpr;
-        this.ctx.shadowColor = '#00f0ff';
-        this.ctx.shadowBlur = 22 * dpr;
-      }
-      this.ctx.stroke();
-      this.ctx.restore();
+      this.earthTexture.needsUpdate = true;
+    }
 
+    render() {
+      if (this.redDamageGlow > 0) {
+        this.redDamageGlow -= 0.022;
+        this.atmosphereMesh.material.uniforms.color.value.setHex(0xff0033);
+      } else {
+        this.atmosphereMesh.material.uniforms.color.value.setHex(0x00f0ff);
+      }
+
+      // Rotación 3D del globo
+      const radLon = (this.rotation[0] * Math.PI) / 180;
+      const radLat = (this.rotation[1] * Math.PI) / 180;
+      this.earthMesh.rotation.y = radLon;
+      this.earthMesh.rotation.x = radLat;
+      this.atmosphereMesh.rotation.y = radLon;
+      this.atmosphereMesh.rotation.x = radLat;
+
+      this.updateTexture();
+      this.renderer.render(this.scene, this.camera);
       requestAnimationFrame(this.render);
     }
   }
@@ -3072,7 +3022,7 @@ if (typeof module !== 'undefined' && module.exports) {
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td style="padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.05);">${medals[i] || (i + 1 + '°')}</td>
-          <td style="padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--primary-cyan); font-weight: 800;">${s.name}</td>
+          <td style="padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--neon-cyan); font-weight: 800;">${s.name}</td>
           <td style="padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.05);"><b>${s.score}</b></td>
         `;
         tbody.appendChild(tr);
@@ -3213,8 +3163,8 @@ if (typeof module !== 'undefined' && module.exports) {
 
       NextGenAudio.playMegaBomb();
 
-      document.getElementById('app-container').classList.add('screen-shake');
-      setTimeout(() => document.getElementById('app-container').classList.remove('screen-shake'), 450);
+      document.getElementById('game-viewport').classList.add('screen-shake');
+      setTimeout(() => document.getElementById('game-viewport').classList.remove('screen-shake'), 450);
       globe.triggerRedDamageAtmosphere();
 
       const penalty = 200;
@@ -3254,7 +3204,7 @@ if (typeof module !== 'undefined' && module.exports) {
      INICIALIZACIÓN DEL SISTEMA
      ========================================================================== */
   const nebula = new SpaceBackgroundEngine('space-nebula-canvas');
-  const globe = new ModernGlobe('globe-canvas');
+  const globe = new ThreeGlobeEngine('three-globe-container');
   const terminal = new CyberTerminal('cyber-terminal', 'terminal-title', 'terminal-content', 'terminal-close-btn');
   const ufoManager = new GuaranteedFrontalUFOManager('mothership-ufo', 'scout-ufo');
 
@@ -3297,7 +3247,6 @@ if (typeof module !== 'undefined' && module.exports) {
     terminal.hideImmediate();
     globe.isTraining = false;
     globe.selectedFeature = null;
-    globe.targetScale = globe.baseRadius;
     splash.classList.remove('hidden');
   }
 
@@ -3313,7 +3262,7 @@ if (typeof module !== 'undefined' && module.exports) {
   });
 
   function applyLanguage() {
-    document.getElementById('txt-app-title').textContent = currentLang === 'es' ? 'MI MUNDO' : 'MY WORLD';
+    document.getElementById('txt-app-title').textContent = currentLang === 'es' ? 'GEO ORBIT' : 'GEO ORBIT';
     document.getElementById('btn-start-play').textContent = currentLang === 'es' ? '🎮 ¡COMENZAR MISIÓN!' : '🎮 START MISSION!';
     document.getElementById('btn-start-train').textContent = currentLang === 'es' ? '🧭 EXPLORACIÓN LIBRE' : '🧭 FREE EXPLORATION';
     document.getElementById('btn-open-passport').textContent = currentLang === 'es' ? '📘 PASAPORTE E INSIGNIAS (8)' : '📘 PASSPORT & BADGES (8)';
@@ -3356,7 +3305,6 @@ if (typeof module !== 'undefined' && module.exports) {
     NextGenAudio.playBubblePop(1.2);
     globe.isTraining = true;
     globe.selectedFeature = null;
-    globe.targetScale = globe.baseRadius;
     splash.classList.add('hidden');
     gameHud.style.display = 'none';
     trainingHud.style.display = 'flex';
@@ -3367,7 +3315,6 @@ if (typeof module !== 'undefined' && module.exports) {
     returnHome();
   });
 
-  // Botón Pasaporte e Insignias
   document.getElementById('btn-open-passport').addEventListener('click', () => {
     NextGenAudio.init();
     NextGenAudio.playBubblePop(1.3);
@@ -3470,13 +3417,12 @@ if (typeof module !== 'undefined' && module.exports) {
       score += Math.round(100 * mult * (streak >= 3 ? 2 : 1));
       streak++;
 
-      // Registrar en Gamificación
       GamificationSystem.recordCorrectCapital(continentName, countryName, timeLeft > 12);
     } else {
       btnEl.classList.add('wrong');
       NextGenAudio.playMegaBomb();
-      document.getElementById('app-container').classList.add('screen-shake');
-      setTimeout(() => document.getElementById('app-container').classList.remove('screen-shake'), 400);
+      document.getElementById('game-viewport').classList.add('screen-shake');
+      setTimeout(() => document.getElementById('game-viewport').classList.remove('screen-shake'), 400);
       lives--;
       streak = 0;
       optionsGrid.querySelectorAll('.option-card-btn').forEach(b => {
@@ -3502,8 +3448,8 @@ if (typeof module !== 'undefined' && module.exports) {
 
   function handleTimeout() {
     NextGenAudio.playMegaBomb();
-    document.getElementById('app-container').classList.add('screen-shake');
-    setTimeout(() => document.getElementById('app-container').classList.remove('screen-shake'), 400);
+    document.getElementById('game-viewport').classList.add('screen-shake');
+    setTimeout(() => document.getElementById('game-viewport').classList.remove('screen-shake'), 400);
     
     const timePenalty = 150;
     score = Math.max(0, score - timePenalty);
