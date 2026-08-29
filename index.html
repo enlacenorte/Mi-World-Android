@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>GEO ORBIT: World Odyssey 3D - Japanese Arcade Edition</title>
+  <title>GEO ORBIT: World Odyssey 3D - Coco & Pepe Edition</title>
 
   <!-- FUENTES CYBER Y ARCADE -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,6 +23,7 @@
       --neon-green: #39ff14;
       --neon-violet: #8a2be2;
       --neon-red: #ff0033;
+      --alien-gray: #cbd5e1;
       --bg-dark: #020308;
       --glass-panel: rgba(10, 18, 42, 0.85);
       --glass-border: rgba(0, 240, 255, 0.4);
@@ -126,7 +127,7 @@
       background: rgba(255, 255, 255, 0.15);
     }
 
-    /* PANTALLA DE INICIO CON ALIEN CÓMICO */
+    /* PANTALLA DE INICIO CON COCO Y PEPE */
     .intro-overlay {
       position: absolute;
       top: 0;
@@ -140,7 +141,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 20px 24px 20px;
+      padding: 14px 18px 22px 18px;
       transition: opacity 0.4s ease, visibility 0.4s;
     }
     .intro-overlay.hidden {
@@ -178,7 +179,7 @@
 
     .hero-title-main {
       font-family: var(--font-title);
-      font-size: clamp(2.5rem, 9.5vw, 4.2rem);
+      font-size: clamp(2.4rem, 9vw, 4.0rem);
       font-weight: 900;
       letter-spacing: -0.5px;
       background: linear-gradient(135deg, #ffffff 0%, var(--neon-cyan) 45%, var(--neon-magenta) 100%);
@@ -196,34 +197,39 @@
       color: var(--neon-gold);
       letter-spacing: 2px;
       text-transform: uppercase;
-      margin-top: 4px;
+      margin-top: 2px;
       background: rgba(255, 230, 0, 0.12);
       border: 1px solid rgba(255, 230, 0, 0.35);
       padding: 4px 14px;
       border-radius: 20px;
     }
 
-    .comic-alien-hero-box {
-      position: relative;
+    /* ESCENARIO DE COCO Y PEPE */
+    .aliens-duo-hero-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
       width: 100%;
       max-width: 440px;
-      height: 170px;
+      height: 175px;
+    }
+    .alien-hero-card {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
     }
-    .funny-alien-svg {
-      width: 150px;
-      height: 130px;
-      filter: drop-shadow(0 0 25px rgba(57, 255, 20, 0.7));
-      animation: floatAlien 2.4s ease-in-out infinite alternate;
-    }
-    @keyframes floatAlien {
-      0% { transform: translateY(-8px) rotate(-3deg); }
-      100% { transform: translateY(8px) rotate(4deg); }
+    .alien-tag {
+      font-family: var(--font-title);
+      font-size: 0.85rem;
+      font-weight: 900;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-top: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
 
-    /* SELECTOR DE DIFICULTAD DIFERENCIAL ARCADE */
+    /* SELECTOR DE DIFICULTAD DIFERENCIAL */
     .diff-selector-card {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -438,7 +444,7 @@
     }
     .passport-modal-overlay.hidden { display: none; }
 
-    /* CARTEL ARCADE JAPONÉS ULTRA-ESPECTACULAR (WARIOWARE STYLE) */
+    /* CARTEL ARCADE JAPONÉS */
     .celebration-banner-wrap {
       position: absolute;
       top: 40%;
@@ -520,53 +526,64 @@
   <canvas id="fx-canvas" class="full-canvas"></canvas>
   <canvas id="confetti-canvas" class="full-canvas"></canvas>
 
-  <!-- OVNIS MODERNOS Y GRACIOSOS ESTILO SCI-FI 50s -->
-  <div id="mothership-ufo" class="vector-ufo-wrap" style="width: 125px; height: 78px;">
-    <svg viewBox="0 0 120 75" width="125" height="78" style="filter: drop-shadow(0 0 20px #00f0ff) drop-shadow(0 0 35px #8a2be2);">
-      <ellipse cx="60" cy="30" rx="26" ry="24" fill="rgba(0, 240, 255, 0.45)" stroke="#00f0ff" stroke-width="2"/>
+  <!-- OVNIS CON COCO (VERDE) Y PEPE (GRIS) -->
+  <!-- 1. COCO (Mothership Z-400 / Alien Verde con antenas) -->
+  <div id="mothership-ufo" class="vector-ufo-wrap" style="width: 130px; height: 82px;">
+    <svg viewBox="0 0 120 75" width="130" height="82" style="filter: drop-shadow(0 0 20px #00f0ff) drop-shadow(0 0 35px #39ff14);">
+      <!-- Cúpula de Cristal -->
+      <ellipse cx="60" cy="30" rx="27" ry="25" fill="rgba(0, 240, 255, 0.45)" stroke="#00f0ff" stroke-width="2"/>
+      <!-- COCO: Alien Verde -->
       <circle cx="60" cy="28" r="14" fill="#39ff14"/>
       <ellipse cx="54" cy="24" rx="4.5" ry="6.5" fill="#fff"/>
       <ellipse cx="66" cy="24" rx="4.5" ry="6.5" fill="#fff"/>
       <circle cx="55" cy="24" r="2.5" fill="#000"/>
       <circle cx="67" cy="24" r="2.5" fill="#000"/>
       <path d="M 55 33 Q 60 38 65 33" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>
-      <line x1="53" y1="15" x2="48" y2="7" stroke="#39ff14" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="47" cy="6" r="3.5" fill="#ffe600"/>
-      <line x1="67" y1="15" x2="72" y2="7" stroke="#39ff14" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="73" cy="6" r="3.5" fill="#ffe600"/>
-      <ellipse cx="60" cy="46" rx="56" ry="14" fill="url(#ufoPlatGrad)" stroke="#00f0ff" stroke-width="2.5"/>
-      <circle cx="20" cy="46" r="4" fill="#ff007f"/>
+      <line x1="53" y1="15" x2="47" y2="7" stroke="#39ff14" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="46" cy="6" r="3.5" fill="#ffe600"/>
+      <line x1="67" y1="15" x2="73" y2="7" stroke="#39ff14" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="74" cy="6" r="3.5" fill="#ffe600"/>
+      <!-- Disco -->
+      <ellipse cx="60" cy="46" rx="56" ry="14" fill="url(#cocoPlatGrad)" stroke="#00f0ff" stroke-width="2.5"/>
+      <circle cx="20" cy="46" r="4" fill="#39ff14"/>
       <circle cx="36" cy="52" r="4" fill="#ffe600"/>
-      <circle cx="60" cy="54" r="5" fill="#39ff14"/>
+      <circle cx="60" cy="54" r="5" fill="#00f0ff"/>
       <circle cx="84" cy="52" r="4" fill="#ffe600"/>
-      <circle cx="100" cy="46" r="4" fill="#ff007f"/>
+      <circle cx="100" cy="46" r="4" fill="#39ff14"/>
       <ellipse cx="60" cy="56" rx="26" ry="6" fill="rgba(0, 240, 255, 0.8)"/>
       <defs>
-        <linearGradient id="ufoPlatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="cocoPlatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#ffffff"/>
           <stop offset="35%" stop-color="#00f0ff"/>
           <stop offset="70%" stop-color="#1e1b4b"/>
-          <stop offset="100%" stop-color="#8a2be2"/>
+          <stop offset="100%" stop-color="#39ff14"/>
         </linearGradient>
       </defs>
     </svg>
   </div>
 
-  <div id="scout-ufo" class="vector-ufo-wrap" style="width: 75px; height: 50px;">
-    <svg viewBox="0 0 70 48" width="75" height="50" style="filter: drop-shadow(0 0 20px #ff007f) drop-shadow(0 0 30px #ffe600);">
-      <path d="M 22 22 A 13 13 0 0 1 48 22 Z" fill="rgba(255, 0, 127, 0.85)" stroke="#ff007f" stroke-width="2"/>
-      <circle cx="35" cy="18" r="7" fill="#fff" stroke="#000" stroke-width="1.5"/>
-      <circle cx="35" cy="18" r="3.5" fill="#ffe600"/>
-      <circle cx="36" cy="17" r="1.2" fill="#fff"/>
-      <ellipse cx="35" cy="30" rx="32" ry="9" fill="url(#scoutPlatGrad)" stroke="#ff007f" stroke-width="2"/>
-      <circle cx="12" cy="30" r="3" fill="#00f0ff"/>
-      <circle cx="35" cy="34" r="3.5" fill="#ffe600"/>
-      <circle cx="58" cy="30" r="3" fill="#00f0ff"/>
+  <!-- 2. PEPE (Scout Glider / Alien Gris clásico de ojos negros) -->
+  <div id="scout-ufo" class="vector-ufo-wrap" style="width: 85px; height: 58px;">
+    <svg viewBox="0 0 80 55" width="85" height="58" style="filter: drop-shadow(0 0 20px #ff007f) drop-shadow(0 0 30px #cbd5e1);">
+      <!-- Cúpula de Cristal -->
+      <ellipse cx="40" cy="24" rx="20" ry="18" fill="rgba(255, 0, 127, 0.50)" stroke="#ff007f" stroke-width="2"/>
+      <!-- PEPE: Alien Gris de ojos negros grandes almendrados -->
+      <ellipse cx="40" cy="23" rx="11" ry="13" fill="#cbd5e1"/>
+      <ellipse cx="35" cy="21" rx="4" ry="6" fill="#000" transform="rotate(-15 35 21)"/>
+      <ellipse cx="45" cy="21" rx="4" ry="6" fill="#000" transform="rotate(15 45 21)"/>
+      <circle cx="34" cy="19" r="1.2" fill="#fff"/>
+      <circle cx="44" cy="19" r="1.2" fill="#fff"/>
+      <path d="M 37 30 Q 40 33 43 30" fill="none" stroke="#475569" stroke-width="1.8" stroke-linecap="round"/>
+      <!-- Disco -->
+      <ellipse cx="40" cy="36" rx="38" ry="10" fill="url(#pepePlatGrad)" stroke="#ff007f" stroke-width="2.2"/>
+      <circle cx="14" cy="36" r="3" fill="#ff007f"/>
+      <circle cx="40" cy="40" r="3.5" fill="#ffe600"/>
+      <circle cx="66" cy="36" r="3" fill="#ff007f"/>
       <defs>
-        <linearGradient id="scoutPlatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="pepePlatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#ffe600"/>
           <stop offset="50%" stop-color="#ff007f"/>
-          <stop offset="100%" stop-color="#3b0764"/>
+          <stop offset="100%" stop-color="#1e1b4b"/>
         </linearGradient>
       </defs>
     </svg>
@@ -581,31 +598,43 @@
 
     <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
       <h1 id="txt-app-title" class="hero-title-main">GEO ORBIT</h1>
-      <div class="hero-subtitle">✨ JAPANESE ARCADE ODYSSEY</div>
+      <div class="hero-subtitle">✨ COCO & PEPE COSMIC ODYSSEY</div>
 
-      <div class="comic-alien-hero-box">
-        <svg class="funny-alien-svg" viewBox="0 0 120 120">
-          <ellipse cx="60" cy="85" rx="55" ry="16" fill="url(#heroUfo)" stroke="#00f0ff" stroke-width="2.5"/>
-          <ellipse cx="60" cy="65" rx="28" ry="24" fill="rgba(0, 240, 255, 0.45)" stroke="#00f0ff" stroke-width="2"/>
-          <circle cx="60" cy="60" r="16" fill="#39ff14"/>
-          <ellipse cx="53" cy="56" rx="5" ry="7" fill="#fff"/>
-          <ellipse cx="67" cy="56" rx="5" ry="7" fill="#fff"/>
-          <circle cx="54" cy="56" r="2.8" fill="#000"/>
-          <circle cx="68" cy="56" r="2.8" fill="#000"/>
-          <path d="M 54 66 Q 60 72 66 66" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="52" y1="46" x2="44" y2="34" stroke="#39ff14" stroke-width="3.5" stroke-linecap="round"/>
-          <circle cx="43" cy="33" r="4.5" fill="#ffe600"/>
-          <line x1="68" y1="46" x2="76" y2="34" stroke="#39ff14" stroke-width="3.5" stroke-linecap="round"/>
-          <circle cx="77" cy="33" r="4.5" fill="#ffe600"/>
-          <defs>
-            <linearGradient id="heroUfo" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#ffffff"/>
-              <stop offset="30%" stop-color="#00f0ff"/>
-              <stop offset="70%" stop-color="#1e1b4b"/>
-              <stop offset="100%" stop-color="#ff007f"/>
-            </linearGradient>
-          </defs>
-        </svg>
+      <!-- COCO Y PEPE EN LA PANTALLA DE INICIO -->
+      <div class="aliens-duo-hero-box">
+        <!-- COCO (Alien Verde) -->
+        <div class="alien-hero-card">
+          <svg viewBox="0 0 100 80" width="110" height="88" style="filter: drop-shadow(0 0 18px #39ff14); animation: floatAlien 2.2s ease-in-out infinite alternate;">
+            <ellipse cx="50" cy="34" rx="24" ry="22" fill="rgba(0, 240, 255, 0.45)" stroke="#00f0ff" stroke-width="2"/>
+            <circle cx="50" cy="32" r="13" fill="#39ff14"/>
+            <ellipse cx="45" cy="28" rx="4" ry="5.5" fill="#fff"/>
+            <ellipse cx="55" cy="28" rx="4" ry="5.5" fill="#fff"/>
+            <circle cx="46" cy="28" r="2.2" fill="#000"/>
+            <circle cx="56" cy="28" r="2.2" fill="#000"/>
+            <path d="M 46 36 Q 50 40 54 36" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+            <line x1="44" y1="20" x2="38" y2="12" stroke="#39ff14" stroke-width="2.8" stroke-linecap="round"/>
+            <circle cx="37" cy="11" r="3" fill="#ffe600"/>
+            <line x1="56" y1="20" x2="62" y2="12" stroke="#39ff14" stroke-width="2.8" stroke-linecap="round"/>
+            <circle cx="63" cy="11" r="3" fill="#ffe600"/>
+            <ellipse cx="50" cy="48" rx="46" ry="12" fill="url(#cocoPlatGrad)" stroke="#00f0ff" stroke-width="2"/>
+          </svg>
+          <div class="alien-tag" style="background: rgba(57, 255, 20, 0.25); border: 1px solid var(--neon-green); color: var(--neon-green);">🛸 COCO (Verde)</div>
+        </div>
+
+        <!-- PEPE (Alien Gris) -->
+        <div class="alien-hero-card">
+          <svg viewBox="0 0 90 80" width="100" height="88" style="filter: drop-shadow(0 0 18px #ff007f); animation: floatAlien 2.6s ease-in-out infinite alternate-reverse;">
+            <ellipse cx="45" cy="34" rx="20" ry="18" fill="rgba(255, 0, 127, 0.45)" stroke="#ff007f" stroke-width="2"/>
+            <ellipse cx="45" cy="32" rx="11" ry="13" fill="#cbd5e1"/>
+            <ellipse cx="40" cy="30" rx="4" ry="6" fill="#000" transform="rotate(-15 40 30)"/>
+            <ellipse cx="50" cy="30" rx="4" ry="6" fill="#000" transform="rotate(15 50 30)"/>
+            <circle cx="39" cy="28" r="1.2" fill="#fff"/>
+            <circle cx="49" cy="28" r="1.2" fill="#fff"/>
+            <path d="M 42 39 Q 45 42 48 39" fill="none" stroke="#475569" stroke-width="1.8" stroke-linecap="round"/>
+            <ellipse cx="45" cy="48" rx="40" ry="10" fill="url(#pepePlatGrad)" stroke="#ff007f" stroke-width="2"/>
+          </svg>
+          <div class="alien-tag" style="background: rgba(203, 213, 225, 0.25); border: 1px solid #cbd5e1; color: #f8fafc;">🛸 PEPE (Gris)</div>
+        </div>
       </div>
     </div>
 
@@ -675,7 +704,7 @@
     <div id="terminal-content" style="font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.45; color: #f8fafc;"></div>
   </div>
 
-  <!-- CARTEL ARCADE JAPONÉS ULTRA-ESPECTACULAR -->
+  <!-- CARTEL ARCADE JAPONÉS -->
   <div id="celebration-banner" class="celebration-banner-wrap glass-card">
     <div id="celeb-title" class="celebration-title">SUGOI! 🌟</div>
     <div id="celeb-sub" class="celebration-subtitle">¡NIVEL DIOS DE LA GEOGRAFÍA!</div>
@@ -1345,14 +1374,14 @@ if (typeof module !== 'undefined' && module.exports) {
 
 
 /* ==========================================================================
-   SINTETIZADOR SCI-FI CLÁSICO 50s: HOVERING & RAYO MARCIANO & LATIDOS SUB-GRAVES
+   HOVERING DIFERENCIADO (COCO: GRAVE / PEPE: AGUDO) & SPLASH LÍQUIDO CRISTALINO
    ========================================================================== */
-NextGenAudio.ufoHoverNodes = null;
+NextGenAudio.activeHoverNode = null;
 
-// Zumbido de Hovering analógico de platillo volador 1950s
-NextGenAudio.startUfoHover = function() {
+// Hovering Sci-Fi Diferenciado: type = 'coco' (grave) o 'pepe' (agudo)
+NextGenAudio.startDifferentiatedHover = function(type) {
   if (!this.ctx) this.init();
-  if (!this.ctx || this.ufoHoverNodes) return;
+  if (!this.ctx || this.activeHoverNode) return;
   const ctx = this.ctx;
   const now = ctx.currentTime;
 
@@ -1362,21 +1391,33 @@ NextGenAudio.startUfoHover = function() {
   const lfoGain = ctx.createGain();
   const hoverGain = ctx.createGain();
 
-  osc1.type = 'sine';
-  osc1.frequency.setValueAtTime(210, now);
-  osc2.type = 'triangle';
-  osc2.frequency.setValueAtTime(213, now);
-
-  lfo.type = 'sine';
-  lfo.frequency.setValueAtTime(3.8, now); // Pulsación a 3.8 Hz
-  lfoGain.gain.setValueAtTime(14, now);
+  if (type === 'coco') {
+    // COCO: Nave grande -> Zumbido sub-grave profundo (120 Hz / 123 Hz con LFO lento de 2.6 Hz)
+    osc1.type = 'sawtooth';
+    osc1.frequency.setValueAtTime(115, now);
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(118, now);
+    lfo.type = 'sine';
+    lfo.frequency.setValueAtTime(2.6, now);
+    lfoGain.gain.setValueAtTime(10, now);
+    hoverGain.gain.setValueAtTime(0.01, now);
+    hoverGain.gain.exponentialRampToValueAtTime(0.25, now + 0.35);
+  } else {
+    // PEPE: Nave scout pequeña -> Zumbido agudo sci-fi veloz (520 Hz / 525 Hz con LFO rápido de 6.0 Hz)
+    osc1.type = 'triangle';
+    osc1.frequency.setValueAtTime(510, now);
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(516, now);
+    lfo.type = 'sine';
+    lfo.frequency.setValueAtTime(6.2, now);
+    lfoGain.gain.setValueAtTime(28, now);
+    hoverGain.gain.setValueAtTime(0.01, now);
+    hoverGain.gain.exponentialRampToValueAtTime(0.18, now + 0.35);
+  }
 
   lfo.connect(lfoGain);
   lfoGain.connect(osc1.frequency);
   lfoGain.connect(osc2.frequency);
-
-  hoverGain.gain.setValueAtTime(0.01, now);
-  hoverGain.gain.exponentialRampToValueAtTime(0.18, now + 0.4);
 
   osc1.connect(hoverGain);
   osc2.connect(hoverGain);
@@ -1386,20 +1427,73 @@ NextGenAudio.startUfoHover = function() {
   osc1.start(now);
   osc2.start(now);
 
-  this.ufoHoverNodes = { osc1, osc2, lfo, hoverGain };
+  this.activeHoverNode = { osc1, osc2, lfo, hoverGain };
 };
 
-NextGenAudio.stopUfoHover = function() {
-  if (this.ufoHoverNodes && this.ctx) {
+NextGenAudio.stopDifferentiatedHover = function() {
+  if (this.activeHoverNode && this.ctx) {
     const now = this.ctx.currentTime;
     try {
-      this.ufoHoverNodes.hoverGain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
-      this.ufoHoverNodes.osc1.stop(now + 0.32);
-      this.ufoHoverNodes.osc2.stop(now + 0.32);
-      this.ufoHoverNodes.lfo.stop(now + 0.32);
+      this.activeHoverNode.hoverGain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      this.activeHoverNode.osc1.stop(now + 0.28);
+      this.activeHoverNode.osc2.stop(now + 0.28);
+      this.activeHoverNode.lfo.stop(now + 0.28);
     } catch(e) {}
-    this.ufoHoverNodes = null;
+    this.activeHoverNode = null;
   }
+};
+
+// Splash Líquido Cristalino Hiper-Realista al tocar Mares y Océanos
+NextGenAudio.playCrystalSplash = function() {
+  if (!this.ctx) this.init();
+  if (!this.ctx) return;
+  const ctx = this.ctx;
+  const now = ctx.currentTime;
+
+  // 1. Impacto de agua y dispersión (ruido filtrado)
+  const bufferSize = ctx.sampleRate * 0.35;
+  const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const output = noiseBuffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.08));
+  }
+  const noiseSource = ctx.createBufferSource();
+  noiseSource.buffer = noiseBuffer;
+
+  const waterFilter = ctx.createBiquadFilter();
+  waterFilter.type = 'lowpass';
+  waterFilter.frequency.setValueAtTime(1400, now);
+  waterFilter.frequency.exponentialRampToValueAtTime(350, now + 0.35);
+
+  const noiseGain = ctx.createGain();
+  noiseGain.gain.setValueAtTime(0.55, now);
+  noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+  noiseSource.connect(waterFilter);
+  waterFilter.connect(noiseGain);
+  noiseGain.connect(this.masterGain);
+  noiseSource.start(now);
+
+  // 2. Micro-burbujas tonales líquidas en cascada (Bubble Droplets)
+  const freqs = [380, 520, 680, 840, 1100];
+  freqs.forEach((f, idx) => {
+    const dropOsc = ctx.createOscillator();
+    const dropGain = ctx.createGain();
+    const tOffset = now + 0.03 + idx * 0.045;
+
+    dropOsc.type = 'sine';
+    dropOsc.frequency.setValueAtTime(f, tOffset);
+    dropOsc.frequency.exponentialRampToValueAtTime(f * 1.6, tOffset + 0.08); // Tono que sube como burbuja de agua
+
+    dropGain.gain.setValueAtTime(0.22, tOffset);
+    dropGain.gain.exponentialRampToValueAtTime(0.001, tOffset + 0.08);
+
+    dropOsc.connect(dropGain);
+    dropGain.connect(this.masterGain);
+
+    dropOsc.start(tOffset);
+    dropOsc.stop(tOffset + 0.09);
+  });
 };
 
 // Latido Sub-grave acelerado de urgencia arcade
@@ -1409,7 +1503,7 @@ NextGenAudio.playSubBassHeartbeat = function(urgencyFactor) {
   const ctx = this.ctx;
   const now = ctx.currentTime;
 
-  const baseFreq = 48 + urgencyFactor * 25; // 48 Hz a 73 Hz
+  const baseFreq = 48 + urgencyFactor * 25;
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
 
@@ -2395,7 +2489,6 @@ NextGenAudio.playSciFi50sRay = function() {
   let currentLang = 'es';
   let currentDifficulty = 'easy';
 
-  // TIEMPOS Y MULTIPLICADORES DIFERENCIALES
   const TIME_LIMITS = { easy: 12.0, med: 8.0, exp: 4.5 };
   const DIFF_CONFIG = {
     easy: { basePoints: 100, mult: 1.0, ufoSpeed: 1.0, ufoScoreMother: 500, ufoScoreScout: 1000, penalty: 150 },
@@ -2580,7 +2673,6 @@ NextGenAudio.playSciFi50sRay = function() {
       const h = this.canvas.height;
       this.ctx.clearRect(0, 0, w, h);
 
-      // 1. NEBULOSAS
       this.nebulae.forEach(n => {
         this.ctx.save();
         const p = 0.85 + 0.15 * Math.sin(this.time * n.pulse + n.phase);
@@ -2595,7 +2687,6 @@ NextGenAudio.playSciFi50sRay = function() {
         this.ctx.restore();
       });
 
-      // 2. GALAXIAS EN ESPIRAL
       this.spiralGalaxies.forEach(g => {
         this.ctx.save();
         g.rot += g.rotSpeed;
@@ -2628,7 +2719,6 @@ NextGenAudio.playSciFi50sRay = function() {
         this.ctx.restore();
       });
 
-      // 3. ESTRELLAS TITILANTES NAVIDEÑAS
       this.stars.forEach(s => {
         this.ctx.save();
         const wave = Math.sin(this.time * s.speed + s.phase);
@@ -2646,7 +2736,6 @@ NextGenAudio.playSciFi50sRay = function() {
         this.ctx.restore();
       });
 
-      // 4. PULSARES CON HALO RADIAL LUMINOSO
       this.pulsars.forEach(ps => {
         this.ctx.save();
         const rawWave = Math.sin(this.time * ps.pulseSpeed + ps.phase);
@@ -2667,7 +2756,6 @@ NextGenAudio.playSciFi50sRay = function() {
         this.ctx.restore();
       });
 
-      // 5. COMETAS
       for (let i = this.comets.length - 1; i >= 0; i--) {
         const c = this.comets[i];
         c.x += c.vx;
@@ -2986,6 +3074,7 @@ NextGenAudio.playSciFi50sRay = function() {
           return;
         }
 
+        // Océano o Mar -> ¡Splash Líquido Cristalino y Centrado!
         let matchedOcean = null;
         const boundedMatches = [];
         for (let i = 0; i < OCEANS.length; i++) {
@@ -3328,12 +3417,12 @@ NextGenAudio.playSciFi50sRay = function() {
   };
 
   /* ==========================================================================
-     GESTOR DE OVNIS SCI-FI 1950s CON PREVENCIÓN EN MODALES
+     GESTOR DE OVNIS CON COCO (VERDE / GRAVE) Y PEPE (GRIS / AGUDO)
      ========================================================================== */
   class GuaranteedFrontalUFOManager {
     constructor(motherId, scoutId) {
-      this.motherEl = document.getElementById(motherId);
-      this.scoutEl = document.getElementById(scoutId);
+      this.motherEl = document.getElementById(motherId); // COCO
+      this.scoutEl = document.getElementById(scoutId);   // PEPE
       this.activeUfo = null;
       
       this.x = 0;
@@ -3378,7 +3467,7 @@ NextGenAudio.playSciFi50sRay = function() {
       if (this.activeUfo || this.isModalOpen()) return;
 
       const isScout = Math.random() < 0.55;
-      this.activeUfo = isScout ? 'scout' : 'mother';
+      this.activeUfo = isScout ? 'scout' : 'mother'; // PEPE o COCO
       this.progress = 0;
       this.lastZap = Date.now();
 
@@ -3422,7 +3511,9 @@ NextGenAudio.playSciFi50sRay = function() {
       this.y = this.startY;
 
       el.style.display = 'block';
-      NextGenAudio.startUfoHover();
+
+      // Hovering diferenciado (Coco: Grave, Pepe: Agudo)
+      NextGenAudio.startDifferentiatedHover(isScout ? 'pepe' : 'coco');
       this.update();
     }
 
@@ -3470,6 +3561,7 @@ NextGenAudio.playSciFi50sRay = function() {
     }
 
     triggerEscapeStrikeAndPenalty() {
+      const isScout = (this.activeUfo === 'scout');
       const ufoX = Math.max(20, Math.min(window.innerWidth - 20, this.x + 35));
       const ufoY = Math.max(20, Math.min(window.innerHeight - 20, this.y + 25));
       const earthCenterX = window.innerWidth / 2;
@@ -3490,29 +3582,31 @@ NextGenAudio.playSciFi50sRay = function() {
       score = Math.max(0, score - penalty);
       streak = 0;
       updateHUD();
-      showCelebrationBanner('💥 BAKUHATSU! 💥', currentLang === 'es' ? '¡IMPACTO ALIENÍGENA!' : 'ALIEN STRIKE!', `-${penalty} PTS`);
+      
+      const alienName = isScout ? 'PEPE (Gris)' : 'COCO (Verde)';
+      showCelebrationBanner('💥 BAKUHATSU! 💥', `¡ATAQUE DE ${alienName}!`, `-${penalty} PTS`);
     }
 
     hitUFO(type) {
+      const isScout = (type === 'scout');
       this.dismiss();
       NextGenAudio.playLaserZap(2);
       confetti.spawn(this.x + 35, this.y + 25);
       GamificationSystem.recordUFODown();
 
-      const isScout = (type === 'scout');
       const earned = isScout ? DIFF_CONFIG[currentDifficulty].ufoScoreScout : DIFF_CONFIG[currentDifficulty].ufoScoreMother;
       score += earned;
 
       if (isScout) {
-        showCelebrationBanner('⚡ KAMI-SAMA SHOT! ⚡', currentLang === 'es' ? '¡HYPER SCOUT ABATIDO!' : 'HYPER SCOUT DOWN!', `+${earned} PTS`);
+        showCelebrationBanner('⚡ PEPE CAÍDO! ⚡', currentLang === 'es' ? '¡PEPE (Gris) REGRESA AL ESPACIO!' : 'PEPE (Gray) SHOT DOWN!', `+${earned} PTS`);
       } else {
-        showCelebrationBanner('🛸 SUGOI STRIKE! 🛸', currentLang === 'es' ? '¡NAVE NODRIZA DESTRUIDA!' : 'MOTHERSHIP DESTROYED!', `+${earned} PTS`);
+        showCelebrationBanner('🛸 COCO CAÍDO! 🛸', currentLang === 'es' ? '¡COCO (Verde) REGRESA AL ESPACIO!' : 'COCO (Green) SHOT DOWN!', `+${earned} PTS`);
       }
       updateHUD();
     }
 
     dismiss() {
-      NextGenAudio.stopUfoHover();
+      NextGenAudio.stopDifferentiatedHover();
       if (this.activeUfo) {
         this.motherEl.style.display = 'none';
         this.scoutEl.style.display = 'none';
@@ -3553,7 +3647,7 @@ NextGenAudio.playSciFi50sRay = function() {
   }
 
   /* ==========================================================================
-     INICIALIZACIÓN DEL SISTEMA
+     INICIALIZACIÓN DEL SISTEMA CON PREVENCIÓN ESTRICTA DE PAÍSES REPETIDOS
      ========================================================================== */
   const nebula = new DeepCosmicOdysseyBackground('space-nebula-canvas');
   const globe = new ThreeGlobeEngine('three-globe-container');
@@ -3569,7 +3663,8 @@ NextGenAudio.playSciFi50sRay = function() {
   let currentTarget = null;
   let triviaTimer = null;
 
-  const usedCountryNames = new Set();
+  // CONJUNTO DE PAÍSES UTILIZADOS EN LA PARTIDA (PREVENCIÓN DE REPETIDOS)
+  const sessionUsedCountries = new Set();
 
   const splash = document.getElementById('splash-screen');
   const gameHud = document.getElementById('game-hud');
@@ -3640,7 +3735,7 @@ NextGenAudio.playSciFi50sRay = function() {
     streak = 0;
     lives = 3;
     roundCount = 0;
-    usedCountryNames.clear();
+    sessionUsedCountries.clear(); // Reinicia la lista de países para esta partida
     updateHUD();
     globe.isTraining = false;
     splash.classList.add('hidden');
@@ -3688,14 +3783,15 @@ NextGenAudio.playSciFi50sRay = function() {
     optionsGrid.style.display = 'none';
     timeBarWrap.style.display = 'none';
 
-    let pool = globe.playableFeatures.filter(f => !usedCountryNames.has(f.properties.name));
+    // FILTRO ESTRICTO: NO REPETIR PAÍSES EN LA MISMA PARTIDA
+    let pool = globe.playableFeatures.filter(f => !sessionUsedCountries.has(f.properties.name));
     if (pool.length === 0) {
-      usedCountryNames.clear();
+      sessionUsedCountries.clear();
       pool = globe.playableFeatures;
     }
 
     currentTarget = pool[Math.floor(Math.random() * pool.length)];
-    usedCountryNames.add(currentTarget.properties.name);
+    sessionUsedCountries.add(currentTarget.properties.name);
 
     globe.spinTo(currentTarget, () => {
       showQuestion(currentTarget);
@@ -3743,10 +3839,9 @@ NextGenAudio.playSciFi50sRay = function() {
       const pct = Math.max(0, (timeLeft / maxTime) * 100);
       timeBar.style.width = pct + '%';
 
-      // Latidos graves incrementales de urgencia arcade
       const urgencyThreshold = maxTime * 0.60;
       if (timeLeft <= urgencyThreshold && Date.now() > nextHeartbeat) {
-        const urgency = 1 - (timeLeft / urgencyThreshold); // 0.0 a 1.0
+        const urgency = 1 - (timeLeft / urgencyThreshold);
         NextGenAudio.playSubBassHeartbeat(urgency);
         const intervalMs = Math.max(280, 750 - urgency * 450);
         nextHeartbeat = Date.now() + intervalMs;
@@ -3865,7 +3960,7 @@ NextGenAudio.playSciFi50sRay = function() {
   }
 
   function triggerTriviaModal() {
-    ufoManager.dismiss(); // Detiene OVNIs inmediatamente durante el fact
+    ufoManager.dismiss();
     const tItem = TRIVIAS[Math.floor(Math.random() * TRIVIAS.length)];
     const text = tItem[currentLang] || tItem.es;
     document.getElementById('trivia-text').textContent = text;
