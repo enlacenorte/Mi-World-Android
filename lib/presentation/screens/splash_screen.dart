@@ -4,6 +4,7 @@ import '../../core/i18n/localization_service.dart';
 import '../../core/audio/sound_service.dart';
 import 'quiz_screen.dart';
 import 'training_screen.dart';
+import 'passport_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   final LocalizationService loc;
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -60,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                   }).toList(),
                 ),
 
-                // Globito Neón 50% Más Grande con Pulso y Resplandor
+                // Globito Neón 3D con Pulso (+50% Escala)
                 AnimatedBuilder(
                   animation: _pulseController,
                   builder: (context, child) {
@@ -109,18 +110,18 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                   ),
                 ),
 
-                // Botón Compartir
-                ElevatedButton.icon(
+                // Acceso a Pasaporte de Explorador
+                OutlinedButton.icon(
                   onPressed: () {
                     SoundService.playKeyClick();
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => PassportScreen(loc: t)));
                   },
-                  icon: const Icon(Icons.share, color: Colors.white, size: 18),
-                  label: Text(t.t('shareBtn'), style: const TextStyle(fontWeight: FontWeight.bold)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF128C7E),
-                    foregroundColor: Colors.white,
+                  icon: const Icon(Icons.badge, color: NeonTheme.gold, size: 20),
+                  label: const Text('🛂 MI PASAPORTE DE EXPLORADOR', style: TextStyle(color: NeonTheme.gold, fontWeight: FontWeight.bold)),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: NeonTheme.gold, width: 1.8),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   ),
                 ),
 

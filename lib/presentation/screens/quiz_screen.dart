@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../theme/neon_theme.dart';
-import '../globe/globe_painter.dart';
+import '../globe/globe_3d_painter.dart';
 import '../../core/i18n/localization_service.dart';
 import '../../core/audio/sound_service.dart';
+import '../../core/voice/voice_pronunciation_service.dart';
+import '../../domain/models/passport_model.dart';
 
 class QuizScreen extends StatefulWidget {
   final LocalizationService loc;
@@ -13,17 +15,19 @@ class QuizScreen extends StatefulWidget {
   State<QuizScreen> createState() => _QuizScreenState();
 }
 
-class _QuizScreenState extends State<QuizScreen> {
+class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateMixin {
   int _score = 0;
   int _streak = 0;
   int _lives = 3;
   int _timeLeft = 16;
   Timer? _gameTimer;
   Timer? _inactivityTimer;
+  late AnimationController _animController;
 
   @override
   void initState() {
     super.initState();
+    _animController = AnimationController(vsync: this, duration: const Duration(seconds: 10))..repeat();
     _resetInactivity();
     // Primer giro automático
     Future.delayed(const Duration(milliseconds: 350), () {
@@ -43,6 +47,14 @@ class _QuizScreenState extends State<QuizScreen> {
     setState(() {
       _timeLeft = 16;
     });
+
+    // Pronunciación por voz para los niños
+    VoicePronunciationService.speakCountryAndCapital(
+      countryName: 'Argentina',
+      capitalName: 'Buenos Aires',
+      lang: widget.loc.currentLang,
+    );
+
     _gameTimer?.cancel();
     _gameTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_timeLeft > 0) {
@@ -93,6 +105,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
   @override
   void dispose() {
+    _animController.dispose();
     _gameTimer?.cancel();
     _inactivityTimer?.cancel();
     super.dispose();
@@ -130,12 +143,23 @@ class _QuizScreenState extends State<QuizScreen> {
                 minHeight: 6,
               ),
 
-              // Globo 3D
+              // Globo 3D con Nubes y Luces Nocturnas
               Expanded(
                 child: Center(
-                  child: CustomPaint(
-                    size: const Size(280, 280),
-                    painter: GlobeCustomPainter(rotationLon: 0, rotationLat: 15, scale: 1.0),
+                  child: AnimatedBuilder(
+                    animation: _animController,
+                    builder: (context, child) {
+                      return CustomPaint(
+                        size: const Size(290, 290),
+                        painter: Globe3DPainter(
+                          rotationLon: _animController.value * 360,
+                          rotationLat: 15,
+                          scale: 1.0,
+                          pulseTime: _animController.value * 10,
+                          cloudDrift: _animController.value * 2,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -172,10 +196,17 @@ class _QuizScreenState extends State<QuizScreen> {
 
   Widget _buildOption(String text, bool isCorrect) {
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         _resetInactivity();
         if (isCorrect) {
           SoundService.playCorrect();
+          // Otorgar estampilla al pasaporte
+          await PassportService.awardStamp(
+            countryCode: 'ARG',
+            countryName: 'Argentina',
+            capital: 'Buenos Aires',
+            continent: 'América del Sur',
+          );
           setState(() {
             _score += 100 * (_streak >= 3 ? 2 : 1);
             _streak++;
