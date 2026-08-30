@@ -923,7 +923,7 @@
     <div class="glass-card" style="width: 100%; max-width: 430px; max-height: 88vh; overflow-y: auto; padding: 18px 18px; text-align: center; border-color: var(--neon-cyan);">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
         <h2 id="txt-scoreboard-header" style="font-family: var(--font-title); font-size: 1.45rem; font-weight: 900; color: var(--neon-cyan); letter-spacing: 0.5px;">🏆 SALÓN DE LA FAMA</h2>
-        <div id="scoreboard-countdown" style="font-family: var(--font-mono); font-size: 0.80rem; color: #fff; background: rgba(0, 240, 255, 0.2); border: 1px solid var(--neon-cyan); padding: 3px 10px; border-radius: 12px;">⏱️ 12s</div>
+        <div id="cloud-sync-badge" style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--neon-cyan); background: rgba(0, 240, 255, 0.15); border: 1px solid var(--neon-cyan); padding: 3px 8px; border-radius: 10px; margin-right: 6px;">☁️ BD NUBE</div><div id="scoreboard-countdown" style="font-family: var(--font-mono); font-size: 0.80rem; color: #fff; background: rgba(0, 240, 255, 0.2); border: 1px solid var(--neon-cyan); padding: 3px 10px; border-radius: 12px;">⏱️ 12s</div>
       </div>
       
       <div id="final-score-text" style="font-family: var(--font-title); font-size: 1.10rem; font-weight: 800; color: var(--neon-gold); margin-bottom: 10px;">PUNTUACIÓN: 0 PTS</div>
@@ -2969,17 +2969,20 @@ const MyPassport = {
   }
 
   /* ==========================================================================
-     SCOREBOARD & BASE DE DATOS PERSISTENTE (LOCALSTORAGE + INDEXEDDB DUAL ENGINE)
+     SCOREBOARD & BASE DE DATOS TRIPLE (CLOUD API + INDEXEDDB + LOCALSTORAGE)
      ========================================================================== */
   let scoreboardAutoDismissTimer = null;
   let scoreboardSecondsLeft = 12;
 
   const Leaderboard = {
-    key: 'MY_WORLD_APP_TOP10_MASTER_V24',
+    key: 'MY_WORLD_APP_TOP10_MASTER_V25',
     dbName: 'GeoOrbitDB',
     storeName: 'HighScores',
+    cloudApiUrl: '/api/leaderboard',
+    isCloudAvailable: false,
 
     initDB() {
+      // 1. Iniciar IndexedDB local
       try {
         const req = indexedDB.open(this.dbName, 1);
         req.onupgradeneeded = (e) => {
@@ -2993,6 +2996,48 @@ const MyPassport = {
           this.syncFromIndexedDB();
         };
       } catch(e) {}
+
+      // 2. Consultar Base de Datos en la Nube al iniciar el juego
+      this.fetchFromCloud();
+    },
+
+    async fetchFromCloud() {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3500);
+        const resp = await fetch(this.cloudApiUrl, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data && Array.isArray(data.leaderboard) && data.leaderboard.length > 0) {
+            this.isCloudAvailable = true;
+            this.mergeAndSaveLocal(data.leaderboard);
+            const statusBadge = document.getElementById('cloud-sync-badge');
+            if (statusBadge) statusBadge.textContent = '🟢 BD NUBE ACTIVA';
+          }
+        }
+      } catch(e) {
+        console.log('[Leaderboard] Cloud API offline or running static. Using local DB engine.');
+        const statusBadge = document.getElementById('cloud-sync-badge');
+        if (statusBadge) statusBadge.textContent = '💾 BD LOCAL SEGURA';
+      }
+    },
+
+    mergeAndSaveLocal(cloudScores) {
+      const local = this.getScores();
+      const merged = [...cloudScores, ...local];
+      // Deduplicar y ordenar
+      const uniqueMap = new Map();
+      merged.forEach(item => {
+        const k = `${item.name}_${item.score}`;
+        if (!uniqueMap.has(k)) uniqueMap.set(k, item);
+      });
+      const finalScores = Array.from(uniqueMap.values());
+      finalScores.sort((a, b) => b.score - a.score);
+      const top10 = finalScores.slice(0, 10);
+      try {
+        localStorage.setItem(this.key, JSON.stringify(top10));
+      } catch(e) {}
     },
 
     syncFromIndexedDB() {
@@ -3003,10 +3048,7 @@ const MyPassport = {
         const req = store.getAll();
         req.onsuccess = () => {
           if (req.result && req.result.length > 0) {
-            const dbScores = req.result;
-            dbScores.sort((a, b) => b.score - a.score);
-            const top10 = dbScores.slice(0, 10);
-            localStorage.setItem(this.key, JSON.stringify(top10));
+            this.mergeAndSaveLocal(req.result);
           }
         };
       } catch(e) {}
@@ -3035,13 +3077,15 @@ const MyPassport = {
       return this.getDefaults();
     },
 
-    save(name, scoreVal) {
-      const scores = this.getScores();
+    async save(name, scoreVal) {
       const entry = {
         name: (name || "JUG1").toUpperCase().slice(0, 4),
         score: scoreVal,
         date: new Date().toLocaleDateString()
       };
+
+      // 1. Guardar local inmediato (LocalStorage)
+      const scores = this.getScores();
       scores.push(entry);
       scores.sort((a, b) => b.score - a.score);
       const top10 = scores.slice(0, 10);
@@ -3049,12 +3093,35 @@ const MyPassport = {
         localStorage.setItem(this.key, JSON.stringify(top10));
       } catch(e) {}
 
+      // 2. Guardar local permanente (IndexedDB)
       if (this.db) {
         try {
           const tx = this.db.transaction(this.storeName, 'readwrite');
           const store = tx.objectStore(this.storeName);
           store.add(entry);
         } catch(e) {}
+      }
+
+      // 3. Enviar y cotejar con la Base de Datos en la Nube (Vercel API)
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
+        const resp = await fetch(this.cloudApiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(entry),
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        if (resp.ok) {
+          const resData = await resp.json();
+          if (resData.leaderboard) {
+            this.mergeAndSaveLocal(resData.leaderboard);
+            this.render();
+          }
+        }
+      } catch(err) {
+        console.log('[Leaderboard] Cloud sync skipped, local record saved safely.');
       }
     },
 
